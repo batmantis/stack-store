@@ -15,6 +15,11 @@ module.exports = function (db) {
 		orderTotal: {
 			type: Sequelize.INTEGER,
 			allowNull: false
+		},
+		orderStatus: {
+			type: Sequelize.STRING,
+			allowNull: false,
+			defaultValue: 'Created'
 		}
 	})
 }

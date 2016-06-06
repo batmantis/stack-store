@@ -10,15 +10,8 @@ module.exports = function (db) {
             unique: true
 		},
 		imageUrl: {
-			type: Sequelize.ARRAY(Sequelize.STRING),
-			defaultValue: [],
-			set: function(imageUrl) {
-			    //console.log(tags.join(', '));
-			    this.setDataValue('imageUrl', imageUrl || []);
-			},
-			get: function() {
-			    return this.getDataValue('imageUrl').join(', ');
-			}
+			type: Sequelize.STRING,
+			defaultValue: 'http://localhost/defaultproduct.jpg',
 		},
 		price: {
 			type: Sequelize.FLOAT,
@@ -33,6 +26,10 @@ module.exports = function (db) {
 		},
 		description: {
 			type: Sequelize.TEXT,
+			allowNull: false
+		},
+		quantity: {
+			type: Sequelize.INTEGER,
 			allowNull: false
 		}
 	})

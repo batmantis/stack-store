@@ -8,7 +8,8 @@ module.exports = function (db) {
     db.define('user', {
         email: {
             type: Sequelize.STRING,
-            unique: true
+            unique: true,
+            isEmail: true
         },
         password: {
             type: Sequelize.STRING
