@@ -7,7 +7,8 @@ module.exports = function (db) {
 
     db.define('user', {
         email: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            unique: true
         },
         password: {
             type: Sequelize.STRING
@@ -23,6 +24,10 @@ module.exports = function (db) {
         },
         google_id: {
             type: Sequelize.STRING
+        },
+        isAdmin: {
+            type: Sequelize.BOOLEAN,
+            defaultValue: false
         }
     }, {
         instanceMethods: {
