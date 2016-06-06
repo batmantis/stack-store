@@ -14,9 +14,10 @@ var Review = db.model('review');
 
 Product.hasMany(Tag);
 Product.belongsToMany(Order, {through: 'ProductOrders'});
+Order.belongsToMany(Product, {through: 'ProductOrders'});
 User.hasMany(Order);
 Product.hasMany(Review);
-User.belongsToMany(Review, {through: 'Reviews'})
+User.belongsToMany(Review, {through: 'UserReviews'})
 
 module.exports = db;
 

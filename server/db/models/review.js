@@ -11,10 +11,10 @@ module.exports = function (db) {
 				max: 5
 			}
 		},
-		review: {
+		comment: {
 			type: Sequelize.TEXT(),
 			validate: {
-				len: [100, 300]
+				len: [100, 700]
 			}
 		}
 	})

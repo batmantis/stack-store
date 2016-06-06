@@ -125,7 +125,7 @@ var seedReviews = function() {
     var reviews = [
         {
             rating: 4,
-            review: 'Etsy gluten-free ethical man bun, banjo actually cray brooklyn plaid farm-to-table. Pug vice farm-to-table etsy ugh humblebrag, echo park gastropub man bun slow-carb pitchfork ramps kitsch lo-fi YOLO. Kitsch affogato tote bag tousled, mlkshk blue bottle yr leggings tacos umami VHS. Freegan put a bird on it listicle, chia offal before they sold out church-key. Literally chartreuse XOXO brooklyn, waistcoat slow-carb squid pour-over retro distillery franzen yr paleo. Blog biodiesel kogi, shabby chic keytar tilde kinfolk chillwave helvetica +1 ugh. Typewriter humblebrag kale chips drinking vinegar seitan mumblecore flannel beard, tilde +1 man braid scenester occupy hammock.'
+            comment: 'Etsy gluten-free ethical man bun, banjo actually cray brooklyn plaid farm-to-table. Pug vice farm-to-table etsy ugh humblebrag, echo park gastropub man bun slow-carb pitchfork ramps kitsch lo-fi YOLO. Kitsch affogato tote bag tousled, mlkshk blue bottle yr leggings tacos umami VHS. Freegan put a bird on it listicle, chia offal before they sold out church-key. Literally chartreuse XOXO brooklyn, waistcoat slow-carb squid pour-over retro distillery franzen yr paleo. Blog biodiesel kogi, shabby chic keytar tilde kinfolk chillwave helvetica +1 ugh. Typewriter humblebrag kale chips drinking vinegar seitan mumblecore flannel beard, tilde +1 man braid scenester occupy hammock.'
         }
     ]
 
@@ -138,9 +138,51 @@ var seedReviews = function() {
 
 db.sync({ force: true })
     .then(function () {
-        return Promise.all([seedUsers(), seedProducts(), seedTags(), seedOrders()]);
+        return Promise.all([seedUsers(), seedProducts(), seedTags(), seedOrders(), seedReviews()]);
     })
-    .then(function () {
+    .then(function(){
+
+        var findingUser = User.findOne({
+            where: {
+                email: 'testing@fsa.com'
+            }
+        })
+
+        var findingOrder = Order.findOne({
+            where: {
+                id: 1
+            }
+        })
+
+        var findingReview = Review.findOne({
+            where: {
+                id: 1
+            }
+        })
+
+        return Promise.all([findingUser, findingOrder, findingReview])
+    })
+    .spread(function(user, order, review){
+        user.addReviews(review);
+        user.addOrders(order);
+        var findingProducts = Product.findOne({
+            where: {
+                name: 'North Face Glove'
+            }
+        });
+        var findingOrder = Order.findOne({
+            where: {
+                id: 1
+            }
+        })
+        return Promise.all([findingOrder, findingProducts])
+    })
+    .spread(function(order, products){
+        console.log('im trying to find this', order);
+        // products.forEach(function(product){
+        //     order.addProducts([product])
+        // })
+        order.addProducts(products)
         console.log(chalk.green('Seed successful!'));
         process.kill(0);
     })
