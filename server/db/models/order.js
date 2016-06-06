@@ -8,13 +8,55 @@ module.exports = function (db) {
 			type: Sequelize.STRING,
 			allowNull: false
 		},
-		creditCard: {
-			type: Sequelize.INTEGER,
+		city: {
+			type: Sequelize.STRING,
 			allowNull: false
 		},
-		orderTotal: {
-			type: Sequelize.INTEGER,
+		state: {
+			type: Sequelize.STRING,
 			allowNull: false
+		},
+		zipcode: {
+			type: Sequelize.INTEGER,
+			allowNull: false,
+			validate: {
+				len: [5,6]
+			}
+		},
+		billingaddress: {
+			type: Sequelize.STRING,
+			allowNull: false
+		},
+		billingcity: {
+			type: Sequelize.STRING,
+			allowNull: false
+		},
+		billingstate: {
+			type: Sequelize.STRING,
+			allowNull: false
+		},
+		billingzipcode: {
+			type: Sequelize.INTEGER,
+			allowNull: false,
+			validate: {
+				len: [5,6]
+			}
+		},
+		creditCard: {
+			type: Sequelize.BIGINT,
+			allowNull: false,
+			validate: {
+				isCreditCard: true
+			}
+		},
+		orderTotal: {
+			type: Sequelize.FLOAT,
+			allowNull: false
+		},
+		orderStatus: {
+			type: Sequelize.STRING,
+			allowNull: false,
+			defaultValue: 'Created'
 		}
 	})
 }

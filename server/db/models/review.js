@@ -12,7 +12,10 @@ module.exports = function (db) {
 			}
 		},
 		review: {
-			type: Sequelize.TEXT('long')
+			type: Sequelize.TEXT(),
+			validate: {
+				len: [100, 300]
+			}
 		}
 	})
 }

@@ -1,18 +1,24 @@
 'use strict';
 var db = require('./_db');
-var Order = require('./models/order');
-var Product = require('./models/product');
-var Tag = require('./models/tag');
-var User = require('./models/user');
-var Review = require('./models/review');
+require('./models/order')(db);
+require('./models/product')(db);
+require('./models/tag')(db);
+require('./models/user')(db);
+require('./models/review')(db);
+
+var Product = db.model('product');
+var Tag = db.model('tag');
+var Order = db.model('order');
+var User = db.model('user');
+var Review = db.model('review');
 
 Product.hasMany(Tag);
-Order.hasMany(Product);
+Product.belongsToMany(Order, {through: 'ProductOrders'});
 User.hasMany(Order);
 Product.hasMany(Review);
-Review.belongTo(User, {as: 'userReview'});
+User.belongsToMany(Review, {through: 'Reviews'})
 
 module.exports = db;
 
-require('./models/user')(db);
+// require('./models/user')(db);
 
