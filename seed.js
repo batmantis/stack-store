@@ -160,16 +160,19 @@ db.sync({ force: true })
             }
         })
 
-        return Promise.all([findingUser, findingOrder, findingReview])
-    })
-    .spread(function(user, order, review){
-        user.addReviews(review);
-        user.addOrders(order);
-        var findingProducts = Product.findOne({
+        var findingProduct = Product.findOne({
             where: {
-                name: 'North Face Glove'
+                name: 'Sock'
             }
-        });
+        })
+
+        return Promise.all([findingUser, findingOrder, findingReview, findingProduct])
+    })
+    .spread(function(user, order, review, product){
+        user.addReview(review);
+        user.addOrder(order);
+        product.addReview(review);
+        var findingProducts = Product.findAll();
         var findingOrder = Order.findOne({
             where: {
                 id: 1
@@ -178,11 +181,12 @@ db.sync({ force: true })
         return Promise.all([findingOrder, findingProducts])
     })
     .spread(function(order, products){
-        console.log('im trying to find this', order);
-        // products.forEach(function(product){
-        //     order.addProducts([product])
-        // })
-        order.addProducts(products)
+        // console.log('im trying to find this', order);
+        products.forEach(function(product){
+            order.addProduct(product)
+            console.log('called it')
+        })
+        // order.addProducts(products)
         console.log(chalk.green('Seed successful!'));
         process.kill(0);
     })
