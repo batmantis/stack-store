@@ -10,6 +10,8 @@ var db = new Sequelize(dbURI, {
 require('../../../server/db/models/order')(db);
 require('../../../server/db/models/product')(db);
 require('../../../server/db/models/user')(db);
+// require('../../../server/db/models/address')(db);
+// require('../../../server/db/models/billing')(db);
 
 var supertest = require('supertest');
 
@@ -18,28 +20,10 @@ describe('Order Route:', function () {
     var app,Order,Product;
     var ordersToAdd = [
         {
-            address: '2439 Star Route',
-            city: 'Arlington Heights',
-            state: 'IL',
-            zipcode: 60005,
-            billingaddress: '2439 Star Route',
-            billingcity: 'Arlington Heights',
-            billingstate: 'IL',
-            billingzipcode: 60005,
-            creditCard: 5319869385480010,
             orderTotal: 61.98,
             orderStatus: 'Created'
         },
         {
-            address: '1234 Fake Route',
-            city: 'Atlantis',
-            state: 'NY',
-            zipcode: 12345,
-            billingaddress: '1234 Fake Route',
-            billingcity: 'Atlantis',
-            billingstate: 'NY',
-            billingzipcode: 12345,
-            creditCard: 5319869385480013,
             orderTotal: 612.32,
             orderStatus: 'Created'
         }
@@ -70,7 +54,7 @@ describe('Order Route:', function () {
 				.expect(200)
 				.expect(function (res) {
 					expect(res.body).to.have.length(2);
-					expect(res.body[0].creditCard.to.equal(5319869385480010));
+					expect(res.body[0].orderTotal.to.equal(612.32));
 				})
 				.end(done);
 			})
@@ -84,15 +68,6 @@ describe('Order Route:', function () {
 		
 		beforeEach('getOne', function () {
 			orderInfo = {
-	            address: '1234 Alfonso Route',
-	            city: 'Atlantis',
-	            state: 'NY',
-	            zipcode: 12345,
-	            billingaddress: '1234 Alfonso Route',
-	            billingcity: 'Atlantis',
-	            billingstate: 'NY',
-	            billingzipcode: 12345,
-	            creditCard: 5319869385480010,
 	            orderTotal: 612.32,
 	            orderStatus: 'Created'
 	        };
@@ -139,7 +114,7 @@ describe('Order Route:', function () {
 				guestAgent.get('/api/orders/1')
 				.expect(200)
 				.expect(function (res) {
-					expect(res.body.address).to.equal('2439 Star Route');
+					expect(res.body.orderTotal).to.equal(612.32);
 				})
 				.end(done);
 			})
@@ -159,22 +134,13 @@ describe('Order Route:', function () {
 			Order.bulkCreate(ordersToAdd, {returning:true})
 			.then(function(orders){
 				var orderInfo = {
-		            address: '1234 Alfonso Route',
-		            city: 'Atlantis',
-		            state: 'NY',
-		            zipcode: 12345,
-		            billingaddress: '1234 Alfonso Route',
-		            billingcity: 'Atlantis',
-		            billingstate: 'NY',
-		            billingzipcode: 12345,
-		            creditCard: 5319869385480010,
-		            orderTotal: 612.32,
+		            orderTotal: 61212.23,
 		            orderStatus: 'Created'
 		        };
 				guestAgent.post('/api/orders', orderInfo)
 				.expect(200)
 				.expect(function (res) {
-					expect(res.body.orderTotal).to.equal(612.32);
+					expect(res.body.orderTotal).to.equal(61212.23);
 				})
 				.end(done);
 			})
@@ -184,16 +150,7 @@ describe('Order Route:', function () {
 		it('should update the database', function (done) {
 			Order.bulkCreate(ordersToAdd, {returning:true})
 			.then(function(orders){
-				var orderInfo = {
-		            address: '1234 Alfonso Route',
-		            city: 'Atlantis',
-		            state: 'NY',
-		            zipcode: 12345,
-		            billingaddress: '1234 Alfonso Route',
-		            billingcity: 'Atlantis',
-		            billingstate: 'NY',
-		            billingzipcode: 12345,
-		            creditCard: 5319869385480010,
+				var orderInfo = {		          
 		            orderTotal: 612.32,
 		            orderStatus: 'Created'
 		        };
