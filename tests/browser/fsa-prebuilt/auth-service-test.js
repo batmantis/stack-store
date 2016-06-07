@@ -1,3 +1,5 @@
+'use strict';
+
 describe('AuthService', function () {
 
     beforeEach(module('fsaPreBuilt'));

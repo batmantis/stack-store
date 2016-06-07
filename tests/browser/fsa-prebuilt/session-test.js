@@ -1,3 +1,5 @@
+'use strict';
+
 describe('Session Service', function () {
 
     beforeEach(module('fsaPreBuilt'));
