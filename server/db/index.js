@@ -16,9 +16,6 @@ Product.hasMany(Tag);
 Order.belongsToMany(Product, {through: 'ProductOrders'});
 User.hasMany(Order);
 Product.hasMany(Review);
-User.hasMany(Review)
+User.hasMany(Review);
 
 module.exports = db;
-
-// require('./models/user')(db);
-
