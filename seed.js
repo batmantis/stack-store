@@ -181,12 +181,9 @@ db.sync({ force: true })
         return Promise.all([findingOrder, findingProducts])
     })
     .spread(function(order, products){
-        // console.log('im trying to find this', order);
-        products.forEach(function(product){
-            order.addProduct(product)
-            console.log('called it')
-        })
-        // order.addProducts(products)
+        return order.addProducts(products)
+    })
+    .then(function(){
         console.log(chalk.green('Seed successful!'));
         process.kill(0);
     })
