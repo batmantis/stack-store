@@ -11,7 +11,15 @@ module.exports = function (db) {
 		},
 		imageUrl: {
 			type: Sequelize.STRING,
-			defaultValue: 'http://localhost/defaultproduct.jpg',
+			defaultValue: 'defaultproduct.jpg',
+			get: function() {
+				var img = this.getDataValue('imageUrl');
+				if (img.startsWith('http')) {
+					return img
+				} else {
+					return 'http://localhost/images/' + img
+				}
+			}
 		},
 		price: {
 			type: Sequelize.FLOAT,
