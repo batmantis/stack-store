@@ -34,7 +34,8 @@ var seedUsers = function () {
     var users = [
         {
             email: 'testing@fsa.com',
-            password: 'password'
+            password: 'password',
+            isAdmin: true
         },
         {
             email: 'obama@gmail.com',
@@ -67,6 +68,14 @@ var seedProducts = function() {
             brand: 'North Face',
             description: 'Waistcoat swag art party 3 wolf moon, chicharrones seitan stumptown beard church-key chillwave literally sriracha. Poutine four dollar toast paleo cornhole, semiotics lumbersexual cold-pressed vice meditation pour-over whatever helvetica wayfarers yuccie. Beard vinyl man braid, tilde scenester cold-pressed narwhal vice street art hoodie raw denim etsy freegan. Shabby chic disrupt heirloom, church-key banh mi pinterest tattooed. Mustache cardigan brooklyn, bicycle rights dreamcatcher actually readymade leggings asymmetrical four loko selfies you probably haven\'t heard of them XOXO umami. VHS sartorial hoodie fixie, meh letterpress direct trade health goth retro neutra raw denim pickled distillery. Bespoke tilde kale chips lo-fi blog pabst cardigan four dollar toast ugh, seitan cray.',
             quantity: 100
+        },
+        {
+            name: 'One Rib',
+            imageUrl: 'https://i.ytimg.com/vi/E33RegW85yM/hqdefault.jpg',
+            price: 0.25,
+            brand: 'Applebees',
+            description: 'Craft beer bespoke post-ironic gochujang direct trade shabby chic, tacos humblebrag fashion axe mlkshk twee typewriter chillwave meggings. Umami sriracha paleo post-ironic, blue bottle lumbersexual kickstarter mustache squid pork belly skateboard taxidermy. Echo park beard 90\'s tumblr you probably haven\'t heard of them 8-bit. Actually pabst 90\'s, chambray helvetica food truck kinfolk seitan typewriter raw denim. Crucifix irony pug, kogi seitan chia salvia intelligentsia letterpress green juice distillery. Godard tumblr shoreditch, kale chips swag pork belly fixie master cleanse aesthetic. Occupy neutra banh mi, four dollar toast roof party twee poutine biodiesel sartorial bushwick literally cronut keytar.',
+            quantity: 1
         }
     ]
 
@@ -166,12 +175,37 @@ db.sync({ force: true })
             }
         })
 
-        return Promise.all([findingUser, findingOrder, findingReview, findingProduct])
+        var findingProducts = Product.findAll();
+
+        var findingTag = Tag.findOne({
+            where: {
+                category: 'clothing'
+            }
+        })
+
+        var findingRib = Product.findOne({
+            where: {
+                name: 'One Rib'
+            }
+        })
+
+        var findingFood = Tag.findOne({
+            where: {
+                category: 'food'
+            }
+        })
+
+        return Promise.all([findingUser, findingOrder, findingReview, findingProduct, findingTag, findingProducts, findingRib, findingFood])
     })
-    .spread(function(user, order, review, product){
+    .spread(function(user, order, review, product, tag, products, productrib, foodtag){
         user.addReview(review);
         user.addOrder(order);
         product.addReview(review);
+        product.addTag(tag);
+        productrib.addTag(foodtag);
+        // products.forEach(function(product){
+        //     product.addTag(tag)
+        // })
         var findingProducts = Product.findAll();
         var findingOrder = Order.findOne({
             where: {
