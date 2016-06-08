@@ -25,15 +25,6 @@ describe('Order model', function() {
         db.sync({ force: true })
             .then(function() {
                 createdOrder = Order.create({
-                    address: '2439 Star Route',
-                    city: 'Arlington Heights',
-                    state: 'IL',
-                    zipcode: 60005,
-                    billingaddress: '2439 Star Route',
-                    billingcity: 'Arlington Heights',
-                    billingstate: 'IL',
-                    billingzipcode: 60005,
-                    creditCard: 5319869385480010,
                     orderTotal: 61.98,
                     orderStatus: 'Created'
                 })

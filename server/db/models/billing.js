@@ -4,6 +4,10 @@ var Sequelize = require('sequelize');
 
 module.exports = function (db) { 
 	db.define('billing', {
+		name: {
+			type: Sequelize.STRING,
+			allowNull: false
+		},
 		address: {
 			type: Sequelize.STRING,
 			allowNull: false
