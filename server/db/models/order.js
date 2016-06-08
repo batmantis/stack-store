@@ -15,6 +15,9 @@ module.exports = function (db) {
 		},
 		guestEmail: {
 			type: Sequelize.STRING,
+			validate: {
+				isEmail: true
+			}
 		},
 	});
 };
