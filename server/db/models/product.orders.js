@@ -10,5 +10,11 @@ module.exports = function (db) {
 		subtotal: {
 			type: Sequelize.FLOAT,
 		}
+	}, {
+		instanceMethods: {
+			getPriceofOne: function () {
+				return this.subtotal / this.quantity;
+			}
+		}
 	});
 }
