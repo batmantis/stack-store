@@ -7,6 +7,7 @@ require('./models/user')(db);
 require('./models/review')(db);
 require('./models/address')(db);
 require('./models/billing')(db);
+require('./models/product.orders.js')(db);
 
 var Product = db.model('product');
 var Tag = db.model('tag');
@@ -15,10 +16,11 @@ var User = db.model('user');
 var Review = db.model('review');
 var Address = db.model('address');
 var Billing = db.model('billing');
+var ProductOrders = db.model('productOrders');
 
 Product.belongsToMany(Tag, {through: 'TagProducts'});
 Tag.belongsToMany(Product, {through: 'TagProducts'});
-Order.belongsToMany(Product, {through: 'ProductOrders'});
+Order.belongsToMany(Product, {through: ProductOrders});
 User.hasMany(Order);
 User.hasMany(Address);
 User.hasMany(Billing);

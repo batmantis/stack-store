@@ -12,6 +12,9 @@ module.exports = function (db) {
 			type: Sequelize.STRING,
 			allowNull: false,
 			defaultValue: 'Created'
-		}
+		},
+		guestEmail: {
+			type: Sequelize.STRING,
+		},
 	});
 };
