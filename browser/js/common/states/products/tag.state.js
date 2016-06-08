@@ -1,7 +1,7 @@
 app.config(function($stateProvider){
 	$stateProvider.state('tag', {
-		url: '/:tagId',
-		templateUrl: '/js/common/states/tag/viewproducts.html',
+		url: '/category/:tagId',
+		templateUrl: '/js/common/states/products/viewproducts.html',
 		controller: 'tagController',
 		resolve: {
 			products: function($stateParams, sidebarFactory) {
