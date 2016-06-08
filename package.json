@@ -1,5 +1,5 @@
 {
-  "name": "FullstackGeneratedApp",
+  "name": "StackStore",
   "version": "1.0.0",
   "description": "A generated project at Fullstack Academy",
   "main": "server/start.js",
