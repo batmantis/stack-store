@@ -28,8 +28,9 @@ router.param('productId', function(req, res, next, productId) {
 
 //Get all products or search query
 router.get('/', function(req, res, next) {
-    Product.findAll({ where: req.query })
+    Product.findAll({ where: {name: {$iLike: '%' + req.query.name + '%'}} })
         .then(function(products) {
+
             res.send(products)
         })
         .catch(next)
@@ -37,11 +38,7 @@ router.get('/', function(req, res, next) {
 
 //Get one product by id
 router.get('/:productId', function(req, res, next) {
-    req.product
-        .then(function(product) {
-            res.send(product)
-        })
-        .catch(next)
+    res.send(req.product)
 })
 
 //Create new product
