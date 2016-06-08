@@ -35,7 +35,9 @@ module.exports = function (db) {
             type: Sequelize.BOOLEAN,
             defaultValue: false
         }
-    }, {
+        
+        }, 
+    {
         instanceMethods: {
             sanitize: function () {
                 return _.omit(this.toJSON(), ['password', 'salt']);
