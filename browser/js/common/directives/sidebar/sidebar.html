@@ -4,8 +4,7 @@
 			<div class="sidebar-top">
 				<h2>Categories</h2>
 				<ul>
-					<li>one</li>
-					<li>one</li>
+					<li ng-repeat="tag in allTags"><a ui-sref="tag({tagId: tag.id})">{{tag.category}}</a></li>
 				</ul>
 			</div>
 

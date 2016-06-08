@@ -37,11 +37,7 @@ router.get('/', function(req, res, next) {
 
 //Get one product by id
 router.get('/:productId', function(req, res, next) {
-    req.product
-        .then(function(product) {
-            res.send(product)
-        })
-        .catch(next)
+    res.send(req.product)
 })
 
 //Create new product

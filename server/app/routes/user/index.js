@@ -8,9 +8,9 @@ module.exports = router
 
 router.param('userId', function(req, res, next, userId) {
     User.findById(userId)
-        .then(function(userId) {
-            if (userId) {
-                req.userId = userId;
+        .then(function(userInfo) {
+            if (userInfo) {
+                req.userInfo = userInfo;
                 next();
                 return null;
             } else {
@@ -33,12 +33,12 @@ router.get('/', function(req, res, next) {
 
 //Get one user by id
 router.get('/:userId', function(req, res, next) {
-    res.send(req.userId)
+    res.send(req.userInfo)
 })
 
 //Create new user
 router.post('/', function(req, res, next) {
-    //password requirement still needed	
+    //password requirement still needed 
     if (req.body.password) {
         User.create(req.body)
             .then(function(user) {
@@ -52,7 +52,15 @@ router.post('/', function(req, res, next) {
 
 router.put('/:userId', function(req, res, next) {
     if (req.user.isAdmin) {
-        req.userId.update(req.body)
+        req.userInfo.update(req.body)
+            .then(function(user) {
+                res.send(user)
+            })
+            .catch(next)
+    } else if (req.userInfo.resetPassword && req.user.id === req.userInfo.id) {
+        req.userInfo.update({
+                password: req.body.password
+            })
             .then(function(user) {
                 res.send(user)
             })
@@ -64,7 +72,7 @@ router.put('/:userId', function(req, res, next) {
 
 router.delete('/:userId', function(req, res, next) {
     if (req.user.isAdmin) {
-        req.userId.destroy()
+        req.userInfo.destroy()
             .then(function() {
                 res.sendStatus(204)
             })
