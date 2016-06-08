@@ -3,8 +3,8 @@
 var router = require('express').Router()
 var db = require('../../../db')
 var Tag = db.model('tag')
-var Product = db.model('product')
-var TagProducts = db.model('TagProducts')
+// var Product = db.model('product')
+// var TagProducts = db.model('TagProducts')
 module.exports = router
 
 //Get all tags

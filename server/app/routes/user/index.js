@@ -37,7 +37,7 @@ router.put('/:userId', function(req, res, next){
   if (req.user.isAdmin) {
     User.findById(req.params.userId)
     .then(function(user){
-      return user.update(req.body)
+      return user.update(req.bodleay)
     })
     .then(function(user){
       res.send(user)
