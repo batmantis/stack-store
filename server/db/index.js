@@ -12,13 +12,11 @@ var Order = db.model('order');
 var User = db.model('user');
 var Review = db.model('review');
 
-Product.hasMany(Tag);
+Product.belongsToMany(Tag, {through: 'TagProducts'});
+Tag.belongsToMany(Product, {through: 'TagProducts'});
 Order.belongsToMany(Product, {through: 'ProductOrders'});
 User.hasMany(Order);
 Product.hasMany(Review);
-User.hasMany(Review)
+User.hasMany(Review);
 
 module.exports = db;
-
-// require('./models/user')(db);
-

@@ -1,3 +1,6 @@
+'use strict';
+
+
 // Instantiate all models
 var expect = require('chai').expect;
 
