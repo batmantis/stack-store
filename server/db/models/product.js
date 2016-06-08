@@ -9,16 +9,14 @@ module.exports = function (db) {
 			allowNull: false,
             unique: true
 		},
-		imageUrl: {
-			type: Sequelize.STRING,
-			defaultValue: 'defaultproduct.jpg',
-			get: function() {
-				var img = this.getDataValue('imageUrl');
-				if (img.startsWith('http')) {
-					return img
-				} else {
-					return 'http://localhost/images/' + img
+		imageUrls: {
+			type: Sequelize.ARRAY(Sequelize.STRING),
+			defaultValue: [],
+			get: function () {
+				if (this.getDataValue(imageUrls).length === 0) {
+					return '/defaultproduct.jpg';
 				}
+				return this.getDataValue(imageUrls);
 			}
 		},
 		price: {
@@ -40,5 +38,5 @@ module.exports = function (db) {
 			type: Sequelize.INTEGER,
 			allowNull: false
 		}
-	})
+	});
 }
