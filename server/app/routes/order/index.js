@@ -33,11 +33,7 @@ router.get('/', function(req, res, next) {
 
 //Get one order by id
 router.get('/:orderId', function(req, res, next) {
-  Order.findById(req.params.orderId)
-  .then(function(order) {
-    res.send(order)
-  })
-  .catch(next)
+    res.send(req.order)
 })
 
 //Create new order
@@ -51,10 +47,7 @@ router.post('/', function(req, res, next) {
 
 router.put('/:orderId', function(req, res, next){
   if (req.user.isAdmin) {
-    Order.findById(req.params.orderId)
-    .then(function(order){
-      return order.update(req.body)
-    })
+    req.order.update(req.body)
     .then(function(order){
       res.send(order)
     })
@@ -66,10 +59,7 @@ router.put('/:orderId', function(req, res, next){
 
 router.delete('/:orderId', function(req, res, next){
   if (req.user.isAdmin) {
-    Order.findById(req.params.orderId)
-    .then(function(order){
-      return order.destroy()
-    })
+    req.order.destroy()
     .then(function(){
       res.sendStatus(204)
     })

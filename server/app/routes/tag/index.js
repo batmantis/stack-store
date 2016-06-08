@@ -8,7 +8,7 @@ var Tag = db.model('tag')
 module.exports = router
 
 router.param('tagId', function (req, res, next, tagId) {
-    Order.findById(tagId)
+    Tag.findById(tagId)
     .then(function (tag) {
         if (tag) {
             req.tag = tag;
@@ -34,14 +34,7 @@ router.get('/', function(req, res, next) {
 
 //Get all products with one tag
 router.get('/:tagId', function(req, res, next) {
-  Tag.findOne({
-  	where: {
-  		id: req.params.tagId
-  	}
-  })
-  .then(function(tag) {
-  	return tag.getProducts();
-  })
+  req.tag.getProducts()
   .then(function(products){
   	res.send(products);
   })
@@ -59,10 +52,7 @@ router.post('/', function(req, res, next) {
 
 router.put('/:tagId', function(req, res, next){
   if (req.user.isAdmin) {
-    Tag.findById(req.params.tagId)
-    .then(function(tag){
-      return tag.update(req.body)
-    })
+    req.tag.update(req.body)
     .then(function(tag){
       res.send(tag)
     })
@@ -74,10 +64,7 @@ router.put('/:tagId', function(req, res, next){
 
 router.delete('/:tagId', function(req, res, next){
   if (req.user.isAdmin) {
-    Tag.findById(req.params.tagId)
-    .then(function(tag){
-      return tag.destroy()
-    })
+    req.tag.destroy()
     .then(function(){
       res.sendStatus(204)
     })

@@ -10,20 +10,20 @@ var _ = require('lodash')
 
 module.exports = router
 
-router.param('productId', function (req, res, next, productId) {
-    Order.findById(productId)
-    .then(function (product) {
-        if (product) {
-            req.product = product;
-            next();
-            return null;
-        } else {
-            var error = new Error('some message');
-            error.status = 404;
-            throw error;
-        }
-    })
-    .catch(next);
+router.param('productId', function(req, res, next, productId) {
+    Product.findById(productId)
+        .then(function(product) {
+            if (product) {
+                req.product = product;
+                next();
+                return null;
+            } else {
+                var error = new Error('some message');
+                error.status = 404;
+                throw error;
+            }
+        })
+        .catch(next);
 });
 
 //Get all products or search query
@@ -37,7 +37,7 @@ router.get('/', function(req, res, next) {
 
 //Get one product by id
 router.get('/:productId', function(req, res, next) {
-    Product.findById(req.params.productId)
+    req.product
         .then(function(product) {
             res.send(product)
         })
@@ -55,10 +55,7 @@ router.post('/', function(req, res, next) {
 
 router.put('/:productId', function(req, res, next) {
     if (req.user.isAdmin) {
-        Product.findById(req.params.productId)
-            .then(function(product) {
-                return product.update(req.body)
-            })
+        req.product.update(req.body)
             .then(function(product) {
                 res.send(product)
             })
@@ -70,12 +67,9 @@ router.put('/:productId', function(req, res, next) {
 
 router.put('/:productId/tags/:tagId', function(req, res, next) {
     if (req.user.isAdmin) {
-        Product.findById(req.params.productId)
-            .then(function(product) {
-                return Tag.findById(req.params.tagId)
-                    .then(function(tag) {
-                        return product.addTag(tag);
-                    })
+        Tag.findById(req.params.tagId)
+            .then(function(tag) {
+                return req.product.addTag(tag);
             })
             .then(function() {
                 res.sendStatus(204)
@@ -87,10 +81,7 @@ router.put('/:productId/tags/:tagId', function(req, res, next) {
 
 router.delete('/:productId', function(req, res, next) {
     if (req.user.isAdmin) {
-        Product.findById(req.params.productId)
-            .then(function(product) {
-                return product.destroy()
-            })
+        req.product.destroy()
             .then(function() {
                 res.sendStatus(204)
             })
@@ -101,20 +92,19 @@ router.delete('/:productId', function(req, res, next) {
 })
 
 router.delete('/:productId/tags/:tagId', function(req, res, next) {
-    if (req.user.isAdmin) {
-        Product.findById(req.params.productId)
-            .then(function(product) {
-                return Tag.findById(req.params.tagId)
-                    .then(function(tag) {
-                        return product.removeTag(tag);
-                    })
-            })
-            .then(function() {
-                res.sendStatus(204)
-            })
-    } else {
-        next(new Error('not an admin'))
-    }
+        if (req.user.isAdmin) {
+            Tag.findById(req.params.tagId)
+                .then(function(tag) {
+                    return req.product.removeTag(tag);
+                })
+        })
+    .then(function() {
+        res.sendStatus(204)
+    })
+}
+else {
+    next(new Error('not an admin'))
+}
 })
 
 //Get all reviews for a product or query for a specific number of reviews
@@ -122,7 +112,7 @@ router.get('/:productId/reviews/', function(req, res, next) {
     if (_.isEmpty(req.query)) req.query.reviewCount = null
     Review.findAll({
             where: {
-                productId: req.params.productId
+                productId: req.product.id
             },
             limit: req.query.reviewCount
         })

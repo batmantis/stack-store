@@ -9,7 +9,8 @@ module.exports = function (db) {
         email: {
             type: Sequelize.STRING,
             unique: true,
-            isEmail: true
+            isEmail: true,
+            allowNull: false
         },
         password: {
             type: Sequelize.STRING
