@@ -127,14 +127,17 @@ router.post('/:productId/reviews', function(req, res, next) {
             .then(function(user) {
                 return Review.create(req.body)
                     .then(function(review) {
-                        return user.addReview(review)
+                        req.product.addReview(review)
+                            .then(function() {
+                                return user.addReview(review)
+                            })
                     })
             })
             .then(function() {
                 res.sendStatus(204)
             })
+            .catch(next)
     } else {
         res.sendStatus(401)
     }
-    .catch(next)
 })
