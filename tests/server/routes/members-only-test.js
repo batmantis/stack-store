@@ -13,7 +13,7 @@ require('../../../server/db/models/user')(db);
 
 var supertest = require('supertest');
 
-describe('Members Route', function () {
+xdescribe('Members Route', function () {
 
     var app, User;
 
