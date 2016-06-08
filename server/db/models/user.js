@@ -9,7 +9,8 @@ module.exports = function (db) {
         email: {
             type: Sequelize.STRING,
             unique: true,
-            isEmail: true
+            isEmail: true,
+            allowNull: false
         },
         password: {
             type: Sequelize.STRING
@@ -27,6 +28,10 @@ module.exports = function (db) {
             type: Sequelize.STRING
         },
         isAdmin: {
+            type: Sequelize.BOOLEAN,
+            defaultValue: false
+        },
+        resetPassword: {
             type: Sequelize.BOOLEAN,
             defaultValue: false
         }
