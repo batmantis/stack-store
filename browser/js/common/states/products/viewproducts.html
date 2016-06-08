@@ -1,5 +1,17 @@
-List of Products
-<div class="col-lg-8">
-    <div ng-repeat="product in products" class="col-lg-3"><img src="{{product.imageUrl}}" />{{product.name}}
-    </div>
+<div class="container">
+  <div class="row">
+    <h1>List of Products</h1>
+    <!-- <div class="col-lg-8"> -->
+      <div ng-repeat="product in products" class="col-lg-3">
+        <div class="panel panel-default" >
+      		<div class="panel-body">
+            <a ui-sref="viewProduct({productId: product.id})">
+            <img class="s-product-image" src="{{product.imageUrls[0]}}" />
+            <div>{{product.name}}</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    <!-- </div> -->
+  </div>
 </div>

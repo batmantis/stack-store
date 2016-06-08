@@ -13,10 +13,10 @@ module.exports = function (db) {
 			type: Sequelize.ARRAY(Sequelize.STRING),
 			defaultValue: [],
 			get: function () {
-				if (this.getDataValue(imageUrls).length === 0) {
-					return '/defaultproduct.jpg';
-				}
-				return this.getDataValue(imageUrls);
+				if (this.getDataValue('imageUrls').length === 0) {
+					return ['/defaultproduct.jpg'];
+				} 
+				return this.getDataValue('imageUrls');
 			}
 		},
 		price: {
