@@ -10,6 +10,22 @@ var _ = require('lodash')
 
 module.exports = router
 
+router.param('productId', function (req, res, next, productId) {
+    Order.findById(productId)
+    .then(function (product) {
+        if (product) {
+            req.product = product;
+            next();
+            return null;
+        } else {
+            var error = new Error('some message');
+            error.status = 404;
+            throw error;
+        }
+    })
+    .catch(next);
+});
+
 //Get all products or search query
 router.get('/', function(req, res, next) {
     Product.findAll({ where: req.query })

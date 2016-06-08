@@ -7,6 +7,22 @@ var Tag = db.model('tag')
 // var TagProducts = db.model('TagProducts')
 module.exports = router
 
+router.param('tagId', function (req, res, next, tagId) {
+    Order.findById(tagId)
+    .then(function (tag) {
+        if (tag) {
+            req.tag = tag;
+            next();
+            return null;
+        } else {
+            var error = new Error('some message');
+            error.status = 404;
+            throw error;
+        }
+    })
+    .catch(next);
+});
+
 //Get all tags
 router.get('/', function(req, res, next) {
   Tag.findAll({where: req.query})

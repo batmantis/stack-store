@@ -6,6 +6,22 @@ var User = db.model('user')
 
 module.exports = router
 
+router.param('userId', function (req, res, next, userId) {
+    Order.findById(userId)
+    .then(function (userInfo) {
+        if (userInfo) {
+            req.userInfo = userInfo;
+            next();
+            return null;
+        } else {
+            var error = new Error('some message');
+            error.status = 404;
+            throw error;
+        }
+    })
+    .catch(next);
+});
+
 //Get all users
 router.get('/', function(req, res, next) {
   User.findAll({where: req.query})

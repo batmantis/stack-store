@@ -5,6 +5,23 @@ var db = require('../../../db')
 var Order = db.model('order')
 module.exports = router
 
+//attach all data for orderid
+router.param('orderId', function (req, res, next, orderId) {
+    Order.findById(orderId)
+    .then(function (order) {
+        if (order) {
+            req.order = order;
+            next();
+            return null;
+        } else {
+            var error = new Error('some message');
+            error.status = 404;
+            throw error;
+        }
+    })
+    .catch(next);
+});
+
 //Get all orders
 router.get('/', function(req, res, next) {
   Order.findAll({where: req.query})
