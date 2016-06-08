@@ -92,19 +92,17 @@ router.delete('/:productId', function(req, res, next) {
 })
 
 router.delete('/:productId/tags/:tagId', function(req, res, next) {
-        if (req.user.isAdmin) {
-            Tag.findById(req.params.tagId)
-                .then(function(tag) {
-                    return req.product.removeTag(tag);
-                })
-        })
-    .then(function() {
-        res.sendStatus(204)
-    })
-}
-else {
-    next(new Error('not an admin'))
-}
+    if (req.user.isAdmin) {
+        Tag.findById(req.params.tagId)
+            .then(function(tag) {
+                return req.product.removeTag(tag);
+            })
+            .then(function() {
+                res.sendStatus(204)
+            })
+    } else {
+        next(new Error('not an admin'))
+    }
 })
 
 //Get all reviews for a product or query for a specific number of reviews
