@@ -7,14 +7,14 @@ module.exports = function (db) {
 		quantity: {
 			type: Sequelize.INTEGER,
 		},
-		subtotal: {
+		itemPrice: {
 			type: Sequelize.FLOAT,
 		}
 	}, {
 		instanceMethods: {
-			getPriceofOne: function () {
-				return this.subtotal / this.quantity;
+			getSubtotal: function () {
+				return this.itemPrice * this.quantity;
 			}
 		}
 	});
-}
+};

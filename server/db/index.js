@@ -27,4 +27,16 @@ User.hasMany(Billing);
 Product.hasMany(Review);
 User.hasMany(Review);
 
+ProductOrders.afterCreate(function(productOrders){
+	Order.findbyId({
+		where:{
+			id: productOrders.orderId
+		}
+	})
+	.then(function(order){
+		order.orderTotal += productOrders.getSubtotal();
+		return order.save();
+	});
+});
+
 module.exports = db;

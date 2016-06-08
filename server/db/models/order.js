@@ -6,7 +6,7 @@ module.exports = function (db) {
 	db.define('order', {
 		orderTotal: {
 			type: Sequelize.FLOAT,
-			allowNull: false
+			defaultValue: 0.00
 		},
 		orderStatus: {
 			type: Sequelize.STRING,
