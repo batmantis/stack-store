@@ -18,7 +18,7 @@ module.exports = function (db) {
 			}
 		},
 		comment: {
-			type: Sequelize.TEXT(),
+			type: Sequelize.TEXT,
 			validate: {
 				len: [100, 700]
 			}
