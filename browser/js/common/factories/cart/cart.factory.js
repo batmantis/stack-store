@@ -27,12 +27,19 @@ app.factory('CartFactory', function($http, $kookies, $state, productFactory, $q)
 			$kookies.remove(productId);
 		},
 		changeQty: function(productId, quantity){
-			$kookies.set(productId, quantity, { path: '/' })
+			var cartContents = $kookies.get('cart')
+			quantity = +quantity
+			cartContents[productId] = quantity
+			$kookies.set('cart', cartContents, { path: '/' });
 		},
 		getCartProducts: function() {
 			var cartContents = $kookies.get('cart')
 			var products = Object.keys(cartContents).map((el) => productFactory.getProduct(el))
 			return $q.all(products).then(function(productDetails) {
+				productDetails.forEach((el) => {
+				el.cartQuantity = cartContents[el.id]
+				return el
+				})
 				return productDetails
 			})
 		}
