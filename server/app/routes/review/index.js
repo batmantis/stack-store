@@ -3,6 +3,8 @@
 var router = require('express').Router()
 var db = require('../../../db')
 var Review = db.model('review')
+var User = db.model('user')
+var Promise = require('sequelize').Promise
 
 module.exports = router
 
@@ -39,28 +41,20 @@ router.get('/:reviewId', function(req, res, next) {
 //Create a review for a review
 router.post('/', function(req, res, next) {
     if (req.user) {
-      var findingUser = User.findById(req.user.id)
+        var findingUser = User.findById(req.user.id)
 
-      var findingProduct = Product.findById(req.body.productId)
+        var findingProduct = Product.findById(req.body.productId)
 
-      var creatingReview = Review.create(req.body)
+        var creatingReview = Review.create(req.body)
 
-      Promise.all(findingUser, findingProduct, creatingReview)
-      .spread(function(user, product, review) {
-      	user.addReview(review)
-      	product.addReview(review)
-      	res.send(review)
-      })
+        Promise.all([findingUser, findingProduct, creatingReview])
+            .spread(function(user, product, review) {
+                user.addReview(review)
+                product.addReview(review)
+                res.send(review)
+            })
 
     } else {
         res.sendStatus(401)
     }
 })
-
-
-
-
-
-
-
-
