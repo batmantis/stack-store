@@ -11,9 +11,10 @@
       {{address.city}}
       {{address.state}}
       {{address.zipcode}}
+      <button ng-click="delete(address.id)" class="btn btn-danger">Delete</button>
     </li>
   </ul>
-  <add-address></add-addres>
+  <add-address update="update"></add-address>
 </div>
 
 <div class="user-section-box">

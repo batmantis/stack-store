@@ -4,8 +4,11 @@ app.directive('addAddress', function(addressFactory) {
         // name: '',
         // priority: 1,
         // terminal: true,
+        scope: {
+        	update: '&'
+        },
         // scope: {}, // {} = isolate, true = child, false/undefined = no change
-        // controller: function($scope, $element, $attrs, $transclude) {},
+        // controller: 'userDetailController',
         // require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
         restrict: 'E', // E = Element, A = Attribute, C = Class, M = Comment
         templateUrl: 'js/common/directives/user/addressform.html',
@@ -31,6 +34,8 @@ app.directive('addAddress', function(addressFactory) {
                     .then(function() {
                         scope.reset();
                         scope.addressForm.$setPristine()
+                        // scope.$apply();
+                        scope.update();
                     })
             }
 
