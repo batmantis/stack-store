@@ -5,7 +5,7 @@ var Sequelize = require('sequelize');
 module.exports = function (db) { 
 	db.define('review', {
 		title: {
-			type: Sequelize.STRING(),
+			type: Sequelize.STRING,
 			validate: {
 				len: [10, 20]
 			}
