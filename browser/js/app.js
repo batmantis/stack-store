@@ -52,7 +52,7 @@ app.run(function ($rootScope, AuthService, $state, $log) {
 
     });
 
-    // The code below will give descriptive errors if there are issues with resolve in the states
+    // The code below will give descriptive errors if there are issues with resolve in the states 
 
     $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error){ 
         // this is required if you want to prevent the $UrlRouter reverting the URL to the previous valid location
