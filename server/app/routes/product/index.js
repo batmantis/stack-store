@@ -109,7 +109,8 @@ router.get('/:productId/reviews/', function(req, res, next) {
             where: {
                 productId: req.product.id
             },
-            limit: req.query.reviewCount
+            order: '"createdAt" DESC',
+            limit: req.query.reviewCount,
         })
         .then(function(reviews) {
             res.send(reviews)
@@ -117,21 +118,19 @@ router.get('/:productId/reviews/', function(req, res, next) {
         .catch(next)
 })
 
-
+//Create a review for a product
 router.post('/:productId/reviews', function(req, res, next) {
     if (req.user) {
         User.findById(req.user.id)
             .then(function(user) {
                 return Review.create(req.body)
                     .then(function(review) {
+                        res.send(review)
                         req.product.addReview(review)
                             .then(function() {
                                 return user.addReview(review)
                             })
                     })
-            })
-            .then(function() {
-                res.sendStatus(204)
             })
             .catch(next)
     } else {
