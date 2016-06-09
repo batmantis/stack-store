@@ -5,3 +5,4 @@ npm-debug.log
 coverage
 public/main.js
 public/style.css
+bower_components
