@@ -4,6 +4,12 @@ var Sequelize = require('sequelize');
 
 module.exports = function (db) { 
 	db.define('review', {
+		title: {
+			type: Sequelize.STRING,
+			validate: {
+				len: [10, 20]
+			}
+		},
 		rating: {
 			type: Sequelize.INTEGER,
 			validate: {
@@ -12,7 +18,7 @@ module.exports = function (db) {
 			}
 		},
 		comment: {
-			type: Sequelize.TEXT(),
+			type: Sequelize.TEXT,
 			validate: {
 				len: [100, 700]
 			}

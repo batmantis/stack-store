@@ -22,6 +22,10 @@ app.factory('UserFactory', function ($http) {
 		},
 		deleteUser: function (id) {
 			return $http.delete('/api/user/' + id);
+		},
+		getLoggedInUser: function () {
+			return $http.get('/api/user/info')
+			.then(returnData);
 		}
 	};
 });

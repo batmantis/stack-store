@@ -8,7 +8,6 @@ app.config(function($stateProvider){
 
         return productFactory.getProductDetails($stateParams.productId)
         .then(function(data){
-          console.log(data)
           return data
         })
         .catch(function(err) {console.log(err)})
