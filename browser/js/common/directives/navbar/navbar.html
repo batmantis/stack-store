@@ -10,7 +10,9 @@
         </ul>
         <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
         <div ng-show="user" class="welcome">
-            <span>Welcome, {{ user.email }}!</span>
+            <span>Welcome, 
+                <a ui-sref="userDetail">{{ user.email }}!</a>
+            </span>
             <a ng-click="logout()">Logout</a>
         </div>
     </div>
