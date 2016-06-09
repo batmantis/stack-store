@@ -1,17 +1,5 @@
-app.controller('productController', function(productFactory, $rootScope, $scope, product, $state, AuthService, Session, reviewFactory) {
+app.controller('productController', function(productFactory, $scope, product, $state, Session, reviewFactory, CartFactory) {
     $scope.product = product
-
-    // $scope.review = {}
-
-    // $scope.addReview = function(review, productId){
-    // 	reviewFactory.addReview(review, productId)
-    // 	.then(function(){
-    // 		return productFactory.getProductDetails(productId)
-    // 		.then(function(product){
-    // 			$scope.product = product
-    // 		})
-    // 	})
-    // }
 
     $scope.addReview = function(review, productId) {
         reviewFactory.addReview(review, productId)
@@ -21,19 +9,8 @@ app.controller('productController', function(productFactory, $rootScope, $scope,
             })
     }
 
-    // $scope.user = null;
+    $scope.addToCart = CartFactory.addToCart
 
     $scope.user = Session.user;
 
-    // $scope.isLoggedIn = function () {
-    //     return AuthService.isAuthenticated();
-    // };
-
-    // var setUser = function () {
-    //     AuthService.getLoggedInUser().then(function (user) {
-    //         $scope.user = user;
-    //     });
-    // };
-
-    // setUser();
 })
