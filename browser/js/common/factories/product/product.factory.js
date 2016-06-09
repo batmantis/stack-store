@@ -10,6 +10,13 @@ app.factory('productFactory', function($http) {
           })
         })
         .catch(console.log)
+    },
+    getProduct: function(productId) {
+        return $http.get('/api/product/' + productId)
+      .then(function(product) {
+        return product.data
+      })
+
     }
   }
 })

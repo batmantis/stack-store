@@ -1,4 +1,4 @@
-app.factory('CartFactory', function($http, $kookies, $state){
+app.factory('CartFactory', function($http, $kookies, $state, productFactory, $q){
 	return {
 		addToCart: function(productId, quantity){
 			quantity = +quantity || 1
@@ -28,6 +28,13 @@ app.factory('CartFactory', function($http, $kookies, $state){
 		},
 		changeQty: function(productId, quantity){
 			$kookies.set(productId, quantity, { path: '/' })
+		},
+		getCartProducts: function() {
+			var cartContents = $kookies.get('cart')
+			var products = Object.keys(cartContents).map((el) => productFactory.getProduct(el))
+			return $q.all(products).then(function(productDetails) {
+				return productDetails
+			})
 		}
 	}
 })
