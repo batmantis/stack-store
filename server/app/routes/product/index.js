@@ -117,23 +117,3 @@ router.get('/:productId/reviews/', function(req, res, next) {
         })
         .catch(next)
 })
-
-//Create a review for a product
-router.post('/:productId/reviews', function(req, res, next) {
-    if (req.user) {
-        User.findById(req.user.id)
-            .then(function(user) {
-                return Review.create(req.body)
-                    .then(function(review) {
-                        res.send(review)
-                        req.product.addReview(review)
-                            .then(function() {
-                                return user.addReview(review)
-                            })
-                    })
-            })
-            .catch(next)
-    } else {
-        res.sendStatus(401)
-    }
-})
