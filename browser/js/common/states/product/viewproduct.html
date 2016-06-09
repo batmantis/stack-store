@@ -1,14 +1,21 @@
 <h1>{{product.name}}</h1>
 <img ng-repeat="images in product.imageUrls" src="{{images}}" />
 <p>{{product.price}}</p>
-<div ng-repeat="review in product.reviews">
-	<blockquote>
-	    <strong>{{review.rating}} Stars</strong> {{review.comment}}
-	    <cite class="clearfix">—{{user.email}}</cite>
-	</blockquote>
+<h2>{{product.brand}}</h2>
+<p>{{product.description}}</p>
+<div ng-show="product.reviews.length">
+<h3>Reviews</h3>
+    <div ng-repeat="review in product.reviews">
+        <blockquote>
+            <strong>{{review.rating}} Stars</strong> {{review.comment}}
+            <cite class="clearfix">—{{user.email}}</cite>
+        </blockquote>
+    </div>
+</div>
+<div ng-hide="product.reviews.length">
+There is no reviews for this product.
 </div>
 <div ng-show="user">
-    <h2>Reviews</h2>
     <form name="reviewForm" ng-submit="reviewForm.$valid && addReview(review, product.id)" novalidate>
         <blockquote ng-show="review">
             <strong>{{review.rating}} Stars</strong> {{review.comment}}

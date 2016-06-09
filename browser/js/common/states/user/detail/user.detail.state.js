@@ -5,7 +5,6 @@ app.config(function ($stateProvider) {
 		controller: 'userDetailController',
 		resolve: {
 			loggedInUser: function (UserFactory) {
-				console.log('before userfactory fucntion');
 				return UserFactory.getLoggedInUser();
 			}
 		}

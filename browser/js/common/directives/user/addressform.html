@@ -1,0 +1,34 @@
+<div>
+    <form name="addressForm" novalidate>
+        <label>Name:</label>
+        <br/>
+        <input type="text" name="customer" ng-model="form.customer" required/>
+        <span class="error" ng-show="addressForm.$dirty && addressForm.customer.$error.required">
+       Customer name is required!</span>
+        <br/>
+        <br/>
+            <label>Address:</label>
+            <br/>
+            <input type="text" name="line1" size="33" required ng-model="form.address" />
+            <br/>
+            <input type="text" name="city" size="12" required ng-model="form.city" />,
+            <input type="text" name="state" ng-pattern="/^\w\w$/" size="2" required ng-model="form.state" />
+            <input type="text" name="zip" ng-pattern="/^\d\d\d\d\d$/" size="5" required ng-model="form.zip" />
+            <br/>
+            <br/>
+                <span ng-show="addressForm.$dirty && addressForm.$invalid" class="error">
+         Incomplete address:
+         <span class="error" ng-show="addressForm.state.$error.required">
+           Missing state!</span>
+                <span class="error" ng-show="addressForm.state.$error.pattern">
+           Invalid state!</span>
+                <span class="error" ng-show="addressForm.zip.$error.required">
+           Missing zip!</span>
+                <span class="error" ng-show="addressForm.zip.$error.pattern">
+           Invalid zip!</span>
+                </span>
+        </ng-form>
+        <button ng-click="reset()">Reset</button>
+        <button ng-click="save()" ng-disabled="addressForm.$invalid" >Save</button>
+    </form>
+</div>
