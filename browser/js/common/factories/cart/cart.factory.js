@@ -48,6 +48,7 @@ app.factory('CartFactory', function($http, $kookies, $state, productFactory, $q)
 			var cartContents = $kookies.get('cart')
 			return _.isEmpty(cartContents)
 		},
+
 		checkout: function(order) {
 			var cartContents = $kookies.get('cart')
 			order.cart = cartContents
@@ -55,6 +56,16 @@ app.factory('CartFactory', function($http, $kookies, $state, productFactory, $q)
 			.then(function() {
 				//something
 			})
-		}
+		},
+
+ 		getQty: function(num){
+ 			if(num > 10){num =10};
+ 			var arr = new Array(num);
+ 			for(var i = 0; i < num; i++){
+ 			    arr[i] = i+1;
+ 			}
+ 			console.log(arr);
+ 			return arr;
+  		}
 	}
 })

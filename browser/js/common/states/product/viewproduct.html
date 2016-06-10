@@ -1,6 +1,10 @@
 <h1>{{product.name}}</h1>
+<div ng-show="lowStock">
+    <h5>Only {{ product.quantity }} left in Stock</h5>
+</div>
 <form ng-submit="addToCart(product.id, qty)">
-    <input ng-model="qty" type="text"></input>
+    <select ng-model="qty" type="text" ng-init="qty = qtyArray[0]" ng-options="i for i in qtyArray">
+    </select>
     <input type="submit" value="Add to Cart"></input>
 </form>
 <img ng-repeat="images in product.imageUrls" src="{{images}}" />
