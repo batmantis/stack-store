@@ -8,20 +8,19 @@ app.controller('productController', function(productFactory, $scope, product, $s
             })
     };
 
-    $scope.number = 10;
-
-
     $scope.getNumber = function(num){
         var amount = +this.product.quantity;
         if(amount < 10){
-            return new Array(amount);
+            dropdown(amount);
         }
-        return new Array(num);
+        return dropdown(num);
     }
 
     $scope.addToCart = CartFactory.addToCart;
 
     $scope.user = Session.user;
+
+    $scope.qtyArray = CartFactory.getQty(product.quantity);
 
 
 })
