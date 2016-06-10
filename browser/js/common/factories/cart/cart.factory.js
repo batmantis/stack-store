@@ -20,11 +20,12 @@ app.factory('CartFactory', function($http, $kookies, $state, productFactory, $q)
 				$kookies.set('cart', cartContents, { path: '/' });
 				$state.go('cart');
 			}
-
 			console.log($kookies.get('cart'));
 		},
 		removeFromCart: function(productId){
-			$kookies.remove(productId);
+			var cartContents = $kookies.get('cart')
+			delete cartContents[productId]
+			$kookies.set('cart', cartContents, { path: '/' });
 		},
 		changeQty: function(productId, quantity){
 			var cartContents = $kookies.get('cart')
@@ -35,13 +36,17 @@ app.factory('CartFactory', function($http, $kookies, $state, productFactory, $q)
 		getCartProducts: function() {
 			var cartContents = $kookies.get('cart')
 			var products = Object.keys(cartContents).map((el) => productFactory.getProduct(el))
-			return $q.all(products)
-			.then(function(productDetails) {
+			return $q.all(products).then(function(productDetails) {
 				productDetails.forEach((el) => {
-				        el.cartQuantity = cartContents[el.id]
+				el.cartQuantity = cartContents[el.id]
+				return el
 				})
 				return productDetails
 			})
+		},
+		cartIsEmpty: function() {
+			var cartContents = $kookies.get('cart')
+			console.log(cartContents)
 		}
 	}
 })

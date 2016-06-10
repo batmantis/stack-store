@@ -18,5 +18,11 @@ app.controller('CartCtrl', function(CartFactory, $scope, $kookies) {
     var cartContents = $kookies.get('cart')
     return cartContents[productId]
   }
+  $scope.removeFromCart = function(product) {
+    CartFactory.removeFromCart(product.id)
+    $scope.getProducts()
+  }
+  $scope.cartIsEmpty = CartFactory.cartIsEmpty
+
   console.log($kookies.get('cart'))
 })
