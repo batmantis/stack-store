@@ -47,6 +47,14 @@ app.factory('CartFactory', function($http, $kookies, $state, productFactory, $q)
 		cartIsEmpty: function() {
 			var cartContents = $kookies.get('cart')
 			return _.isEmpty(cartContents)
+		},
+		checkout: function(order) {
+			var cartContents = $kookies.get('cart')
+			order.cart = cartContents
+			$http.post('/api/order', order)
+			.then(function() {
+				//something
+			})
 		}
 	}
 })

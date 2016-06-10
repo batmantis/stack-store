@@ -26,13 +26,12 @@ User.hasMany(Address);
 User.hasMany(Billing);
 Product.hasMany(Review);
 User.hasMany(Review);
+Order.belongsTo(Address);
+Order.belongsTo(Billing);
+Order.hasMany(ProductOrders)
 
 ProductOrders.afterCreate(function(productOrders){
-	Order.findbyId({
-		where:{
-			id: productOrders.orderId
-		}
-	})
+	Order.findById(productOrders.orderId)
 	.then(function(order){
 		order.orderTotal += productOrders.getSubtotal();
 		return order.save();
