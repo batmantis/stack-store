@@ -1,4 +1,8 @@
 <h1>{{product.name}}</h1>
+<form ng-submit="addToCart(product.id, qty)">
+    <input ng-model="qty" type="text"></input>
+    <input type="submit" value="Add to Cart"></input>
+</form>
 <img ng-repeat="images in product.imageUrls" src="{{images}}" />
 <p>{{product.price}}</p>
 <h2>{{product.brand}}</h2>

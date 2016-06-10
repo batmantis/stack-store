@@ -1,6 +1,5 @@
-app.controller('productController', function(productFactory, $rootScope, $scope, product, $state, AuthService, Session, reviewFactory) {
+app.controller('productController', function(productFactory, $scope, product, $state, Session, reviewFactory, CartFactory) {
     $scope.product = product
-
 
     $scope.addReview = function(review, productId) {
         reviewFactory.addReview(review, productId)
@@ -8,6 +7,8 @@ app.controller('productController', function(productFactory, $rootScope, $scope,
                 $scope.product.reviews.unshift(review)
             })
     }
+
+    $scope.addToCart = CartFactory.addToCart
 
     $scope.user = Session.user;
 
