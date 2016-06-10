@@ -14,7 +14,6 @@ app.controller('userDetailController', function($scope, $log, $state, loggedInUs
     }
 
     $scope.update = function() {
-        console.log('i hit update')
         $state.go($state.current, {}, {reload: true})
     }
 });

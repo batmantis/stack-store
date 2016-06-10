@@ -1,8 +1,8 @@
 <h1>Hi, {{ user.email }}</h1>
 <hr>
 
-<div ng-show="user.addresses.length"class="user-section-box">
   <h3>Your Addresses</h3>
+<div ng-show="user.addresses.length"class="user-section-box">
   <hr>
   <ul>
     <li ng-repeat="address in user.addresses">
@@ -14,8 +14,8 @@
       <button ng-click="delete(address.id)" class="btn btn-danger">Delete</button>
     </li>
   </ul>
-  <add-address update="update()"></add-address>
 </div>
+  <add-address update="update()"></add-address>
 
 <div class="user-section-box">
   <h3>Your Billing Information</h3>
