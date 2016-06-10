@@ -48,14 +48,14 @@ app.factory('CartFactory', function($http, $kookies, $state, productFactory, $q)
 			var cartContents = $kookies.get('cart')
 			return _.isEmpty(cartContents)
 		},
- +		getQty: function(num){
- +			if(num > 10){num =10};
- +			var arr = new Array(num);
- +			for(var i = 0; i < num; i++){
- +			    arr[i] = i+1;
- +			}
- +			console.log(arr);
- +			return arr;
+ 		getQty: function(num){
+ 			if(num > 10){num =10};
+ 			var arr = new Array(num);
+ 			for(var i = 0; i < num; i++){
+ 			    arr[i] = i+1;
+ 			}
+ 			console.log(arr);
+ 			return arr;
   		}		  		
 	}
 })
