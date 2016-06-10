@@ -125,7 +125,6 @@ describe('User Model', function () {
         expect(address.city).to.equal('Scope City');
         expect(billing.state).to.equal('ES');
       })
-      .catch(console.log.bind(console));
   });
 
   it('User hasMany Order, Address, Billing', function() {
