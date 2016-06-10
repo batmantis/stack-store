@@ -36,7 +36,7 @@ app.directive('addAddress', function(addressFactory) {
                         scope.reset();
                         scope.addressForm.$setPristine()
                         // scope.$apply();
-                        
+
                     // }).then(function(){
                     })
             }

@@ -12,14 +12,14 @@ app.config(function ($urlRouterProvider, $locationProvider) {
     });
 });
 
-app.config(['$kookiesProvider', 
+app.config(['$kookiesProvider',
     function ($kookiesProvider) {
         $kookiesProvider.config.json = true;
     }
 ]);
 
 // This app.run is for controlling access to specific states.
-app.run(function ($rootScope, AuthService, $state, $log) {
+app.run(function ($rootScope, AuthService, $state, $log, $kookies) {
 
     // The given state requires an authenticated user.
     var destinationStateRequiresAuth = function (state) {
@@ -30,9 +30,15 @@ app.run(function ($rootScope, AuthService, $state, $log) {
     // whenever the process of changing a state begins.
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
 
+        if (!$kookies.get('cart')) {
+          console.log('test')
+          $kookies.set('cart', {}, { path: '/' });
+        }
+
         if (!destinationStateRequiresAuth(toState)) {
             // The destination state does not require authentication
-            // Short circuit with return.
+            // Short circuit with return.{
+
             return;
         }
 
@@ -58,9 +64,9 @@ app.run(function ($rootScope, AuthService, $state, $log) {
 
     });
 
-    // The code below will give descriptive errors if there are issues with resolve in the states 
+    // The code below will give descriptive errors if there are issues with resolve in the states
 
-    $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error){ 
+    $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error){
         // this is required if you want to prevent the $UrlRouter reverting the URL to the previous valid location
         event.preventDefault();
         $log.error(error);

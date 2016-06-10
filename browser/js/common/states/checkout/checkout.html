@@ -1,0 +1,23 @@
+<h1>Checkout</h1>
+<h2>Your Cart</h2>
+<div ng-repeat="product in cartProducts">
+  <div>Product: {{product.name}} / Quantity: {{product.cartQuantity}}</div>
+</div>
+<h3>Your Addresses</h3>
+<div ng-show="user.addresses.length"class="user-section-box">
+<hr>
+{{order.addressId}}
+<form name="addressForm">
+  <div ng-repeat="address in user.addresses">
+    <label>
+      <input type="radio" ng-model="order.addressId" value="{{address.id}}">
+        {{address.name}}
+        {{address.address}}
+        {{address.city}}
+        {{address.state}}
+        {{address.zipcode}}
+    </label>
+  </div>
+</form>
+</div>
+<add-address update="update()"></add-address>
