@@ -9,8 +9,7 @@ module.exports = function (db) {
 			defaultValue: 0.00
 		},
 		orderStatus: {
-			type: Sequelize.STRING,
-			allowNull: false,
+			type: Sequelize.ENUM('Created', 'Pending', 'Delivered', 'Received'),
 			defaultValue: 'Created'
 		},
 		guestEmail: {

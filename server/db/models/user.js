@@ -35,8 +35,7 @@ module.exports = function (db) {
             type: Sequelize.BOOLEAN,
             defaultValue: false
         }
-        
-        }, 
+    }, 
     {
         instanceMethods: {
             sanitize: function () {
