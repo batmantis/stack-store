@@ -39,7 +39,6 @@ app.factory('CartFactory', function($http, $kookies, $state, productFactory, $q)
 			.then(function(productDetails) {
 				productDetails.forEach((el) => {
 				        el.cartQuantity = cartContents[el.id]
-				        return el
 				})
 				return productDetails
 			})
