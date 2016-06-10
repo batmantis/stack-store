@@ -35,10 +35,10 @@ app.factory('CartFactory', function($http, $kookies, $state, productFactory, $q)
 		getCartProducts: function() {
 			var cartContents = $kookies.get('cart')
 			var products = Object.keys(cartContents).map((el) => productFactory.getProduct(el))
-			return $q.all(products).then(function(productDetails) {
+			return $q.all(products)
+			.then(function(productDetails) {
 				productDetails.forEach((el) => {
-				el.cartQuantity = cartContents[el.id]
-				return el
+				        el.cartQuantity = cartContents[el.id]
 				})
 				return productDetails
 			})
