@@ -4,7 +4,6 @@ app.controller('productController', function(productFactory, $scope, product, $s
     $scope.addReview = function(review, productId) {
         reviewFactory.addReview(review, productId)
             .then(function(review) {
-            	console.log($scope.product.reviews)
                 $scope.product.reviews.unshift(review)
             })
     }
