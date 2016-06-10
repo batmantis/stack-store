@@ -12,6 +12,18 @@ app.controller('CheckoutCtrl', function(CartFactory, $scope, $kookies, addressFa
 
   $scope.update = function() {
       $state.go($state.current, {}, {reload: true})
+      $scope.setAddressId()
   }
+
+  $scope.order = {
+    addressId: null
+  }
+
+
+  $scope.setAddressId = function() {
+    $scope.order.addressId = $scope.user.addresses[0].id
+  }
+
+  $scope.setAddressId()
 
 })
