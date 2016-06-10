@@ -36,7 +36,7 @@ module.exports = function (db) {
             defaultValue: false
         }
         
-        }, 
+    }, 
     {
         instanceMethods: {
             sanitize: function () {
