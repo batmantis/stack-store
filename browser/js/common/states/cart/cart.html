@@ -1,4 +1,5 @@
 <h1>Shopping Cart</h1>
+<button ng-if="!cartIsEmpty()"><a ui-sref="checkout">Checkout</a></button>
 <div ng-if="cartIsEmpty()">Cart is Empty</div>
 <div class="panel" ng-repeat="product in cartProducts">
   <img class="s-product-image" src="{{product.imageUrls[0]}}"/>

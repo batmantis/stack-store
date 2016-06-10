@@ -5,7 +5,7 @@ app.factory('CartFactory', function($http, $kookies, $state, productFactory, $q)
 
 			if($kookies.get('cart')){
 				var cartContents = $kookies.get('cart');
-				console.log("cookie exists");
+				// console.log("cookie exists");
 				if(cartContents[productId]) {
 					var amount = +cartContents[productId];
 					cartContents[productId] = amount + quantity;
@@ -20,7 +20,7 @@ app.factory('CartFactory', function($http, $kookies, $state, productFactory, $q)
 				$kookies.set('cart', cartContents, { path: '/' });
 				$state.go('cart');
 			}
-			console.log($kookies.get('cart'));
+			// console.log($kookies.get('cart'));
 		},
 		removeFromCart: function(productId){
 			var cartContents = $kookies.get('cart')
@@ -46,7 +46,7 @@ app.factory('CartFactory', function($http, $kookies, $state, productFactory, $q)
 		},
 		cartIsEmpty: function() {
 			var cartContents = $kookies.get('cart')
-			console.log(cartContents)
+			return _.isEmpty(cartContents)
 		}
 	}
 })

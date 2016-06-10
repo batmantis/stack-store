@@ -8,7 +8,7 @@ app.controller('CartCtrl', function(CartFactory, $scope, $kookies) {
   $scope.getProducts()
 
   $scope.changeQty = function(productId, qty) {
-    console.log(qty)
+    // console.log(qty)
     var changedProduct = $scope.cartProducts.filter((product) => product.id === productId)[0]
     changedProduct.cartQuantity = qty
     return CartFactory.changeQty(productId, qty)
@@ -24,5 +24,5 @@ app.controller('CartCtrl', function(CartFactory, $scope, $kookies) {
   }
   $scope.cartIsEmpty = CartFactory.cartIsEmpty
 
-  console.log($kookies.get('cart'))
+  // console.log($kookies.get('cart'))
 })
