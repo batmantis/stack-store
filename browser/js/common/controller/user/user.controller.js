@@ -1,19 +1,33 @@
-app.controller('userDetailController', function($scope, $log, $state, loggedInUser, UserFactory, addressFactory) {
+app.controller('userDetailController', function($scope, $log, $state, loggedInUser, UserFactory, billingFactory, addressFactory) {
     if (loggedInUser) {
         $scope.user = loggedInUser;
     } else {
         $state.go('notLoggedIn');
     }
 
-    $scope.delete = function(addressId) {
+    function reloadState () {
+        $state.go($state.current, {}, { reload: true });
+    }
+
+    $scope.deleteAddress = function(addressId) {
         addressFactory.deleteAddress(addressId)
-            .then(function() {
-                $state.go($state.current, {}, { reload: true })
-                console.log('deleted')
-            })
+        .then(function() {
+            reloadState();
+            return null;
+        })
+        .catch($log.error);
+    }
+
+    $scope.deleteBilling = function (billingId) {
+        billingFactory.deleteBilling(billingId)
+        .then(function () {
+           reloadState();
+           return null;
+        })
+        .catch($log.error);
     }
 
     $scope.update = function() {
-        $state.go($state.current, {}, {reload: true})
+        reloadState();
     }
 });

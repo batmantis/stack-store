@@ -15,21 +15,20 @@ router.post('/', function(req, res, next) {
     var findingUser = User.findById(req.user.id)
 
     Promise.all([creatingAddress, findingUser])
-        .spread(function(address, user) {
-            res.send(address)
-            user.addAddress(address)
-        })
-        .catch(next)
+    .spread(function(address, user) {
+        user.addAddress(address)
+        res.send(address)
+    })
+    .catch(next)
 })
 
 router.delete('/:addressId', function(req, res, next) {
-    console.log(req.params.addressId)
-    Address.findById(req.params.addressId)
-        .then(function(address) {
-            return address.destroy()
-        })
-        .then(function() {
-            res.send(204)
-        })
-        .catch(next)
+   Promise.all([User.findById(req.user.id), Address.findById(req.params.addressId)])
+   .spread(function(user, address) {
+       return user.removeAddress(address.id);
+   })
+   .then(function() {
+       res.send(204);
+   })
+   .catch(next)
 })
