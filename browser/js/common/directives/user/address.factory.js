@@ -8,7 +8,8 @@ app.factory('addressFactory', function($http) {
         },
 
         deleteAddress: function(addressId) {
-            return $http.delete('/api/address/' + addressId)
+            return $http.put('/api/address/' + addressId, {userId: null})
+            
         }
     }
 })
