@@ -30,4 +30,10 @@ app.config(function($stateProvider){
 		templateUrl: 'js/common/controller/admin/all.products.html',
 		controller: 'ProductsCtrl'
 	})
+
+	$stateProvider.state('admin.categories', {
+		url: '/catergories',
+		templateUrl: 'js/common/controller/admin/all.categories.html',
+		controller: 'CatsCtrl'
+	})
 })

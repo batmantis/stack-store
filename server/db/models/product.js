@@ -37,6 +37,10 @@ module.exports = function (db) {
 		quantity: {
 			type: Sequelize.INTEGER,
 			allowNull: false
+		},
+		isAvailable: {
+			type: Sequelize.BOOLEAN,
+			defaultValue: true
 		}
 	});
 }

@@ -1,7 +1,37 @@
 <div>
-<input type="text" class="form-control" placeholder="Search for an product (by name)" ng-model="selectedProduct" typeahead="product as product.name for product in products | filter:$viewValue | limitTo:10">
+    <input type="text" class="form-control" placeholder="Search for an product (by name)" ng-model="selectedProduct" typeahead="product as product.name for product in products | filter:$viewValue | limitTo:10">
 </div>
-
 <div ng-show="selectedProduct.name">
-{{selectedProduct}}
-</div>	
+    {{selectedProduct}}
+    <img ng-repeat="picture in selectedProduct.imageUrls" ng-src="picture" />
+    <form>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Product Name</label>
+            <input type="name" class="form-control" id="exampleInputEmail1" placeholder="Enter name" ng-model="selectedProduct.name">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Price</label>
+            <input type="price" class="form-control" id="exampleInputEmail1" placeholder="Enter price" ng-model="selectedProduct.price">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Brand</label>
+            <input type="brand" class="form-control" id="exampleInputEmail1" placeholder="Enter brand" ng-model="selectedProduct.brand">
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Description</label>
+            <textarea rows="4" type="description" class="form-control" id="exampleInputEmail1" placeholder="Enter description" ng-model="selectedProduct.description"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Quantity</label>
+            <input type="quantity" class="form-control" id="exampleInputEmail1" placeholder="Enter quantity" ng-model="selectedProduct.quantity">
+        </div>
+        <div class="checkbox">
+            <label>
+            <input type="checkbox" ng-model="selectedProduct.isAvailable"> Is available?
+            </label>
+        </div>
+        <button type="update" class="btn btn-default" ng-click="update(selectedProduct.id, selectedProduct)">Update</button>
+        <button type="delete" class="btn btn-default" ng-click="delete(selectedProduct.id)">Delete</button>
+    </form>
+
+</div>
