@@ -6,6 +6,8 @@ var db = require('../_db.js');
 // require('../index');
 var Product = db.model('product');
 var ProductOrders = db.model('productOrders');
+var Address = db.model('address');
+var Billing = db.model('billing');
 
 module.exports = function (db) {
 	db.define('order', {
@@ -55,7 +57,7 @@ module.exports = function (db) {
 			          })
 			      })
 			      .then(function(newOrder) {
-			        return newOrder.data
+			        return newOrder
 			      })
 			}
 		}

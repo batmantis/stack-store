@@ -29,7 +29,7 @@ Product.hasMany(Review);
 User.hasMany(Review);
 Order.belongsTo(Address);
 Order.belongsTo(Billing);
-Order.hasMany(ProductOrders)
+Order.hasMany(ProductOrders);
 
 // // Don't need this code anymore
 // ProductOrders.afterCreate(function(productOrders){

@@ -2,6 +2,7 @@
 
 var router = require('express').Router()
 var db = require('../../../db')
+var _ = require('lodash')
 var Order = db.model('order')
 var Product = db.model('product')
 var ProductOrders = db.model('productOrders')
@@ -40,13 +41,15 @@ router.get('/:orderId', function(req, res, next) {
 
 //Create new order
 router.post('/', function(req, res, next) {
-  var orderDetails = req.body
-  orderDetails.userId = req.user.id
-  Order.createNewOrder(orderDetails)
-  .then(function(data) {
-    res.sendStatus(200)
-  })
-  .catch(next)
+  if (_.isEmpty(req.body.cart)) next(new Error('Cannot create an order with empty cart'))
+  else { var orderDetails = req.body
+    orderDetails.userId = req.user.id
+    Order.createNewOrder(orderDetails)
+    .then(function(data) {
+      res.send(data)
+    })
+    .catch(next)
+  }
 })
 
 router.put('/:orderId', function(req, res, next){
