@@ -1,14 +1,3 @@
-<!-- <div>
-<div ng-model=user.data[user.id]>
-<span contenteditable>{{user.email}}</span>
-Reset their password?
-<input type="checkbox" value="{{user.resetPassword}}" ng-checked="user.resetPassword">
-Admin 
-<input type="checkbox" value="{{user.isAdmin}}" ng-checked="user.isAdmin">
-</div>
-{{user}}
-</div>
- -->
 <div>
 <input type="text" class="form-control" placeholder="Search for an user (by email)" ng-model="selectedUser" typeahead="user as user.email for user in users | filter:$viewValue | limitTo:10">
 </div>
@@ -31,7 +20,6 @@ Admin
         <input type="checkbox" ng-model="selectedUser.resetPassword"> Force password reset
         </label>
     </div>
-    {{message}}
     <button type="update" class="btn btn-default" ng-click="update(selectedUser.id, selectedUser)">Update</button>
     <button type="delete" class="btn btn-default" ng-click="delete(selectedUser.id)">Delete</button>
 </form>
