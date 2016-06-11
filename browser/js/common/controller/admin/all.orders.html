@@ -21,7 +21,7 @@
                 <option value="Delivered">Delivered</option>
                 <option value="Received">Received</option>
             </select>
-            <button type="update" class="btn btn-default" ng-click="updateStatus(selectedOrder.id, selectedOrder.orderStatus)">Update</button>
+            <button type="button" class="btn btn-default" ng-click="updateStatus(selectedOrder.id, selectedOrder.orderStatus)">Update</button>
         </li>
         <li>Email: {{selectedOrder.guestEmail}}</li>
         <li ng-show="selectedOrder.userId">User Id: {{selectedOrder.userId}}</li>

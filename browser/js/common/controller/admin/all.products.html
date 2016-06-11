@@ -31,13 +31,19 @@
         		<li ng-repeat="tag in selectedProduct.tags">{{tag.category}}</li>
         	</ul>
         </div>
+        <div ng-form name="catManage">
+        	Add or Remove Categories:
+			<input name="adminInput" type="text" class="form-control" placeholder="Search for an Category (by name)" ng-model="tag" typeahead="tag as tag.category for tag in tags | filter:$viewValue | limitTo:10">
+        	<button ng-hide="tagChecker || catManage.adminInput.$pristine" type="button" class="btn btn-default" ng-click="addTag(selectedProduct.id, tag.id)">Add</button>
+        	<button ng-show="tagChecker" type="button" class="btn btn-default" ng-click="removeTag(selectedProduct.id, tag.id)">Remove</button>
+        </div>
         <div class="checkbox">
             <label>
             <input type="checkbox" ng-model="selectedProduct.isAvailable"> Is available?
             </label>
         </div>
-        <button type="update" class="btn btn-default" ng-click="update(selectedProduct.id, selectedProduct)">Update</button>
-        <button type="delete" class="btn btn-default" ng-click="delete(selectedProduct.id)">Delete</button>
+        <button type="button" class="btn btn-default" ng-click="update(selectedProduct.id, selectedProduct)">Update</button>
+        <button type="button" class="btn btn-default" ng-click="delete(selectedProduct.id)">Delete</button>
     </form>
 
 </div>
