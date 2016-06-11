@@ -40,7 +40,7 @@ router.get('/:orderId', function(req, res, next) {
 
 //Create new order
 router.post('/', function(req, res, next) {
-  console.log(req.body)
+  // console.log(req.body)
   // console.log(req.user)
   var orderDetails = req.body
   var productIds = Object.keys(orderDetails.cart)
@@ -64,16 +64,17 @@ router.post('/', function(req, res, next) {
             guestEmail: order.guestEmail,
             productOrders: cartProducts,
             addressId: orderDetails.addressId,
-            billingId: orderDetails.billingId
+            billingId: orderDetails.billingId,
+            userId: req.user.id
           }, {
             include: [ProductOrders]
           })
       })
       .then(function(newOrder) {
-        console.log(newOrder)
+        // return newOrder.data
 
       })
-      .then(function() {
+      .then(function(data) {
         res.sendStatus(200)
       })
       .catch(next)
