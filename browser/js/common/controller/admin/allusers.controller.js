@@ -1,9 +1,11 @@
 'use strict';
 
-app.controller('UsersCtrl', function($scope, UserFactory, $log){
-	UserFactory.getAll()
-	.then(function(users){
-		console.log('hi')
-		$scope.users = users
-	})
+app.controller('UsersCtrl', function($scope, userFactory){
+	userFactory.getAll()
+	.then(users => $scope.users = users)
+
+	$scope.update = userFactory.updateUser
+
+	$scope.delete = userFactory.deleteUser
+
 })

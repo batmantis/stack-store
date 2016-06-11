@@ -4,8 +4,8 @@ app.config(function ($stateProvider) {
 		templateUrl: '/js/common/states/checkout/checkout.html',
 		controller: 'CheckoutCtrl',
 		resolve: {
-			userDetails: function (UserFactory) {
-				return UserFactory.getLoggedInUser();
+			userDetails: function (userFactory) {
+				return userFactory.getLoggedInUser();
 			}
 		}
 	});

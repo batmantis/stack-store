@@ -1,7 +1,7 @@
 'use strict';
 
-app.controller('adminCtrl', function($state, $scope, UserFactory) {
-    UserFactory.getLoggedInUser()
+app.controller('adminCtrl', function($state, $scope, userFactory) {
+    userFactory.getLoggedInUser()
         .then(function(user) {
             if (user.isAdmin) {
                 $scope.user = user

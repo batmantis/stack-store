@@ -1,4 +1,4 @@
-app.controller('CheckoutCtrl', function(CartFactory, $scope, $kookies, addressFactory, UserFactory, userDetails, $state) {
+app.controller('CheckoutCtrl', function(CartFactory, $scope, $kookies, addressFactory, userFactory, userDetails, $state) {
 
   $scope.getProducts = function() {
     CartFactory.getCartProducts().then(function(products) {
