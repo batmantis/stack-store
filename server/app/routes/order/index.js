@@ -6,6 +6,8 @@ var _ = require('lodash')
 var Order = db.model('order')
 var Product = db.model('product')
 var ProductOrders = db.model('productOrders')
+var Address = db.model('address')
+var Billing = db.model('billing')
 module.exports = router
 
 //attach all data for orderid
@@ -42,13 +44,30 @@ router.get('/:orderId', function(req, res, next) {
 //Create new order
 router.post('/', function(req, res, next) {
   if (_.isEmpty(req.body.cart)) next(new Error('Cannot create an order with empty cart'))
-  else { var orderDetails = req.body
-    orderDetails.userId = req.user.id
-    Order.createNewOrder(orderDetails)
-    .then(function(data) {
-      res.send(data)
-    })
-    .catch(next)
+  else {
+    var orderDetails = req.body
+    orderDetails.userId = req.user ? req.user.id : null
+    if (orderDetails.billingId === null) {
+      Address.create(orderDetails.address)
+      .then((newAddress) => orderDetails.addressId = newAddress.id)
+      .then(function() {
+        return Billing.create(orderDetails.billing)
+      })
+      .then((newBilling) => orderDetails.billingId = newBilling.id)
+      .then(function() {
+        Order.createNewOrder(orderDetails)
+        .then(function(data) {
+          res.send(data)
+        })
+        .catch(next)
+      })
+    } else {
+      Order.createNewOrder(orderDetails)
+      .then(function(data) {
+        res.send(data)
+      })
+      .catch(next)
+    }
   }
 })
 

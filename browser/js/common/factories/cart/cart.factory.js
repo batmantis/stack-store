@@ -55,7 +55,7 @@ app.factory('CartFactory', function($http, $kookies, $state, productFactory, $q)
 			.then(function(order) {
 					$kookies.set('cart', {}, { path: '/' });
 					console.log(order)
-					// $state.go
+					$state.go('orderConfirmation', {order: order})
 			})
 		},
 
@@ -65,7 +65,6 @@ app.factory('CartFactory', function($http, $kookies, $state, productFactory, $q)
  			for(var i = 0; i < num; i++){
  			    arr[i] = i+1;
  			}
- 			console.log(arr);
  			return arr;
   		}
 	}
