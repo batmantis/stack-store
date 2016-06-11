@@ -1,4 +1,4 @@
-app.controller('userDetailController', function($scope, $log, $state, loggedInUser, UserFactory, addressFactory) {
+app.controller('userDetailController', function($scope, $log, $state, loggedInUser, userFactory, addressFactory) {
     if (loggedInUser) {
         $scope.user = loggedInUser;
     } else {

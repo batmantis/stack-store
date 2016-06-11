@@ -1,0 +1,11 @@
+<div ng-repeat="user in users" ng-model=user.data[user.id]>
+
+<div ng-model=user.data[user.id]>
+<span contenteditable>{{user.email}}</span>
+Reset their password?
+<input type="checkbox" value="{{user.resetPassword}}" ng-checked="user.resetPassword">
+Admin 
+<input type="checkbox" value="{{user.isAdmin}}" ng-checked="user.isAdmin">
+</div>
+<!-- {{user}} -->
+</div>

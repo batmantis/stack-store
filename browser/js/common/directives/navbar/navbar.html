@@ -10,11 +10,12 @@
         </ul>
         <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
         <button ui-sref="cart" class="btn login-button">Cart</button>
+            <button class="btn login-button"><a ng-click="logout()">Logout</a></button>
         <div ng-show="user" class="welcome">
             <span>Welcome, 
                 <a ui-sref="userDetail">{{ user.email }}!</a>
             </span>
-            <a ng-click="logout()">Logout</a>
         </div>
+            <button ng-show="user.isAdmin" class="btn login-button"><a ui-sref="admin">Admin</a></button>
     </div>
 </nav>
