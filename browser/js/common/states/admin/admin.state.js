@@ -7,17 +7,21 @@ app.config(function($stateProvider){
 		controller: 'adminCtrl'
 	})
 
-	$stateProvider.state('admin.user', {
+	$stateProvider.state('admin.users', {
 		url: '/users',
 		templateUrl: 'js/common/directives/admin/all.users.html',
 		controller: 'UsersCtrl'
-		// resolve: {
-		// 	users: function(userFactory) {
-		// 		return userFactory.getAll()
-		// 		.then(function(users){
-		// 			return users
-		// 		})
-		// 	}
-		// }
+	})
+
+	$stateProvider.state('admin.orders', {
+		url: '/users',
+		templateUrl: 'js/common/directives/admin/all.users.html',
+		controller: 'OrdersCtrl'
+	})
+
+	$stateProvider.state('admin.reviews', {
+		url: '/reviews',
+		templateUrl: 'js/common/directives/admin/all.users.html',
+		controller: 'ReviewCtrl'
 	})
 })

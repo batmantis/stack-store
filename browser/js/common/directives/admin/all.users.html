@@ -1,5 +1,4 @@
-<div ng-repeat="user in users" ng-model=user.data[user.id]>
-
+<!-- <div>
 <div ng-model=user.data[user.id]>
 <span contenteditable>{{user.email}}</span>
 Reset their password?
@@ -7,11 +6,13 @@ Reset their password?
 Admin 
 <input type="checkbox" value="{{user.isAdmin}}" ng-checked="user.isAdmin">
 </div>
-<!-- {{user}} -->
+{{user}}
+</div>
+ -->
+<div>
+<input type="text" class="form-control" placeholder="Search for an user (by email)" ng-model="selectedUser" typeahead="user as user.email for user in users | filter:$viewValue | limitTo:10">
 </div>
 
-
-<div>
-<input type="text" class="form-control" placeholder="Search for an user (by email)" ng-model="selectedUser" typeahead="user as user.email for user in users | filter:$viewValue | limitTo:3">
-
+<div ng-show="selectedUser.email">
+{{selectedUser}}
 </div>
