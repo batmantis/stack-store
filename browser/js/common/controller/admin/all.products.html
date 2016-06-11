@@ -25,6 +25,12 @@
             <label for="exampleInputEmail1">Quantity</label>
             <input type="quantity" class="form-control" id="exampleInputEmail1" placeholder="Enter quantity" ng-model="selectedProduct.quantity">
         </div>
+        <div>
+        	Categories:
+        	<ul>
+        		<li ng-repeat="tag in selectedProduct.tags">{{tag.category}}</li>
+        	</ul>
+        </div>
         <div class="checkbox">
             <label>
             <input type="checkbox" ng-model="selectedProduct.isAvailable"> Is available?
