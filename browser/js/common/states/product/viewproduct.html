@@ -36,10 +36,16 @@ There is no reviews for this product.
             </select>
         </fieldset>
         <fieldset class="form-group">
-            <textarea ng-model="review.comment" class="form-control" placeholder="Your review" title="Review" required></textarea>
+            <textarea name="review" ng-model="review.comment" class="form-control" placeholder="Your review" title="Review" ng-minlength="100" ng-maxlength="300" required></textarea>
         </fieldset>
         <fieldset class="form-group">
-            <input type="submit" class="btn btn-primary pull-right" value="Submit Review">
+            <span ng-show="reviewForm.review.$error.minlength && reviewForm.review.$dirty">
+                Your review is too short.
+            </span>
+            <span ng-show="reviewForm.review.$error.maxlength && reviewForm.review.$dirty">
+                Your review is too long.
+            </span>
+            <input type="submit" ng-disabled="reviewForm.$invalid" class="btn btn-primary pull-right" value="Submit Review">
         </fieldset>
     </form>
 </div>

@@ -26,15 +26,25 @@ router.param('productId', function(req, res, next, productId) {
         .catch(next);
 });
 
-//Get all products or search query
+//Get all products
 router.get('/', function(req, res, next) {
-    Product.findAll({ where: {name: {$iLike: '%' + req.query.name + '%'}} })
+    Product.findAll()
         .then(function(products) {
 
             res.send(products)
         })
         .catch(next)
 })
+
+router.get('/search/', function(req, res, next) {
+    Product.findAll({ where: { name: { $iLike: '%' + req.query.name + '%' } } })
+        .then(function(products) {
+
+            res.send(products)
+        })
+        .catch(next)
+})
+
 
 //Get one product by id
 router.get('/:productId', function(req, res, next) {
