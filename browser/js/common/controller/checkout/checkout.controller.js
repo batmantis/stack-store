@@ -16,7 +16,9 @@ app.controller('CheckoutCtrl', function(CartFactory, $scope, $kookies, addressFa
   }
 
   $scope.order = {
-    addressId: null
+    addressId: null,
+    billingId: null,
+    email: null
   }
 
 
@@ -25,5 +27,8 @@ app.controller('CheckoutCtrl', function(CartFactory, $scope, $kookies, addressFa
   }
 
   $scope.setAddressId()
+
+  $scope.checkout = CartFactory.checkout
+
 
 })

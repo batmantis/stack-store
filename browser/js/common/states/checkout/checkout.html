@@ -3,8 +3,11 @@
 <div ng-repeat="product in cartProducts">
   <div>Product: {{product.name}} / Quantity: {{product.cartQuantity}}</div>
 </div>
+<div ng-if="!user">
+  <input ng-model="order.email">
+</div>
 <h3>Your Addresses</h3>
-<div ng-show="user.addresses.length"class="user-section-box">
+<div ng-if="user.addresses" class="user-section-box">
 <hr>
 {{order.addressId}}
 <form name="addressForm">
@@ -21,3 +24,7 @@
 </form>
 </div>
 <add-address update="update()"></add-address>
+<h3>Your Billing Info</h3>
+<h4>Credit Card Info</h4>
+<h4>Billing Address</h4>
+<button ng-click="checkout(order)">Checkout</button>
