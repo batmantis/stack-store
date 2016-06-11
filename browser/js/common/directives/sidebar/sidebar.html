@@ -1,17 +1,15 @@
 <div class="sidebar-wrapper">
-	<div class="panel panel-default">
-		<div class="panel-body">
-			<div class="sidebar-top">
-				<h2>Categories</h2>
-				<ul>
-					<li ng-repeat="tag in allTags"><a ui-sref="tag({tagId: tag.id})">{{tag.category}}</a></li>
-				</ul>
-			</div>
-
-			<div class="sidebar-bottom">
-				<ul>
-				</ul>
-			</div>
-		</div>
-	</div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="sidebar-top">
+                <h2>Categories</h2>
+                <div><h4><a ui-sref="search">All Products</a></h4></div>
+                <ul>
+                    <li ng-repeat="tag in allTags"><a ui-sref="tag({tagId: tag.id})">{{tag.category}}</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-bottom">
+            </div>
+        </div>
+    </div>
 </div>
