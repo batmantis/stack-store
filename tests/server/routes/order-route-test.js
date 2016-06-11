@@ -7,27 +7,34 @@ var dbURI = 'postgres://localhost:5432/testing-fsg';
 var db = new Sequelize(dbURI, {
     logging: false
 });
+
+//Lines below relations copied from index.js
 require('../../../server/db/models/order')(db);
 require('../../../server/db/models/product')(db);
+require('../../../server/db/models/tag')(db);
 require('../../../server/db/models/user')(db);
+require('../../../server/db/models/review')(db);
 require('../../../server/db/models/address')(db);
 require('../../../server/db/models/billing')(db);
+require('../../../server/db/models/product.orders.js')(db);
+
+
+
 
 var supertest = require('supertest');
 
 describe('Order Route:', function () {
 
-    var app,Order,Product;
+    var app,Order,Product,Tag,User,Review,Address,Billing,ProductOrders;
     var ordersToAdd = [
         {
             orderTotal: 61.98,
-            orderStatus: 'Created'
         },
         {
             orderTotal: 612.32,
-            orderStatus: 'Created'
         }
     ];
+    var createOrders = orders.map((order) => Order.create(order))
 
     beforeEach('Sync DB', function () {
         return db.sync({ force: true });
@@ -35,9 +42,25 @@ describe('Order Route:', function () {
 
     beforeEach('Create app', function () {
         app = require('../../../server/app')(db);
-        Order = db.model('order');
         Product = db.model('product');
-        Order.belongsToMany(Product, {through: 'ProductOrders'});
+        Tag = db.model('tag');
+        Order = db.model('order');
+        User = db.model('user');
+        Review = db.model('review');
+        Address = db.model('address');
+        Billing = db.model('billing');
+        ProductOrders = db.model('productOrders');
+
+        Product.belongsToMany(Tag, {through: 'TagProducts'});
+        Tag.belongsToMany(Product, {through: 'TagProducts'});
+        Order.belongsToMany(Product, {through: ProductOrders});
+        User.hasMany(Order);
+        User.hasMany(Address);
+        User.hasMany(Billing);
+        Product.hasMany(Review);
+        User.hasMany(Review);
+        Order.belongsTo(Address);
+        Order.belongsTo(Billing);
     });
 
 	describe('GET to /api/orders', function () {

@@ -1,5 +1,6 @@
 'use strict';
 var db = require('./_db');
+
 require('./models/order')(db);
 require('./models/product')(db);
 require('./models/tag')(db);
@@ -18,6 +19,8 @@ var Address = db.model('address');
 var Billing = db.model('billing');
 var ProductOrders = db.model('productOrders');
 
+console.log(db)
+
 Product.belongsToMany(Tag, {through: 'TagProducts'});
 Tag.belongsToMany(Product, {through: 'TagProducts'});
 Order.belongsToMany(Product, {through: ProductOrders});
@@ -30,6 +33,7 @@ Order.belongsTo(Address);
 Order.belongsTo(Billing);
 Order.hasMany(ProductOrders)
 
+//Not sure if this is needed
 ProductOrders.afterCreate(function(productOrders){
 	Order.findById(productOrders.orderId)
 	.then(function(order){

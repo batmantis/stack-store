@@ -43,8 +43,8 @@ router.post('/', function(req, res, next) {
   // console.log(req.body)
   // console.log(req.user)
   var orderDetails = req.body
+  orderDetails.userId = req.user.id
   var productIds = Object.keys(orderDetails.cart)
-  // console.log(productIds)
   var order = {
     orderTotal: 0,
     guestEmail: orderDetails.email
@@ -65,13 +65,13 @@ router.post('/', function(req, res, next) {
             productOrders: cartProducts,
             addressId: orderDetails.addressId,
             billingId: orderDetails.billingId,
-            userId: req.user.id
+            userId: orderDetails.userId
           }, {
             include: [ProductOrders]
           })
       })
       .then(function(newOrder) {
-        // return newOrder.data
+        return newOrder.data
 
       })
       .then(function(data) {
