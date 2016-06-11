@@ -14,7 +14,7 @@ app.controller('SignupCtrl', function ($scope, userFactory, AuthService, $state)
 
     $scope.sendSignUp = function (loginInfo) {
         console.log(loginInfo);
-        UserFactory.addUser(loginInfo)
+        userFactory.addUser(loginInfo)
             .then(function (user) {
                 console.log(user);
                 return AuthService.login(loginInfo)

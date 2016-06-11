@@ -9,3 +9,9 @@ Admin
 </div>
 <!-- {{user}} -->
 </div>
+
+
+<div>
+<input type="text" class="form-control" placeholder="Search for an user (by email)" ng-model="selectedUser" typeahead="user as user.email for user in users | filter:$viewValue | limitTo:3">
+
+</div>

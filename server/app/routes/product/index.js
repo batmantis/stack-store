@@ -5,7 +5,6 @@ var db = require('../../../db')
 var Product = db.model('product')
 var Review = db.model('review')
 var Tag = db.model('tag')
-var User = db.model('user')
 var _ = require('lodash')
 
 module.exports = router
