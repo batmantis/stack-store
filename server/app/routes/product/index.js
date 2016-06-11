@@ -27,7 +27,8 @@ router.param('productId', function(req, res, next, productId) {
 
 //Get all products
 router.get('/', function(req, res, next) {
-    Product.findAll()
+    var query = req.query.name ? {name: {$iLike: '%' + req.query.name + '%'}} : {}
+    Product.findAll({ where: query })
         .then(function(products) {
 
             res.send(products)
