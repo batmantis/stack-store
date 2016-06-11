@@ -1,17 +1,26 @@
 <div class="container">
-  <div class="row">
-    <h1>List of Products</h1>
-    <!-- <div class="col-lg-8"> -->
-      <div ng-repeat="product in products" class="col-lg-3">
-        <div class="panel panel-default" >
-      		<div class="panel-body">
-            <a ui-sref="viewProduct({productId: product.id})">
-            <img class="s-product-image" ng-src="{{product.imageUrls[0]}}" />
-            <div>{{product.name}}</div>
-            </a>
-          </div>
+    <div class="row">
+        <h1>List of Products</h1>
+        <h3>Refine By</h3>
+        <form class="form-group form-inline">
+            <select type="radio" name="filter" ng-model="priceFilter">
+              <option value="price">Price (Low To High)</option>
+              <option value="-price">Price (High To Low)</option>
+              <option>Review Rating</option>
+            </select>
+        </form>
+        <!-- <div class="col-lg-8"> -->
+        <div ng-repeat="product in products | orderBy: priceFilter" class="col-lg-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a ui-sref="viewProduct({productId: product.id})">
+                        <img class="s-product-image" ng-src="{{product.imageUrls[0]}}" />
+                        <div>{{product.name}}</div>
+                        <div>{{ product.price }}</div>
+                    </a>
+                </div>
+            </div>
         </div>
-      </div>
-    <!-- </div> -->
-  </div>
+        <!-- </div> -->
+    </div>
 </div>
