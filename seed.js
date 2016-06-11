@@ -38,6 +38,11 @@ var seedUsers = function () {
             isAdmin: true
         },
         {
+            email: 'jan@jan.com',
+            password: 'jan',
+            isAdmin: true
+        },
+        {
             email: 'obama@gmail.com',
             password: 'potus'
         },
@@ -48,11 +53,6 @@ var seedUsers = function () {
         {
             email: 'alfonso@gmail.com',
             password: '69'
-        },
-        {
-            email: 'coldshower@gmail.com',
-            password: 'hotshower',
-            isAdmin: true
         }
     ];
 

@@ -1,5 +1,10 @@
 app.factory('productFactory', function($http) {
   return {
+    getAll: function() {
+      return $http.get('/api/product/')
+      .then(products => products.data)
+    },
+
     getProductDetails: function(productId) {
         return $http.get('/api/product/' + productId)
         .then(function(product) {

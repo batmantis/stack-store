@@ -1,0 +1,7 @@
+<div>
+<input type="text" class="form-control" placeholder="Search for an product (by name)" ng-model="selectedProduct" typeahead="product as product.name for product in products | filter:$viewValue | limitTo:10">
+</div>
+
+<div ng-show="selectedProduct.name">
+{{selectedProduct}}
+</div>	
