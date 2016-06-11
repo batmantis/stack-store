@@ -9,19 +9,25 @@ app.config(function($stateProvider){
 
 	$stateProvider.state('admin.users', {
 		url: '/users',
-		templateUrl: 'js/common/directives/admin/all.users.html',
+		templateUrl: 'js/common/controller/admin/all.users.html',
 		controller: 'UsersCtrl'
 	})
 
 	$stateProvider.state('admin.orders', {
-		url: '/users',
-		templateUrl: 'js/common/directives/admin/all.users.html',
+		url: '/orders',
+		templateUrl: 'js/common/controller/admin/all.orders.html',
 		controller: 'OrdersCtrl'
 	})
 
 	$stateProvider.state('admin.reviews', {
 		url: '/reviews',
-		templateUrl: 'js/common/directives/admin/all.users.html',
+		templateUrl: 'js/common/controller/admin/all.reviews.html',
 		controller: 'ReviewCtrl'
+	})
+
+	$stateProvider.state('admin.products', {
+		url: '/products',
+		templateUrl: 'js/common/controller/admin/all.products.html',
+		controller: 'ProductsCtrl'
 	})
 })

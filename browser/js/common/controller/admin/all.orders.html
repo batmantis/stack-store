@@ -1,0 +1,7 @@
+<div>
+<input type="text" class="form-control" placeholder="Search for an order (by id)" ng-model="selectedOrder" typeahead="order as order.id for order in orders | filter:$viewValue | limitTo:10">
+</div>
+
+<div ng-show="selectedOrder.id">
+{{selectedOrder}}
+</div>	

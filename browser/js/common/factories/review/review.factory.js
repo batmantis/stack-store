@@ -5,6 +5,11 @@ app.factory('reviewFactory', function($http){
 			.then(function(review){
 				return review.data
 			})
+		},
+
+		getAll: function() {
+			return $http.get('/api/review/')
+			.then(review => review.data)
 		}
 	}
 })
