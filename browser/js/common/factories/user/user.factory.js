@@ -1,4 +1,4 @@
-app.factory('userFactory', function ($http) {
+app.factory('UserFactory', function ($http) {
 	function returnData (res) {
 		return res.data;
 	}

@@ -8,13 +8,13 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('SignupCtrl', function ($scope, userFactory, AuthService, $state) {
+app.controller('SignupCtrl', function ($scope, UserFactory, AuthService, $state) {
 
     $scope.signup = {};
 
     $scope.sendSignUp = function (loginInfo) {
         console.log(loginInfo);
-        userFactory.addUser(loginInfo)
+        UserFactory.addUser(loginInfo)
             .then(function (user) {
                 console.log(user);
                 return AuthService.login(loginInfo)
