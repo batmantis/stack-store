@@ -40,44 +40,13 @@ router.get('/:orderId', function(req, res, next) {
 
 //Create new order
 router.post('/', function(req, res, next) {
-  // console.log(req.body)
-  // console.log(req.user)
   var orderDetails = req.body
   orderDetails.userId = req.user.id
-  var productIds = Object.keys(orderDetails.cart)
-  var order = {
-    orderTotal: 0,
-    guestEmail: orderDetails.email
-  }
-  Product.findAll({ where: {id: {$in: productIds}} })
-      .then(function(products) {
-        var cartProducts = products.map((product) => {
-          order.orderTotal += orderDetails.cart[product.id] * product.price
-          return {
-            productId: product.id,
-            quantity: orderDetails.cart[product.id],
-            itemPrice: product.price,
-          }
-        })
-        return Order.create({
-            orderTotal: order.orderTotal,
-            guestEmail: order.guestEmail,
-            productOrders: cartProducts,
-            addressId: orderDetails.addressId,
-            billingId: orderDetails.billingId,
-            userId: orderDetails.userId
-          }, {
-            include: [ProductOrders]
-          })
-      })
-      .then(function(newOrder) {
-        return newOrder.data
-
-      })
-      .then(function(data) {
-        res.sendStatus(200)
-      })
-      .catch(next)
+  Order.createNewOrder(orderDetails)
+  .then(function(data) {
+    res.sendStatus(200)
+  })
+  .catch(next)
 })
 
 router.put('/:orderId', function(req, res, next){

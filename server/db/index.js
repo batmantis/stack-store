@@ -1,7 +1,6 @@
 'use strict';
 var db = require('./_db');
 
-require('./models/order')(db);
 require('./models/product')(db);
 require('./models/tag')(db);
 require('./models/user')(db);
@@ -9,6 +8,7 @@ require('./models/review')(db);
 require('./models/address')(db);
 require('./models/billing')(db);
 require('./models/product.orders.js')(db);
+require('./models/order')(db);
 
 var Product = db.model('product');
 var Tag = db.model('tag');
@@ -18,8 +18,6 @@ var Review = db.model('review');
 var Address = db.model('address');
 var Billing = db.model('billing');
 var ProductOrders = db.model('productOrders');
-
-console.log(db)
 
 Product.belongsToMany(Tag, {through: 'TagProducts'});
 Tag.belongsToMany(Product, {through: 'TagProducts'});
