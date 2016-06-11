@@ -80,26 +80,38 @@ router.post('/', function(req, res, next) {
       .catch(next)
 })
 
+router.put('/:orderId', function (req, res, next) {
+    if (req.user.isAdmin) {
+        next();
+    } else {
+        var error = new Error('not an admin');
+        error.status = 403;
+        next(error);
+    }
+})
+
+router.delete('/:orderId', function (req, res, next) {
+    if (req.user.isAdmin) {
+        next();
+    } else {
+        var error = new Error('not an admin');
+        error.status = 403;
+        next(error);
+    }
+})
+
 router.put('/:orderId', function(req, res, next){
-  if (req.user.isAdmin) {
-    req.order.update(req.body)
-    .then(function(order){
-      res.send(order)
-    })
-    .catch(next)
-  } else {
-    next(new Error('not an admin'))
-  }
+  req.order.update(req.body)
+  .then(function(order){
+    res.send(order)
+  })
+  .catch(next);
 })
 
 router.delete('/:orderId', function(req, res, next){
-  if (req.user.isAdmin) {
     req.order.destroy()
     .then(function(){
       res.sendStatus(204)
     })
-    .catch(next)
-  } else {
-    next(new Error('not an admin'))
-  }
+    .catch(next);
 })
