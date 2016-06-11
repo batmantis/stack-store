@@ -1,4 +1,4 @@
-app.factory('OrderFactory', function ($http) {
+app.factory('orderFactory', function ($http) {
 	function returnData (res) {
 		return res.data;
 	}
@@ -9,7 +9,7 @@ app.factory('OrderFactory', function ($http) {
 			.then(returnData);
 		},
 		getOne: function (orderId) {
-			return $http.get('/api/order/' + id)
+			return $http.get('/api/order/' + orderId)
 			.then(returnData);
 		},
 		getofUser: function (userId) {

@@ -5,7 +5,6 @@ var db = require('../../../db')
 var Product = db.model('product')
 var Review = db.model('review')
 var Tag = db.model('tag')
-var User = db.model('user')
 var _ = require('lodash')
 
 module.exports = router
@@ -26,7 +25,7 @@ router.param('productId', function(req, res, next, productId) {
         .catch(next);
 });
 
-//Get all products or search query
+//Get all products
 router.get('/', function(req, res, next) {
     var query = req.query.name ? {name: {$iLike: '%' + req.query.name + '%'}} : {}
     Product.findAll({ where: query })
@@ -36,6 +35,16 @@ router.get('/', function(req, res, next) {
         })
         .catch(next)
 })
+
+router.get('/search/', function(req, res, next) {
+    Product.findAll({ where: { name: { $iLike: '%' + req.query.name + '%' } } })
+        .then(function(products) {
+
+            res.send(products)
+        })
+        .catch(next)
+})
+
 
 //Get one product by id
 router.get('/:productId', function(req, res, next) {
