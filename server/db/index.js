@@ -31,13 +31,13 @@ Order.belongsTo(Address);
 Order.belongsTo(Billing);
 Order.hasMany(ProductOrders)
 
-//Not sure if this is needed
-ProductOrders.afterCreate(function(productOrders){
-	Order.findById(productOrders.orderId)
-	.then(function(order){
-		order.orderTotal += productOrders.getSubtotal();
-		return order.save();
-	});
-});
+// // Don't need this code anymore
+// ProductOrders.afterCreate(function(productOrders){
+// 	Order.findById(productOrders.orderId)
+// 	.then(function(order){
+// 		order.orderTotal += productOrders.getSubtotal();
+// 		return order.save();
+// 	});
+// });
 
 module.exports = db;
