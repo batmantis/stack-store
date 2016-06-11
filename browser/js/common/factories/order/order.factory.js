@@ -9,7 +9,7 @@ app.factory('orderFactory', function ($http) {
 			.then(returnData);
 		},
 		getOne: function (orderId) {
-			return $http.get('/api/order/' + id)
+			return $http.get('/api/order/' + orderId)
 			.then(returnData);
 		},
 		getofUser: function (userId) {
