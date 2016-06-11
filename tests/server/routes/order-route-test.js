@@ -9,7 +9,6 @@ var db = new Sequelize(dbURI, {
 });
 
 //Lines below relations copied from index.js
-require('../../../server/db/models/order')(db);
 require('../../../server/db/models/product')(db);
 require('../../../server/db/models/tag')(db);
 require('../../../server/db/models/user')(db);
@@ -17,6 +16,7 @@ require('../../../server/db/models/review')(db);
 require('../../../server/db/models/address')(db);
 require('../../../server/db/models/billing')(db);
 require('../../../server/db/models/product.orders.js')(db);
+require('../../../server/db/models/order')(db);
 
 
 
@@ -29,18 +29,16 @@ describe('Order Route:', function () {
     var ordersToAdd = [
         {
             orderTotal: 61.98,
+
         },
         {
             orderTotal: 612.32,
         }
     ];
-    var createOrders = orders.map((order) => Order.create(order))
+    var createOrders = orders.map((order) => Order.createNewOrder(order))
 
-    beforeEach('Sync DB', function () {
-        return db.sync({ force: true });
-    });
-
-    beforeEach('Create app', function () {
+    beforeEach('Sync DB and Create App', function () {
+        db.sync({ force: true });
         app = require('../../../server/app')(db);
         Product = db.model('product');
         Tag = db.model('tag');
@@ -71,7 +69,7 @@ describe('Order Route:', function () {
 		});
 
 		it('should get all Orders', function (done) {
-			Order.bulkCreate(ordersToAdd, {returning:true})
+			Promise.all(createOrders)
 			.then(function(orders){
 				guestAgent.get('/api/orders/')
 				.expect(200)

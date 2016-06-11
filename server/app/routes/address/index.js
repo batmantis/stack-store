@@ -11,7 +11,7 @@ module.exports = router
 
 router.post('/', function(req, res, next) {
     var creatingAddress = Address.create(req.body)
-
+    if (req.user) {
     var findingUser = User.findById(req.user.id)
 
     Promise.all([creatingAddress, findingUser])
@@ -20,6 +20,13 @@ router.post('/', function(req, res, next) {
         res.send(address)
     })
     .catch(next)
+  } else {
+    Promise.resolve(creatingAddress)
+    .then(function(address) {
+      res.send(address)
+    })
+    .catch(next)
+  }  
 })
 
 router.delete('/:addressId', function(req, res, next) {
