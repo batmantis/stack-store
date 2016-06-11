@@ -1,7 +1,32 @@
 <div>
-<input type="text" class="form-control" placeholder="Search for an order (by id)" ng-model="selectedOrder" typeahead="order as order.id for order in orders | filter:$viewValue | limitTo:10">
+    Order filter:
+    <select name="filter" ng-model="filter">
+        <option value="All">All</option>
+        <option value="Created">Created</option>
+        <option value="Pending">Pending</option>
+        <option value="Delivered">Delivered</option>
+        <option value="Received">Received</option>
+    </select>
+    <input type="text" class="form-control" placeholder="Search for an order (by id)" ng-model="selectedOrder" typeahead="order as order.id for order in orders | filter:$viewValue | limitTo:10">
 </div>
-
 <div ng-show="selectedOrder.id">
-{{selectedOrder}}
-</div>	
+    <ul>
+        {{selectedOrder}}
+        <li>Order Id: {{selectedOrder.id}}</li>
+        <li>
+            Order Status:
+            <select name="filter" ng-model="selectedOrder.orderStatus">
+                <option value="Created">Created</option>
+                <option value="Pending">Pending</option>
+                <option value="Delivered">Delivered</option>
+                <option value="Received">Received</option>
+            </select>
+            <button type="update" class="btn btn-default" ng-click="updateStatus(selectedOrder.id, selectedOrder.orderStatus)">Update</button>
+        </li>
+        <li>Email: {{selectedOrder.guestEmail}}</li>
+        <li ng-show="selectedOrder.userId">User Id: {{selectedOrder.userId}}</li>
+        <!-- prefer to show full address instead of id - need to fix it in route to add data -->
+        <li ng-show="selectedOrder.addressId">Shiiping Address: {{selectedOrder.addressId}}</li>
+        <li ng-show="selectedOrder.billingId">User Id{{selectedOrder.billingId}}</li>
+    </ul>
+</div>

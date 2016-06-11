@@ -8,6 +8,10 @@ app.factory('orderFactory', function ($http) {
 			return $http.get('/api/order/')
 			.then(returnData);
 		},
+		getAllFilter: function(filter) {
+			return $http.get('/api/order/filter/' + filter)
+			.then(returnData)
+		},
 		getOne: function (orderId) {
 			return $http.get('/api/order/' + orderId)
 			.then(returnData);
@@ -15,6 +19,10 @@ app.factory('orderFactory', function ($http) {
 		getofUser: function (userId) {
 			return $http.get('/api/user/' + userId + '/orders')
 			.then(returnData);
+		},
+		updateStatus: function(orderId, status) {
+			return $http.put('/api/order/' + orderId, {orderStatus: status})
+			.then(returnData)
 		}
 	};
 });

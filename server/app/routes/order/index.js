@@ -33,6 +33,17 @@ router.get('/', function(req, res, next) {
   .catch(next)
 })
 
+//Get all orders with filter (Created, Pending, etc.)
+router.get('/filter/:orderStatus', function(req, res, next){
+  Order.findAll({
+    where: {
+      orderStatus: req.params.orderStatus
+    }
+  })
+  .then(orders => res.send(orders))
+  .catch(next)
+})
+
 //Get one order by id
 router.get('/:orderId', function(req, res, next) {
     res.send(req.order)
