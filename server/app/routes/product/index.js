@@ -9,15 +9,6 @@ var _ = require('lodash')
 
 module.exports = router
 
-//Get all products
-router.get('/', function(req, res, next) {
-    var query = req.query.name ? {name: {$iLike: '%' + req.query.name + '%'}} : {}
-    Product.findAll({ where: query })
-        .then(function(products) {
-            res.send(products)
-        })
-        .catch(next)
-})
 
 router.param('productId', function(req, res, next, productId) {
     Product.findById(productId)
