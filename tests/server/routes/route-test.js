@@ -264,7 +264,6 @@ describe('Product Route:', function () {
 
     });
   })
-  
-
-
+console.log('THESE TESTS CLEAR THE DATABASE PLEASE RESEED');
+console.log('THESE TESTS CLEAR THE DATABASE PLEASE RESEED');
 });
