@@ -10,7 +10,7 @@ app.controller('CheckoutCtrl', function(CartFactory, $scope, $kookies, addressFa
 
   $scope.user = userDetails
 
-  $scope.update = function(address) {
+  $scope.update = function() {
       $state.go($state.current, {}, {reload: true})
       $scope.setAddressId()
   }
