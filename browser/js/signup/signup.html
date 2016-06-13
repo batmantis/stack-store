@@ -6,7 +6,6 @@
         <alert type="danger" ng-show="error">
             {{ error }}
         </alert>
-        
         <div class="form-group">
             <label for="email">Email address</label>
             <input type="email" ng-model="signup.email" class="form-control" id="email" placeholder="Enter email" required>
@@ -19,5 +18,8 @@
             </div>
         </div>
         <button type="submit" class="btn btn-default">Sign Up</button>
+        <div>
+            <a class="btn btn-default" href="auth/google">Signup with Google</a>
+        </div>
     </form>
 </div>
