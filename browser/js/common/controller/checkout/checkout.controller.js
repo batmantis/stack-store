@@ -25,7 +25,8 @@ app.controller('CheckoutCtrl', function(CartFactory, $scope, $kookies, addressFa
 
 
   $scope.setAddressId = function() {
-    if ($scope.user.addresses) $scope.order.addressId = $scope.user.addresses[0].id
+    console.log($scope.user.addresses)
+    if ($scope.user.addresses.length) $scope.order.addressId = $scope.user.addresses[0].id
   }
 
   $scope.setAddressId()
