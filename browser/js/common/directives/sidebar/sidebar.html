@@ -3,6 +3,7 @@
         <div class="panel-body">
             <div class="sidebar-top">
                 <h2>Categories</h2>
+                <hr>
                 <div><h4><a ui-sref="search">All Products</a></h4></div>
                 <ul>
                     <li ng-repeat="tag in allTags"><a ui-sref="tag({tagId: tag.id})">{{tag.category}}</a></li>

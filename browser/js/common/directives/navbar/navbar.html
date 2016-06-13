@@ -1,5 +1,5 @@
 <nav class="navbar navbar-static-top">
-    <div class="container">
+    <div class="container-fluid">
         <div class="navbar-header">
             <fullstack-logo></fullstack-logo>
         </div>
@@ -8,14 +8,17 @@
                 <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
             </li>
         </ul>
-        <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
-        <button ui-sref="cart" class="btn login-button">Cart</button>
+        <search></search>
+        <div class="nav-float-right">
+            <div ng-show="user" class="welcome">
+                <span>Welcome, 
+                    <a ui-sref="userDetail">{{ user.email }}!</a>
+                </span>
+            </div>
+            <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
+            <button ui-sref="cart" class="btn login-button"><span class="glyphicon glyphicon-shopping-cart"></span></button>
             <button class="btn login-button"><a ng-click="logout()">Logout</a></button>
-        <div ng-show="user" class="welcome">
-            <span>Welcome, 
-                <a ui-sref="userDetail">{{ user.email }}!</a>
-            </span>
-        </div>
             <button ng-show="user.isAdmin" class="btn login-button"><a ui-sref="admin">Admin</a></button>
+        </div>
     </div>
 </nav>
