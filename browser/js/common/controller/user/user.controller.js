@@ -1,4 +1,4 @@
-app.controller('userDetailController', function($scope, $log, $state, loggedInUser, userFactory, addressFactory) {
+app.controller('userDetailController', function($scope, $log, $state, loggedInUser, userFactory, addressFactory, billingFactory) {
 
     if (loggedInUser) {
         $scope.user = loggedInUser;
@@ -19,14 +19,14 @@ app.controller('userDetailController', function($scope, $log, $state, loggedInUs
         .catch($log.error);
     }
 
-    // $scope.deleteBilling = function (billingId) {
-    //     billingFactory.deleteBilling(billingId)
-    //     .then(function () {
-    //        reloadState();
-    //        return null;
-    //     })
-    //     .catch($log.error);
-    // }
+    $scope.deleteBilling = function (billingId) {
+        billingFactory.deleteBilling(billingId)
+        .then(function () {
+           reloadState();
+           return null;
+        })
+        .catch($log.error);
+    }
 
     $scope.update = function() {
         reloadState();
