@@ -49,8 +49,11 @@ describe('productFactory', function() {
     it('getAll products', function(done) {
         var fakeProducts = makeProducts()
         $httpBackend
-            .whenGET('/api/product/')
-            .respond('200', fakeProducts)
+            .expect('GET', '/api/product/')
+            .respond(fakeProducts)
+
+        $httpBackend.expectGET('js/home/home.html').respond('200')
+
         productFactory.getAll()
             .then(function(products) {
                 expect(products).to.deep.equal(fakeProducts)
