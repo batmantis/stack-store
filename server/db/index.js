@@ -1,6 +1,6 @@
 'use strict';
 var db = require('./_db');
-require('./models/order')(db);
+
 require('./models/product')(db);
 require('./models/tag')(db);
 require('./models/user')(db);
@@ -8,6 +8,7 @@ require('./models/review')(db);
 require('./models/address')(db);
 require('./models/billing')(db);
 require('./models/product.orders.js')(db);
+require('./models/order')(db);
 
 var Product = db.model('product');
 var Tag = db.model('tag');
@@ -28,14 +29,15 @@ Product.hasMany(Review);
 User.hasMany(Review);
 Order.belongsTo(Address);
 Order.belongsTo(Billing);
-Order.hasMany(ProductOrders)
+Order.hasMany(ProductOrders);
 
-ProductOrders.afterCreate(function(productOrders){
-	Order.findById(productOrders.orderId)
-	.then(function(order){
-		order.orderTotal += productOrders.getSubtotal();
-		return order.save();
-	});
-});
+// // Don't need this code anymore
+// ProductOrders.afterCreate(function(productOrders){
+// 	Order.findById(productOrders.orderId)
+// 	.then(function(order){
+// 		order.orderTotal += productOrders.getSubtotal();
+// 		return order.save();
+// 	});
+// });
 
 module.exports = db;

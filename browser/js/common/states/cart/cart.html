@@ -1,8 +1,9 @@
 <h1>Shopping Cart</h1>
-<button ng-if="!cartIsEmpty()"><a ui-sref="checkout">Checkout</a></button>
+<button ng-if="!cartIsEmpty() && user" ui-sref="checkout">Checkout</button>
+<button ng-if="!cartIsEmpty() && !user" ui-sref="checkoutGuest">Checkout as Guest</button>
 <div ng-if="cartIsEmpty()">Cart is Empty</div>
 <div class="panel" ng-repeat="product in cartProducts">
-  <img class="s-product-image" src="{{product.imageUrls[0]}}"/>
+  <img class="s-product-image" ng-src="{{product.imageUrls[0]}}" ui-sref="viewProduct({productId: product.id})"/>
   {{product.name}}
   {{productQuantity(product.id)}}
   <form name="cartForm" ng-submit="changeQty(product.id, product.cartQuantity)">

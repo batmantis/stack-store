@@ -18,17 +18,18 @@ app.controller('CheckoutCtrl', function(CartFactory, $scope, $kookies, addressFa
   $scope.order = {
     addressId: null,
     billingId: null,
+    address: null,
+    billing: null,
     email: null
   }
 
 
   $scope.setAddressId = function() {
-    $scope.order.addressId = $scope.user.addresses[0].id
+    if ($scope.user.addresses) $scope.order.addressId = $scope.user.addresses[0].id
   }
 
   $scope.setAddressId()
 
   $scope.checkout = CartFactory.checkout
-
 
 })

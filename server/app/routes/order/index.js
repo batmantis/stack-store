@@ -2,9 +2,12 @@
 
 var router = require('express').Router()
 var db = require('../../../db')
+var _ = require('lodash')
 var Order = db.model('order')
 var Product = db.model('product')
 var ProductOrders = db.model('productOrders')
+var Address = db.model('address')
+var Billing = db.model('billing')
 module.exports = router
 
 //attach all data for orderid
@@ -51,44 +54,32 @@ router.get('/:orderId', function(req, res, next) {
 
 //Create new order
 router.post('/', function(req, res, next) {
-  // console.log(req.body)
-  // console.log(req.user)
-  var orderDetails = req.body
-  var productIds = Object.keys(orderDetails.cart)
-  // console.log(productIds)
-  var order = {
-    orderTotal: 0,
-    guestEmail: orderDetails.email
-  }
-  Product.findAll({ where: {id: {$in: productIds}} })
-      .then(function(products) {
-        var cartProducts = products.map((product) => {
-          order.orderTotal += orderDetails.cart[product.id] * product.price
-          return {
-            productId: product.id,
-            quantity: orderDetails.cart[product.id],
-            itemPrice: product.price,
-          }
+  if (_.isEmpty(req.body.cart)) next(new Error('Cannot create an order with empty cart'))
+  else {
+    var orderDetails = req.body
+    orderDetails.userId = req.user ? req.user.id : null
+    if (orderDetails.billingId === null) {
+      Address.create(orderDetails.address)
+      .then((newAddress) => orderDetails.addressId = newAddress.id)
+      .then(function() {
+        return Billing.create(orderDetails.billing)
+      })
+      .then((newBilling) => orderDetails.billingId = newBilling.id)
+      .then(function() {
+        Order.createNewOrder(orderDetails)
+        .then(function(data) {
+          res.send(data)
         })
-        return Order.create({
-            orderTotal: order.orderTotal,
-            guestEmail: order.guestEmail,
-            productOrders: cartProducts,
-            addressId: orderDetails.addressId,
-            billingId: orderDetails.billingId,
-            userId: req.user.id
-          }, {
-            include: [ProductOrders]
-          })
+        .catch(next)
       })
-      .then(function(newOrder) {
-        // return newOrder.data
-
-      })
+    } else {
+      Order.createNewOrder(orderDetails)
       .then(function(data) {
-        res.sendStatus(200)
+        res.send(data)
       })
       .catch(next)
+    }
+  }
 })
 
 router.put('/:orderId', function (req, res, next) {

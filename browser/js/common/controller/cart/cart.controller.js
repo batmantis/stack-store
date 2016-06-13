@@ -1,4 +1,6 @@
-app.controller('CartCtrl', function(CartFactory, $scope, $kookies) {
+app.controller('CartCtrl', function(CartFactory, $scope, $kookies, userDetails) {
+  $scope.user = userDetails
+
   $scope.getProducts = function() {
     CartFactory.getCartProducts().then(function(products) {
     products = _.sortBy(products, (product) => product.name)
