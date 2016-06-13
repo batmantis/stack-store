@@ -4,9 +4,16 @@ app.controller('productController', function(productFactory, $scope, product, $s
     $scope.addReview = function(review, productId) {
         reviewFactory.addReview(review, productId)
             .then(function(review) {
-                $scope.product.reviews.unshift(review)
+                $state.go($state.current, {}, {reload: true})
             })
     };
+
+    $scope.removeReview = function (reviewId) {
+        reviewFactory.removeReview(reviewId)
+        .then(function(){
+            $state.go($state.current, {}, {reload: true})
+        })
+    }
 
     $scope.getNumber = function(num){
         var amount = +this.product.quantity;

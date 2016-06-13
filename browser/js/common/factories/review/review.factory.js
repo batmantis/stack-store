@@ -7,6 +7,10 @@ app.factory('reviewFactory', function($http){
 			})
 		},
 
+		removeReview: function(reviewId) {
+			return $http.delete('/api/review/' + reviewId)
+		},
+
 		getAll: function() {
 			return $http.get('/api/review/')
 			.then(review => review.data)

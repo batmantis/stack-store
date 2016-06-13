@@ -19,12 +19,6 @@ app.config(function($stateProvider){
 		controller: 'OrdersCtrl'
 	})
 
-	$stateProvider.state('admin.reviews', {
-		url: '/reviews',
-		templateUrl: 'js/common/controller/admin/all.reviews.html',
-		controller: 'ReviewCtrl'
-	})
-
 	$stateProvider.state('admin.products', {
 		url: '/products',
 		templateUrl: 'js/common/controller/admin/all.products.html',

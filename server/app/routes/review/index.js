@@ -60,3 +60,14 @@ router.post('/product/:productId', function(req, res, next) {
         res.sendStatus(401)
     }
 })
+
+//Delete review
+router.delete('/:reviewId', function(req, res, next){
+    if (req.user.isAdmin) {
+        Review.findById(req.params.reviewId)
+        .then(review => review.destroy())
+        .then(nothing => res.send(204))
+    } else {
+        res.sendStatus(401)
+    }
+})

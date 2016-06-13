@@ -1,7 +1,0 @@
-<div>
-<input type="text" class="form-control" placeholder="Search for an review (by message)" ng-model="selectedReview" typeahead="review as review.comment for review in reviews | filter:$viewValue | limitTo:10">
-</div>
-
-<div ng-show="selectedReview.comment">
-{{selectedReview}}
-</div>

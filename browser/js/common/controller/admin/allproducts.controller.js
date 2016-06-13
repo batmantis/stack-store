@@ -7,13 +7,45 @@ app.controller('ProductsCtrl', function($scope, productFactory, tagFactory) {
     tagFactory.getAll()
         .then(tags => $scope.tags = tags)
 
+    $scope.addingProduct = false
+
+    $scope.addNew = function() {
+        $scope.addingProduct = true
+        $scope.selectedProduct = {
+            imageUrls: [],
+            name: "Enter name",
+            price: undefined,
+            brand: "",
+            description: "",
+            quantity: 0,
+            isAvailable: true,
+        }
+        $scope.$digest()
+    }
+
+    $scope.addProduct = function() {
+        productFactory.addProduct($scope.selectedProduct)
+            .then(function(product) {
+                $scope.selectedProduct = product
+                return productFactory.getAll()
+            })
+            .then(products => $scope.products = products)
+    }
+
     $scope.removeTag = tagFactory.removeTag
 
     $scope.addTag = tagFactory.addTag
 
     $scope.removePic = productFactory.removePic
 
-    $scope.addPic = productFactory.addPic
+    $scope.addPic = function(id, imageUrls, newPicture) {
+        if ($scope.addingProduct) {
+            $scope.selectedProduct.imageUrls.push(newPicture)
+            $scope.newPicture = "";
+        } else {
+            productFactory.addPic(id, imageUrls, newPicture)
+        }
+    }
 
     $scope.removeCat = function() {
         tagFactory.removeCat($scope.managedTag.id)
