@@ -3,10 +3,9 @@
 <div ng-repeat="product in cartProducts">
   <div>Product: {{product.name}} / Quantity: {{product.cartQuantity}}</div>
 </div>
-<h3>Your Addresses</h3>
+<h3>Select Shipping Address</h3>
 <div ng-if="user.addresses" class="user-section-box">
 <hr>
-{{order.addressId}}
 <form name="addressForm">
   <div ng-repeat="address in user.addresses">
     <label>
@@ -21,7 +20,22 @@
 </form>
 </div>
 <add-address update="update()"></add-address>
-<h3>Your Billing Info</h3>
-<h4>Credit Card Info</h4>
-<h4>Billing Address</h4>
+<h3>Select Credit Card</h3>
+<div ng-if="user.billings" class="user-section-box">
+<hr>
+<form name="billingForm">
+  <div ng-repeat="billing in user.billings">
+    <label>
+      <input type="radio" ng-model="order.billingId" value="{{billing.id}}">
+        {{billing.creditCard}}
+        {{billing.name}}
+        {{billing.address}}
+        {{billing.city}}
+        {{billing.state}}
+        {{billing.zipcode}}
+    </label>
+  </div>
+</form>
+</div>
+<add-billing update="updateBilling()"></add-billing>
 <button ng-click="checkout(order)">Checkout</button>

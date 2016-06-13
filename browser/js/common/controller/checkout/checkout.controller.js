@@ -15,6 +15,11 @@ app.controller('CheckoutCtrl', function(CartFactory, $scope, $kookies, addressFa
       $scope.setAddressId()
   }
 
+  $scope.updateBilling = function() {
+      $state.go($state.current, {}, {reload: true})
+      $scope.setBillingId()
+  }
+
   $scope.order = {
     addressId: null,
     billingId: null,
@@ -23,12 +28,16 @@ app.controller('CheckoutCtrl', function(CartFactory, $scope, $kookies, addressFa
     email: null
   }
 
+  $scope.setBillingId = function() {
+    if ($scope.user.billings.length) $scope.order.billingId = $scope.user.billings[0].id
+  }
 
   $scope.setAddressId = function() {
-    if ($scope.user.addresses) $scope.order.addressId = $scope.user.addresses[0].id
+    if ($scope.user.addresses.length) $scope.order.addressId = $scope.user.addresses[0].id
   }
 
   $scope.setAddressId()
+  $scope.setBillingId()
 
   $scope.checkout = CartFactory.checkout
 
