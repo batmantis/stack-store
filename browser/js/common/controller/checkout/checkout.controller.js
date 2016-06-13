@@ -29,11 +29,11 @@ app.controller('CheckoutCtrl', function(CartFactory, $scope, $kookies, addressFa
   }
 
   $scope.setBillingId = function() {
-    if ($scope.user.billings.length) $scope.order.billingId = $scope.user.billings[0].id
+    if ($scope.user.billings && $scope.user.billings.length) $scope.order.billingId = $scope.user.billings[0].id
   }
 
   $scope.setAddressId = function() {
-    if ($scope.user.addresses.length) $scope.order.addressId = $scope.user.addresses[0].id
+    if ($scope.user.addresses && $scope.user.addresses.length) $scope.order.addressId = $scope.user.addresses[0].id
   }
 
   $scope.setAddressId()

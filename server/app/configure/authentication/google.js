@@ -27,6 +27,7 @@ module.exports = function (app, db) {
                     return user;
                 } else {
                     return User.create({
+                        email: profile.emails[0].value,
                         google_id: profile.id
                     });
                 }
@@ -51,7 +52,9 @@ module.exports = function (app, db) {
     }));
 
     app.get('/auth/google/callback',
-        passport.authenticate('google', {failureRedirect: '/login'}),
+        passport.authenticate('google', {
+            successRedirect: '/',
+            failureRedirect: '/login'}),
         function (req, res) {
             res.redirect('/');
         });
