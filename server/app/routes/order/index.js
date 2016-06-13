@@ -12,7 +12,9 @@ module.exports = router
 
 //attach all data for orderid
 router.param('orderId', function (req, res, next, orderId) {
-    Order.findById(orderId)
+    Order.findById(orderId, {
+      include: [Address, Billing, ProductOrders, Product]
+    })
     .then(function (order) {
         if (order) {
             req.order = order;
