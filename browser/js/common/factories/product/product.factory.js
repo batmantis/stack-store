@@ -21,7 +21,15 @@ app.factory('productFactory', function($http) {
       .then(function(product) {
         return product.data
       })
-
-    }
+    },
+    removePic: function(productId, imageArr, img) {
+      console.log('i was here')
+      imageArr.splice(imageArr.indexOf(img), 1)
+      return $http.put('/api/product/'+ productId, { imageUrls: imageArr })
+    },
+    addPic: function(productId, imageArr, img) {
+      imageArr.push(img)
+      return $http.put('/api/product/'+ productId, { imageUrls: imageArr })
+    },
   }
 })

@@ -3,47 +3,60 @@
 </div>
 <div ng-show="selectedProduct.name">
     {{selectedProduct}}
-    <img ng-repeat="picture in selectedProduct.imageUrls" ng-src="picture" />
+    <div>
+    <b>Pictures (double click to delete)</b>
+    <img class="img-responsive" ng-repeat="picture in selectedProduct.imageUrls" ng-src="{{picture}}" ng-dblclick="removePic(selectedProduct.id, selectedProduct.imageUrls, picture)" />
+    </div>
     <form>
         <div class="form-group">
-            <label for="exampleInputEmail1">Product Name</label>
-            <input type="name" class="form-control" id="exampleInputEmail1" placeholder="Enter name" ng-model="selectedProduct.name">
+            <label for="newpic">Add Picture</label>
+            <input name="newpic" type="text" class="form-control" placeholder="Enter image url" ng-model="newpicture">
+            <button type="button" class="btn btn-default" ng-click="addPic(selectedProduct.id, selectedProduct.imageUrls, newpicture)">Add</button>
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail1">Price</label>
-            <input type="price" class="form-control" id="exampleInputEmail1" placeholder="Enter price" ng-model="selectedProduct.price">
+            <label for="name">Product Name</label>
+            <input name="name" class="form-control" placeholder="Enter name" ng-model="selectedProduct.name">
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail1">Brand</label>
-            <input type="brand" class="form-control" id="exampleInputEmail1" placeholder="Enter brand" ng-model="selectedProduct.brand">
+            <label for="brand">Price</label>
+            <input type="text" name="price" class="form-control" placeholder="Enter price" ng-model="selectedProduct.price">
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail1">Description</label>
-            <textarea rows="4" type="description" class="form-control" id="exampleInputEmail1" placeholder="Enter description" ng-model="selectedProduct.description"></textarea>
+            <label for="brand">Brand</label>
+            <input type="text" name="brand" class="form-control" placeholder="Enter brand" ng-model="selectedProduct.brand">
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail1">Quantity</label>
-            <input type="quantity" class="form-control" id="exampleInputEmail1" placeholder="Enter quantity" ng-model="selectedProduct.quantity">
+            <label for="description">Description</label>
+            <textarea rows="4" type="text" name="description" class="form-control" placeholder="Enter description" ng-model="selectedProduct.description"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="quantity">Quantity</label>
+            <input type="text" type="quantity" class="form-control" placeholder="Enter quantity" ng-model="selectedProduct.quantity">
         </div>
         <div>
-        	Categories:
-        	<ul>
-        		<li ng-repeat="tag in selectedProduct.tags">{{tag.category}}</li>
-        	</ul>
+            Categories:
+            <ul>
+                <li ng-repeat="tag in selectedProduct.tags">{{tag.category}}</li>
+            </ul>
         </div>
         <div ng-form name="catManage">
-        	Add or Remove Categories:
-			<input name="adminInput" type="text" class="form-control" placeholder="Search for an Category (by name)" ng-model="tag" typeahead="tag as tag.category for tag in tags | filter:$viewValue | limitTo:10">
-        	<button ng-hide="tagChecker || catManage.adminInput.$pristine" type="button" class="btn btn-default" ng-click="addTag(selectedProduct.id, tag.id)">Add</button>
-        	<button ng-show="tagChecker" type="button" class="btn btn-default" ng-click="removeTag(selectedProduct.id, tag.id)">Remove</button>
+            Add or Remove Categories from Product:
+            <input name="adminInput" type="text" class="form-control" placeholder="Search for an Category (by name)" ng-model="tag" typeahead="tag as tag.category for tag in tags | filter:$viewValue | limitTo:10">
+            <button ng-hide="tagChecker || catManage.adminInput.$pristine" type="button" class="btn btn-default" ng-click="addTag(selectedProduct.id, tag.id)">Add</button>
+            <button ng-show="tagChecker" type="button" class="btn btn-default" ng-click="removeTag(selectedProduct.id, tag.id)">Remove</button>
+        </div>
+        <div ng-form name="catManagement" class="form-group">
+            <label for="addCategory">Add or Remove Category from Database:</label>
+            <input name="tagInput" type="text" class="form-control" placeholder="Search for an Category (by name) or type your own to create" ng-model="managedTag" typeahead="tag as tag.category for tag in tags | filter:$viewValue | limitTo:10">
+            <button type="button" class="btn btn-default" ng-show="managedTag.id" ng-click="removeCat()">Remove</button>
+            <button type="button" class="btn btn-default" ng-hide="managedTag.id || !catManagement.tagInput.$dirty" ng-click="addCat()">Add</button>
         </div>
         <div class="checkbox">
             <label>
-            <input type="checkbox" ng-model="selectedProduct.isAvailable"> Is available?
+                <input type="checkbox" ng-model="selectedProduct.isAvailable"> Is available?
             </label>
         </div>
         <button type="button" class="btn btn-default" ng-click="update(selectedProduct.id, selectedProduct)">Update</button>
         <button type="button" class="btn btn-default" ng-click="delete(selectedProduct.id)">Delete</button>
     </form>
-
 </div>

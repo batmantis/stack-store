@@ -17,6 +17,14 @@ app.factory('tagFactory', function($http){
 		removeTag: function(id, tagId){
 			return $http.delete('/api/product/' + id + '/tags/' + tagId)
 			.then(returnData)
+		},
+
+		addCat: function(tag) {
+			return $http.post('/api/tag', {category: tag})
+		},
+
+		removeCat: function(id) {
+			return $http.delete('/api/tag/' + id)
 		}
 	}
 })
