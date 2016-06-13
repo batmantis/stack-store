@@ -27,17 +27,10 @@ User.hasMany(Billing);
 Product.hasMany(Review);
 User.hasMany(Review);
 Review.belongsTo(User);
+Review.belongsTo(Product);
 Order.belongsTo(Address);
 Order.belongsTo(Billing);
 Order.hasMany(ProductOrders);
 
-// // Don't need this code anymore
-// ProductOrders.afterCreate(function(productOrders){
-// 	Order.findById(productOrders.orderId)
-// 	.then(function(order){
-// 		order.orderTotal += productOrders.getSubtotal();
-// 		return order.save();
-// 	});
-// });
 
 module.exports = db;

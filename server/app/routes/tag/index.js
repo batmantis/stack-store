@@ -3,6 +3,7 @@
 var router = require('express').Router()
 var db = require('../../../db')
 var Tag = db.model('tag')
+var Review = db.model('review')
 // var Product = db.model('product')
 // var TagProducts = db.model('TagProducts')
 module.exports = router
@@ -34,7 +35,9 @@ router.get('/', function(req, res, next) {
 
 //Get all products with one tag
 router.get('/:tagId', function(req, res, next) {
-  req.tag.getProducts()
+  req.tag.getProducts({
+    include:[Review]
+  })
   .then(function(products){
   	res.send(products);
   })

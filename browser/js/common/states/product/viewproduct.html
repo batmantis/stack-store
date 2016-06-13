@@ -1,53 +1,55 @@
-<h1>{{product.name}}</h1>
-<div ng-show="lowStock">
-    <h5>Only {{ product.quantity }} left in Stock</h5>
-</div>
-<form ng-submit="addToCart(product.id, qty)">
-    <select ng-model="qty" type="text" ng-init="qty = qtyArray[0]" ng-options="i for i in qtyArray">
-    </select>
-    <input type="submit" value="Add to Cart"></input>
-</form>
-<img ng-repeat="images in product.imageUrls" ng-src="{{images}}" />
-<p>{{product.price}}</p>
-<h2>{{product.brand}}</h2>
-<p>{{product.description}}</p>
-<div ng-show="product.reviews.length">
-<h3>Reviews</h3>
-    <div ng-repeat="review in product.reviews">
-        {{review}}
-        <blockquote>
-            <strong>{{review.rating}} Stars</strong> {{review.comment}}
-            <cite class="clearfix">—{{review.user.email}}</cite>
-            <button type="button" class="btn btn-default" ng-show="loggedUser.isAdmin" ng-click="removeReview(review.id)">Remove review</button>
-        </blockquote>
+<div class="container">
+    <h1>{{product.name}}</h1>
+    <div ng-show="lowStock">
+        <h5>Only {{ product.quantity }} left in Stock</h5>
     </div>
-</div>
-<div ng-hide="product.reviews.length">
-There is no reviews for this product.
-</div>
-<div ng-show="user">
-    <form name="reviewForm" ng-submit="reviewForm.$valid && addReview(review, product.id)" novalidate>
-        <blockquote ng-show="review">
-            <strong>{{review.rating}} Stars</strong> {{review.comment}}
-            <cite class="clearfix">—{{user.email}}</cite>
-        </blockquote>
-        <h4>Submit Review</h4>
-        <fieldset class="form-group">
-            <select ng-model="review.rating" class="form-control" ng-options="stars for stars in [5,4,3,2,1]" title="Stars" required>
-                <option value="">Your rating</option>
-            </select>
-        </fieldset>
-        <fieldset class="form-group">
-            <textarea name="review" ng-model="review.comment" class="form-control" placeholder="Your review" title="Review" ng-minlength="100" ng-maxlength="300" required></textarea>
-        </fieldset>
-        <fieldset class="form-group">
-            <span ng-show="reviewForm.review.$error.minlength && reviewForm.review.$dirty">
-                Your review is too short.
-            </span>
-            <span ng-show="reviewForm.review.$error.maxlength && reviewForm.review.$dirty">
-                Your review is too long.
-            </span>
-            <input type="submit" ng-disabled="reviewForm.$invalid" class="btn btn-primary pull-right" value="Submit Review">
-        </fieldset>
+    <form ng-submit="addToCart(product.id, qty)">
+        <select ng-model="qty" type="text" ng-init="qty = qtyArray[0]" ng-options="i for i in qtyArray">
+        </select>
+        <input type="submit" value="Add to Cart"></input>
     </form>
+    <img ng-repeat="images in product.imageUrls" ng-src="{{images}}" />
+    <p>{{product.price}}</p>
+    <h2>{{product.brand}}</h2>
+    <p>{{product.description}}</p>
+    <div ng-show="product.reviews.length">
+    <h3>Reviews</h3>
+        <div ng-repeat="review in product.reviews">
+            {{review}}
+            <blockquote>
+                <strong>{{review.rating}} Stars</strong> {{review.comment}}
+                <cite class="clearfix">—{{review.user.email}}</cite>
+                <button type="button" class="btn btn-default" ng-show="loggedUser.isAdmin" ng-click="removeReview(review.id)">Remove review</button>
+            </blockquote>
+        </div>
+    </div>
+    <div ng-hide="product.reviews.length">
+    There is no reviews for this product.
+    </div>
+    <div ng-show="user">
+        <form name="reviewForm" ng-submit="reviewForm.$valid && addReview(review, product.id)" novalidate>
+            <blockquote ng-show="review">
+                <strong>{{review.rating}} Stars</strong> {{review.comment}}
+                <cite class="clearfix">—{{user.email}}</cite>
+            </blockquote>
+            <h4>Submit Review</h4>
+            <fieldset class="form-group">
+                <select ng-model="review.rating" class="form-control" ng-options="stars for stars in [5,4,3,2,1]" title="Stars" required>
+                    <option value="">Your rating</option>
+                </select>
+            </fieldset>
+            <fieldset class="form-group">
+                <textarea name="review" ng-model="review.comment" class="form-control" placeholder="Your review" title="Review" ng-minlength="100" ng-maxlength="300" required></textarea>
+            </fieldset>
+            <fieldset class="form-group">
+                <span ng-show="reviewForm.review.$error.minlength && reviewForm.review.$dirty">
+                    Your review is too short.
+                </span>
+                <span ng-show="reviewForm.review.$error.maxlength && reviewForm.review.$dirty">
+                    Your review is too long.
+                </span>
+                <input type="submit" ng-disabled="reviewForm.$invalid" class="btn btn-primary pull-right" value="Submit Review">
+            </fieldset>
+        </form>
+    </div>
 </div>

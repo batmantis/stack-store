@@ -4,9 +4,9 @@ app.directive('sidebar', function(sidebarFactory) {
         templateUrl: 'js/common/directives/sidebar/sidebar.html',
         link: function(scope) {
             sidebarFactory.getAll()
-                .then(function(data) {
-                    scope.allTags = data
-                })
+            .then(function(data) {
+                scope.allTags = data
+            })
         },
 
     };
