@@ -13,40 +13,41 @@
     </span>
   </div>
 </div>
-<h3>Select Shipping Address</h3>
-<div ng-if="user.addresses" class="user-section-box">
-<hr>
-<form name="addressForm">
-  <div ng-repeat="address in user.addresses">
-    <label>
-      <input type="radio" ng-model="order.addressId" value="{{address.id}}">
-        {{address.name}}
-        {{address.address}}
-        {{address.city}}
-        {{address.state}}
-        {{address.zipcode}}
-    </label>
+  <h3>Select Shipping Address</h3>
+  <div ng-if="user.addresses" class="user-section-box">
+  <hr>
+  <form name="addressForm">
+    <div ng-repeat="address in user.addresses">
+      <label>
+        <input type="radio" ng-model="order.addressId" value="{{address.id}}">
+          {{address.name}}
+          {{address.address}}
+          {{address.city}}
+          {{address.state}}
+          {{address.zipcode}}
+      </label>
+    </div>
+  </form>
   </div>
-</form>
-</div>
-<add-address update="update()"></add-address>
-<h3>Select Credit Card</h3>
-<div ng-if="user.billings" class="user-section-box">
-<hr>
-<form name="billingForm">
-  <div ng-repeat="billing in user.billings">
-    <label>
-      <input type="radio" ng-model="order.billingId" value="{{billing.id}}">
-        {{billing.creditCard}}
-        {{billing.name}}
-        {{billing.address}}
-        {{billing.city}}
-        {{billing.state}}
-        {{billing.zipcode}}
-    </label>
+  <add-address update="update()"></add-address>
+  <h3>Select Credit Card</h3>
+  <div ng-if="user.billings" class="user-section-box">
+  <hr>
+  <form name="billingForm">
+    <div ng-repeat="billing in user.billings">
+      <label>
+        <input type="radio" ng-model="order.billingId" value="{{billing.id}}">
+          {{billing.creditCard}}
+          {{billing.name}}
+          {{billing.address}}
+          {{billing.city}}
+          {{billing.state}}
+          {{billing.zipcode}}
+      </label>
+    </div>
+  </form>
   </div>
-</form>
+  <add-billing update="updateBilling()"></add-billing>
+  <button ng-click="checkout(order)">Checkout</button>
 </div>
-<add-billing update="updateBilling()"></add-billing>
-<button ng-click="checkout(order)">Checkout</button>
-</div>
+
