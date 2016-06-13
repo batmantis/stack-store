@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
 
 // Create new user
 router.post('/', function(req, res, next) {
-    //password requirement still needed 
+    //password requirement still needed
     if (req.body.password) {
         User.create(req.body)
             .then(function(user) {
@@ -36,7 +36,9 @@ router.post('/', function(req, res, next) {
 router.use('/info', function (req, res, next) {
     if (req.user) {
         User.findOne({
-            id: req.user.id,
+            where: {
+                id: req.user.id,
+            },
             include: [Order, Address, Billing]
         })
         .then(function (user) {
@@ -53,7 +55,7 @@ router.use('/info', function (req, res, next) {
 
 router.get('/info', function (req, res, next) {
     res.send(req.loggedInUser);
-}); 
+});
 
 
 

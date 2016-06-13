@@ -27,7 +27,6 @@ app.factory('productFactory', function($http) {
       .then(product => product.data)
     },
     removePic: function(productId, imageArr, img) {
-      console.log('i was here')
       imageArr.splice(imageArr.indexOf(img), 1)
       return $http.put('/api/product/'+ productId, { imageUrls: imageArr })
     },

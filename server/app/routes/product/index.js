@@ -42,7 +42,14 @@ router.get('/', function(req, res, next) {
 })
 
 router.get('/search/', function(req, res, next) {
-    Product.findAll({ where: { name: { $iLike: '%' + req.query.name + '%' } } })
+    Product.findAll({ 
+        where: { 
+            name: { 
+                $iLike: '%' + req.query.name + '%' 
+                } 
+            },
+        include: [Review]
+        })
         .then(function(products) {
             res.send(products)
         })

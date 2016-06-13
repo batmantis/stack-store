@@ -1,3 +1,24 @@
-
-test
-{{order}}
+<div class="container">
+<h1>Order #{{order.id}}</h1>
+<h3>Order Status: {{order.orderStatus}}</h3>
+<div ng-repeat="product in order.products">
+  <div>Product: {{product.name}} / Quantity: {{product.productOrders.quantity}}</div>
+</div>
+<br/>
+<h3>Shipping Address</h3>
+{{order.address.name}}
+{{order.address.address}}
+{{order.address.city}}
+{{order.address.state}}
+{{order.address.zipcode}}
+<br/>
+<h3>Billing Info</h3>
+<h4>Credit Card Info</h4>
+{{order.billing.creditCard}}
+<h4>Billing Address</h4>
+{{order.billing.name}}
+{{order.billing.address}}
+{{order.billing.city}}
+{{order.billing.state}}
+{{order.billing.zipcode}}
+</div>
