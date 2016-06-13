@@ -1,16 +1,38 @@
 <div class="container">
-	<h1>Shopping Cart</h1>
-	<button ng-if="!cartIsEmpty() && user" ui-sref="checkout">Checkout</button>
-	<button ng-if="!cartIsEmpty() && !user" ui-sref="checkoutGuest">Checkout as Guest</button>
-	<div ng-if="cartIsEmpty()">Cart is Empty</div>
-	<div class="panel" ng-repeat="product in cartProducts">
-	  <img class="s-product-image" ng-src="{{product.imageUrls[0]}}" ui-sref="viewProduct({productId: product.id})"/>
-	  {{product.name}}
-	  {{productQuantity(product.id)}}
-	  <form name="cartForm" ng-submit="changeQty(product.id, product.cartQuantity)">
-	    <input name="qty" type="text" ng-model="product.cartQuantity">
-	    <input type="submit" value="Update Quantity">
-	  </form>
-	  <button ng-click="removeFromCart(product)">Remove From Cart</button>
-	</div>
+  <div class="row">
+    <div class="col-lg-10">
+      <h1>Shopping Cart</h1>
+    </div>
+    <div class="col-lg-2">
+      <span class="btn-group">
+        <button ng-if="!cartIsEmpty() && user" ui-sref="checkout">Checkout</button>
+        <button ng-if="!cartIsEmpty() && !user" ui-sref="checkoutGuest">Checkout as Guest</button>
+      </span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="panel panel-default" ng-if="cartIsEmpty()">
+      <div class="panel-body">Cart is Empty</div>
+    </div>
+    <div class="panel panel-default" ng-repeat="product in cartProducts">
+      <div class="panel-body">
+        <div class="col-lg-4">
+          <img class="img-responsive img-thumbnail" ng-src="{{product.imageUrls[0]}}" ui-sref="viewProduct({productId: product.id})"/>
+        </div>
+        <div class="col-lg-4">
+          <strong><a ui-sref="viewProduct({productId: product.id})">{{product.name}}</a></strong>
+          <div><strong>Quanity:</strong> {{productQuantity(product.id)}}</div>
+          <div><strong>Brand:</strong> {{product.brand}}</div>
+          <div><strong>Description:</strong> {{product.description}}</div>
+        </div>
+        <div class="col-lg-4">
+          <form name="cartForm" ng-submit="changeQty(product.id, product.cartQuantity)">
+            <input name="qty" type="text" ng-model="product.cartQuantity">
+            <input type="submit" value="Update Quantity">
+          </form>
+          <button ng-click="removeFromCart(product)">Remove From Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
