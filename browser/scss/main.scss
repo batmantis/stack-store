@@ -18,7 +18,7 @@ body {
   padding-top: 60px;
   margin: 0 auto;
 }
-
+@import 'bootstrap-fixes';
 @import 'directives/main';
 @import 'home/main';
 @import 'about/main';
