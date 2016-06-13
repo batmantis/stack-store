@@ -1,9 +1,9 @@
 'use strict';
 var db = require('./_db');
 require('./models/order')(db);
+require('./models/user')(db);
 require('./models/product')(db);
 require('./models/tag')(db);
-require('./models/user')(db);
 require('./models/review')(db);
 require('./models/address')(db);
 require('./models/billing')(db);
@@ -26,6 +26,7 @@ User.hasMany(Address);
 User.hasMany(Billing);
 Product.hasMany(Review);
 User.hasMany(Review);
+Review.belongsTo(User);
 Order.belongsTo(Address);
 Order.belongsTo(Billing);
 Order.hasMany(ProductOrders)

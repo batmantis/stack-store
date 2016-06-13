@@ -14,10 +14,11 @@
 <div ng-show="product.reviews.length">
 <h3>Reviews</h3>
     <div ng-repeat="review in product.reviews">
+        {{review}}
         <blockquote>
             <strong>{{review.rating}} Stars</strong> {{review.comment}}
-            <cite class="clearfix">—{{user.email}}</cite>
-            <button type="button" class="btn btn-default" ng-click="removeReview(review.id)">Remove review</button>
+            <cite class="clearfix">—{{review.user.email}}</cite>
+            <button type="button" class="btn btn-default" ng-show="loggedUser.isAdmin" ng-click="removeReview(review.id)">Remove review</button>
         </blockquote>
     </div>
 </div>

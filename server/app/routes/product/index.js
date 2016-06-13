@@ -4,6 +4,7 @@ var router = require('express').Router()
 var db = require('../../../db')
 var Product = db.model('product')
 var Review = db.model('review')
+var User = db.model('user')
 var Tag = db.model('tag')
 var _ = require('lodash')
 
@@ -31,7 +32,7 @@ router.get('/', function(req, res, next) {
     var query = req.query.name ? { name: { $iLike: '%' + req.query.name + '%' } } : {}
     Product.findAll({
             where: query,
-            include: [{model: Tag}]
+            include: [{ model: Tag }]
         })
         .then(function(products) {
 
@@ -42,10 +43,10 @@ router.get('/', function(req, res, next) {
 
 router.get('/search/', function(req, res, next) {
     Product.findAll({ where: { name: { $iLike: '%' + req.query.name + '%' } } })
-    .then(function(products) {
-        res.send(products)
-    })
-    .catch(next)
+        .then(function(products) {
+            res.send(products)
+        })
+        .catch(next)
 })
 
 
@@ -63,7 +64,7 @@ router.post('/', function(req, res, next) {
         .catch(next)
 })
 
-router.put('/:productId', function (req, res, next) {
+router.put('/:productId', function(req, res, next) {
     if (req.user.isAdmin) {
         next();
     } else {
@@ -73,7 +74,7 @@ router.put('/:productId', function (req, res, next) {
     }
 })
 
-router.delete('/:productId', function (req, res, next) {
+router.delete('/:productId', function(req, res, next) {
     if (req.user.isAdmin) {
         next();
     } else {
@@ -85,40 +86,40 @@ router.delete('/:productId', function (req, res, next) {
 
 router.put('/:productId', function(req, res, next) {
     req.product.update(req.body)
-    .then(function(product) {
-        res.send(product)
-    })
-    .catch(next)
+        .then(function(product) {
+            res.send(product)
+        })
+        .catch(next)
 });
 
 router.put('/:productId/tags/:tagId', function(req, res, next) {
     Tag.findById(req.params.tagId)
-    .then(function(tag) {
-        return req.product.addTag(tag);
-    })
-    .then(function() {
-        res.sendStatus(204)
-    })
-    .catch(next);
+        .then(function(tag) {
+            return req.product.addTag(tag);
+        })
+        .then(function() {
+            res.sendStatus(204)
+        })
+        .catch(next);
 })
 
 router.delete('/:productId', function(req, res, next) {
     req.product.destroy()
-    .then(function() {
-        res.sendStatus(204)
-    })
-    .catch(next);
+        .then(function() {
+            res.sendStatus(204)
+        })
+        .catch(next);
 })
 
 router.delete('/:productId/tags/:tagId', function(req, res, next) {
     Tag.findById(req.params.tagId)
-    .then(function(tag) {
-        return req.product.removeTag(tag);
-    })
-    .then(function() {
-        res.sendStatus(204)
-    })
-    .catch(next);
+        .then(function(tag) {
+            return req.product.removeTag(tag);
+        })
+        .then(function() {
+            res.sendStatus(204)
+        })
+        .catch(next);
 })
 
 //Get all reviews for a product or query for a specific number of reviews
@@ -128,8 +129,9 @@ router.get('/:productId/reviews/', function(req, res, next) {
             where: {
                 productId: req.product.id
             },
+            include: [ User ],
             order: '"createdAt" DESC',
-            limit: req.query.reviewCount,
+            limit: req.query.reviewCount
         })
         .then(function(reviews) {
             res.send(reviews)
