@@ -1,6 +1,8 @@
 <div class="container">
     <form id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)">
-
+        <div>
+            <h3>Welcome back</h3>
+        </div>
         <alert type="danger" ng-show="error">
             {{ error }}
         </alert>
@@ -18,3 +20,5 @@
             <a ui-sref="signup">New User</a>
         </div>
     </form>
+</div>
+

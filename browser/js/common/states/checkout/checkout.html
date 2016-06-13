@@ -1,9 +1,18 @@
 <div class="container">
-  <h1>Checkout</h1>
-  <h2>Your Cart</h2>
-  <div ng-repeat="product in cartProducts">
-    <div>Product: {{product.name}} / Quantity: {{product.cartQuantity}}</div>
+<h1>Checkout</h1>
+<h2>Your Cart</h2>
+<div ng-repeat="product in cartProducts">
+  <div class="panel panel-default">
+      <span class="panel-body">
+          <a ui-sref="viewProduct({productId: product.id})">
+              <img class="s-product-image" ng-src="{{product.imageUrls[0]}}" />
+          </a>
+          <div>Product: {{product.name}}</div>
+          <div>Quantity: {{product.cartQuantity}}</div>
+          <div>Unit Price: {{product.cartQuantity}}</div>
+    </span>
   </div>
+</div>
   <h3>Select Shipping Address</h3>
   <div ng-if="user.addresses" class="user-section-box">
   <hr>
@@ -41,3 +50,4 @@
   <add-billing update="updateBilling()"></add-billing>
   <button ng-click="checkout(order)">Checkout</button>
 </div>
+
