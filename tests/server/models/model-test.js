@@ -12,14 +12,14 @@ var db = new Sequelize(dbURI, {
 });
 var Promise = Sequelize.Promise;
 
-require('../../../server/db/models/order')(db);
+require('../../../server/db/models/user')(db);
 require('../../../server/db/models/product')(db);
 require('../../../server/db/models/tag')(db);
-require('../../../server/db/models/user')(db);
 require('../../../server/db/models/review')(db);
 require('../../../server/db/models/address')(db);
 require('../../../server/db/models/billing')(db);
 require('../../../server/db/models/product.orders.js')(db);
+require('../../../server/db/models/order')(db);
 
 var Product = db.model('product');
 var Tag = db.model('tag');
@@ -38,19 +38,11 @@ User.hasMany(Address);
 User.hasMany(Billing);
 Product.hasMany(Review);
 User.hasMany(Review);
-
-ProductOrders.afterCreate(function(productOrders){
-  Order.findbyId({
-    where:{
-      id: productOrders.orderId
-    }
-  })
-  .then(function(order){
-    order.orderTotal += productOrders.getSubtotal();
-    return order.save();
-  });
-});
-
+Review.belongsTo(User);
+Review.belongsTo(Product);
+Order.belongsTo(Address);
+Order.belongsTo(Billing);
+Order.hasMany(ProductOrders);
 
 describe('User Model', function () {
 
