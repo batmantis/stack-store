@@ -2,9 +2,9 @@
     <input type="text" class="form-control" placeholder="Search for an product (by name)" ng-model="selectedProduct" typeahead="product as product.name for product in products | filter:$viewValue | limitTo:10" ng-hide="addingProduct">
 </div>
 <div>
-    <button type="button" class="btn btn-default" ng-click="addNew()" ng-show="addingProduct">Add New Product</button>
+    <button type="button" class="btn btn-default" ng-click="addNew()" ng-hide="addingProduct">Add New Product</button>
 </div>
-<div ng-show="selectedProduct.name">
+<div ng-show="selectedProduct.id || addingProduct">
     {{selectedProduct}}
     <div ng-show="selectedProduct.imageUrls.length > 0">
         <b>Pictures (double click to delete)</b>
