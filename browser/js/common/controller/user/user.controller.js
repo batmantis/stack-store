@@ -2,7 +2,6 @@ app.controller('userDetailController', function($scope, $log, $state, loggedInUs
 
     if (loggedInUser) {
         $scope.user = loggedInUser;
-        console.log($scope.user);
     } else {
         $state.go('notLoggedIn');
     }
