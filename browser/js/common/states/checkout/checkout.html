@@ -3,9 +3,6 @@
 <div ng-repeat="product in cartProducts">
   <div>Product: {{product.name}} / Quantity: {{product.cartQuantity}}</div>
 </div>
-<div ng-if="!user">
-  <input ng-model="order.email">
-</div>
 <h3>Your Addresses</h3>
 <div ng-if="user.addresses" class="user-section-box">
 <hr>

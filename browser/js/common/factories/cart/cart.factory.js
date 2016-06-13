@@ -48,13 +48,14 @@ app.factory('CartFactory', function($http, $kookies, $state, productFactory, $q)
 			var cartContents = $kookies.get('cart')
 			return _.isEmpty(cartContents)
 		},
-
 		checkout: function(order) {
 			var cartContents = $kookies.get('cart')
 			order.cart = cartContents
 			$http.post('/api/order', order)
-			.then(function() {
-				//something
+			.then(function(order) {
+					$kookies.set('cart', {}, { path: '/' });
+					console.log(order)
+					$state.go('orderConfirmation', {order: order})
 			})
 		},
 
@@ -64,7 +65,6 @@ app.factory('CartFactory', function($http, $kookies, $state, productFactory, $q)
  			for(var i = 0; i < num; i++){
  			    arr[i] = i+1;
  			}
- 			console.log(arr);
  			return arr;
   		}
 	}

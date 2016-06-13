@@ -14,7 +14,7 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <a ui-sref="viewProduct({productId: product.id})">
-                        <img class="s-product-image" src="{{product.imageUrls[0]}}" />
+                        <img class="s-product-image" ng-src="{{product.imageUrls[0]}}" />
                         <div>{{product.name}}</div>
                         <div>{{ product.price }}</div>
                     </a>
