@@ -54,7 +54,8 @@ app.factory('CartFactory', function($http, $kookies, $state, productFactory, $q)
 			$http.post('/api/order', order)
 			.then(function(order) {
 					$kookies.set('cart', {}, { path: '/' });
-					$state.go('orderConfirmation', {orderId: order.data.id})
+					console.log(order.data.id)
+					$state.go('orderConfirmation', {orderId: order.id})
 			})
 		},
 		displayTotal: function(products) {
