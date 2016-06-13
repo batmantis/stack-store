@@ -26,15 +26,14 @@ var db = new Sequelize(dbURI, {
     logging: false
 });
 var Promise = Sequelize.Promise;
-
-require('../../../server/db/models/order')(db);
+require('../../../server/db/models/user')(db);
 require('../../../server/db/models/product')(db);
 require('../../../server/db/models/tag')(db);
-require('../../../server/db/models/user')(db);
 require('../../../server/db/models/review')(db);
 require('../../../server/db/models/address')(db);
 require('../../../server/db/models/billing')(db);
 require('../../../server/db/models/product.orders.js')(db);
+require('../../../server/db/models/order')(db);
 
 var Product = db.model('product');
 var Tag = db.model('tag');
@@ -53,6 +52,12 @@ User.hasMany(Address);
 User.hasMany(Billing);
 Product.hasMany(Review);
 User.hasMany(Review);
+Review.belongsTo(User);
+Review.belongsTo(Product);
+Order.belongsTo(Address);
+Order.belongsTo(Billing);
+Order.hasMany(ProductOrders);
+
 
 var app = require('../../../server/app')(db);
 var agent = require('supertest').agent(app);
@@ -65,21 +70,51 @@ var product1 = {
   quantity: '1'
 };
 
+var product2 = {
+  name: 'Wing',
+  price: '0.50',
+  brand: 'Delta',
+  description: 'We like to go fast',
+  quantity: '2'
+};
+
+var newId;
+var admin = {
+  email: 'testing@fsa.com',
+  password: 'password',
+  isAdmin: true
+};
+
 describe('Product Route:', function () {
 
   beforeEach('Sync DB', function () {
-      return db.sync({force: true});
+      return db.sync({force: true})
+      .then(function () {
+        return User.create(admin)
+      });
+  });
+
+  beforeEach(function () {
+    return Product.create(product1)
+    .then(function (product) {
+      newId = product.id;
+    })
+  });
+
+  afterEach(function () {
+    return Product.findOne({
+      where: {
+        brand: 'Nike'
+      }
+    })
+    .then(function (product) {
+      if (product) {
+        return product.destroy();
+      }
+    })
   });
 
   describe('GET /api/product', function () {
-    beforeEach(function () {
-      return Product.create(product1)
-      .then(function (product) {
-        newId = product.id;
-      })
-      .catch(console.error.bind(console));
-    });
-
     it('responds with an array via JSON', function (done) {
       agent
         .get('/api/product/')
@@ -98,14 +133,6 @@ describe('Product Route:', function () {
   });
 
   describe('GET /api/product/1 ', function () {
-    beforeEach(function () {
-      return Product.create(product1)
-      .then(function (product) {
-        newId = product.id;
-      })
-      .catch(console.error.bind(console));
-    });
-
     it('responds with one product', function (done) {
       agent
         .get('/api/product/1')
@@ -125,76 +152,61 @@ describe('Product Route:', function () {
     afterEach(function () {
       return Product.findOne({
         where: {
-          description: 'Just eat it'
+          description: 'We like to go fast'
         }
       })
       .then(function (product) {
-        product.destroy();
+        if (product) return product.destroy();
       })
-      .catch(console.error.bind(console));
     });
 
     it('posts to Product', function (done) {
       agent
         .post('/api/product/')
-        .send(product1)
+        .send(product2)
         .expect(200)
         .end(function (err, res) {
           if (err) {
             done(err);
           } else {
-            expect(res.body.description).to.equal('Just eat it');
+            expect(res.body.description).to.equal('We like to go fast');
             done();
           }
         });
+    });
 
+    it('persists in the database', function (done) {
+      agent
+        .post('/api/product/')
+        .send(product2)
+        .expect(200)
+        .end(function (err, res) {
+          if (err) {
+            done(err);
+          } else {
+            Product.findOne({
+              where: {
+                description: 'We like to go fast'
+              }
+            })
+            .then(function (product) {
+              expect(product.description).to.equal('We like to go fast');
+              done();
+            })
+          }
+        });
     });
   });
 
   describe('PUT and DELETE', function () {
+
+    beforeEach(function (done) {
+      agent.post('/login')
+      .send(admin)
+      .end(done)
+    });
+
     describe('PUT /api/product', function () {
-      var product1 = {
-        name: 'Rib',
-        price: '0.50',
-        brand: 'Nike',
-        description: 'Just eat it',
-        quantity: '1'
-      };
-      var newId;
-      var admin = {
-        email: 'testing@fsa.com',
-        password: 'password',
-        isAdmin: true
-      };
-
-      beforeEach(function () {
-        User.create(admin)
-        .then(function () {
-          return Product.create(product1)
-        })
-        .then(function (product) {
-          newId = product.id;
-        })
-        .catch(console.error.bind(console));
-      });
-
-      beforeEach(function (done) {
-        agent.post('/login')
-        .send(admin)
-        .end(done)
-      });
-
-      afterEach(function () {
-        return Product.findOne({
-          where: {
-            description: 'Just eat it'
-          }
-        })
-        .then(function (product) {
-          product.destroy();
-        })
-        .catch(console.error.bind(console));
-      });
 
       it('updates a Product as Admin', function (done) {
         agent
@@ -209,44 +221,10 @@ describe('Product Route:', function () {
               done();
             }
           });
-
       });
-
     });
 
     describe('DELETE /api/product', function () {
-      var product1 = {
-        name: 'Rib',
-        price: '0.50',
-        brand: 'Nike',
-        description: 'Just eat it',
-        quantity: '1'
-      };
-      var newId;
-
-      var admin = {
-        email: 'testing@fsa.com',
-        password: 'password',
-        isAdmin: true,
-      };
-
-      beforeEach(function () {
-        User.create(admin)
-        .then(function () {
-          return Product.create(product1)
-        })
-        .then(function (product) {
-          newId = product.id;
-        })
-        .catch(console.error.bind(console));
-      });
-
-      beforeEach(function (done) {
-        agent.post('/login')
-        .send(admin)
-        .end(done)
-      });
-
       it('deletes a Product', function (done) {
         agent
           .delete('/api/product/' + newId)
