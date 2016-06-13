@@ -1,7 +1,5 @@
 'use strict';
 
-var expect = chai.expect;
-
 function randomNum(upperBound) {
     return Math.floor(Math.random() * upperBound);
 }
@@ -31,9 +29,9 @@ describe('productFactory', function() {
     beforeEach(module('StackStore'));
 
     var productFactory, $httpBackend, fakeReqProduct;
-    beforeEach(inject(function($injector, _$httpBackend_) {
+    beforeEach(inject(function($injector) {
         productFactory = $injector.get('productFactory');
-        $httpBackend = _$httpBackend_;
+        $httpBackend = $injector.get('$httpBackend');
         fakeReqProduct = makeProduct();
     }))
 
@@ -45,6 +43,13 @@ describe('productFactory', function() {
             this.test.error(err);
         }
     });
+
+    // it('checking', function(){
+    //   expect(productFactory).to.be.an('object')
+    //   expect($httpBackend).to.be.an('function')
+    //   expect(fakeReqProduct).to.be.an('object')
+    //   console.log(productFactory)
+    // })
 
     it('getAll products', function(done) {
         var fakeProducts = makeProducts()
@@ -61,6 +66,23 @@ describe('productFactory', function() {
             .catch(done);
         $httpBackend.flush();
         done();
+    })
+
+    it('getProduct get one', function(done) {
+        $httpBackend
+            .expect('GET', '/api/product/1')
+            .respond(fakeReqProduct)
+
+        $httpBackend.expectGET('js/home/home.html').respond('200')
+
+        productFactory.getProduct(1)
+            .then(function(product) {
+                expect(product).to.deep.equal(fakeReqProduct)
+            })
+            .catch(done)
+
+        $httpBackend.flush()
+        done()
     })
 
 });
