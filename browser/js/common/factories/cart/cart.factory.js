@@ -57,6 +57,10 @@ app.factory('CartFactory', function($http, $kookies, $state, productFactory, $q)
 					$state.go('orderConfirmation', {orderId: order.data.id})
 			})
 		},
+		displayTotal: function(products) {
+			console.log(products)
+			return 'test'
+		},
 
  		getQty: function(num){
  			if(num > 10){num =10};

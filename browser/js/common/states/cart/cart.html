@@ -26,12 +26,23 @@
           <div><strong>Description:</strong> {{product.description}}</div>
         </div>
         <div class="col-lg-4">
-          <form name="cartForm" ng-submit="changeQty(product.id, product.cartQuantity)">
-            <input name="qty" type="text" ng-model="product.cartQuantity">
-            <input type="submit" value="Update Quantity">
-          </form>
-          <button ng-click="removeFromCart(product)">Remove From Cart</button>
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <form name="cartForm" ng-submit="changeQty(product.id, product.cartQuantity)">
+                <fieldset class="form-group">
+                  <input name="qty" type="text" ng-model="product.cartQuantity" class="input-sm form-inline-display col-lg-2">
+                  <button type="submit" value= class="form-inline-display">Update Quantity</button>
+                </fieldset>
+              </form>
+              <button ng-click="removeFromCart(product)">Remove From Cart</button>
+            </div>
+          </div>
         </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-body" value="{{console.log(cartProducts)}}">
+        Cart Total: {{console.log(cartProducts)}}
       </div>
     </div>
   </div>

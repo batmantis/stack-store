@@ -25,6 +25,6 @@ app.controller('CartCtrl', function(CartFactory, $scope, $kookies, userDetails) 
     $scope.getProducts()
   }
   $scope.cartIsEmpty = CartFactory.cartIsEmpty
-
+  $scope.displayTotal = CartFactory.displayTotal
   // console.log($kookies.get('cart'))
 })
