@@ -44,19 +44,12 @@ describe('productFactory', function() {
         }
     });
 
-    // it('checking', function(){
-    //   expect(productFactory).to.be.an('object')
-    //   expect($httpBackend).to.be.an('function')
-    //   expect(fakeReqProduct).to.be.an('object')
-    //   console.log(productFactory)
-    // })
-
     it('getAll products', function(done) {
+
         var fakeProducts = makeProducts()
         $httpBackend
             .expect('GET', '/api/product/')
             .respond(fakeProducts)
-
         $httpBackend.expectGET('js/home/home.html').respond('200')
 
         productFactory.getAll()
@@ -72,9 +65,7 @@ describe('productFactory', function() {
         $httpBackend
             .expect('GET', '/api/product/1')
             .respond(fakeReqProduct)
-
         $httpBackend.expectGET('js/home/home.html').respond('200')
-
         productFactory.getProduct(1)
             .then(function(product) {
                 expect(product).to.deep.equal(fakeReqProduct)

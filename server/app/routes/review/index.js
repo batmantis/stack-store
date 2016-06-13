@@ -54,7 +54,7 @@ router.post('/product/:productId', function(req, res, next) {
                 product.addReview(review)
                 res.send(review)
             })
-        .catch(next)
+            .catch(next)
 
     } else {
         res.sendStatus(401)
@@ -62,12 +62,12 @@ router.post('/product/:productId', function(req, res, next) {
 })
 
 //Delete review
-router.delete('/:reviewId', function(req, res, next){
-    if (req.user.isAdmin) {
-        Review.findById(req.params.reviewId)
-        .then(review => review.destroy())
+router.delete('/:reviewId', function(req, res, next) {
+    Review.findById(req.params.reviewId)
+        .then(function(review){
+            if (req.user.isAdmin || req.user.id === review.userId)
+            console.log(review)
+        })
         .then(nothing => res.send(204))
-    } else {
-        res.sendStatus(401)
-    }
+    // res.sendStatus(401)
 })

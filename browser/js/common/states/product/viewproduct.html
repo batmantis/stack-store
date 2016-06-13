@@ -19,7 +19,7 @@
             <blockquote>
                 <strong>{{review.rating}} Stars</strong> {{review.comment}}
                 <cite class="clearfix">—{{review.user.email}}</cite>
-                <button type="button" class="btn btn-default" ng-show="loggedUser.isAdmin" ng-click="removeReview(review.id)">Remove review</button>
+                <button type="button" class="btn btn-default" ng-show="user.isAdmin || user.id === review.user.id" ng-click="removeReview(review.id)">Remove review</button>
             </blockquote>
         </div>
     </div>
