@@ -8,7 +8,7 @@ app.factory('billingFactory', function($http) {
         },
 
         deleteBilling: function(billingId) {
-            return $http.put('/api/billing/' + billingId, {userId: null})
+            return $http.delete('/api/billing/' + billingId);
 
         }
     }
