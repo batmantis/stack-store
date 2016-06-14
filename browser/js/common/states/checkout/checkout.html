@@ -31,6 +31,17 @@
   </div>
   <add-address update="update()"></add-address>
   <h3>Select Credit Card</h3>
+  <form action="/api/order" method="POST">
+    <script
+      src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
+      data-key="pk_test_G5YhIkq2PEq84lwU064TZENT"
+      data-amount="2000"
+      data-name="Demo Site"
+      data-description="2 widgets ($20.00)"
+      data-image="http://cdn.bulbagarden.net/upload/thumb/3/39/007Squirtle.png/250px-007Squirtle.png">
+    </script>
+    <input type="text" name="number" value="100">
+  </form>
   <div ng-if="user.billings" class="user-section-box">
   <hr>
   <form name="billingForm">
