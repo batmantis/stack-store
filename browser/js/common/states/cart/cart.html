@@ -1,12 +1,12 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-10">
-      <h1>Shopping Cart</h1>
+    <div class="col-lg-9">
+      <h1 class="text-title">Shopping Cart</h1>
     </div>
-    <div class="col-lg-2">
+    <div class="col-lg-3">
       <span class="btn-group">
-        <button ng-if="!cartIsEmpty() && user" ui-sref="checkout">Checkout</button>
-        <button ng-if="!cartIsEmpty() && !user" ui-sref="checkoutGuest">Checkout as Guest</button>
+        <button class="btn btn-primary btn-checkout" ng-if="!cartIsEmpty() && user" ui-sref="checkout"><h4>Checkout</h4></button>
+        <button class="btn btn-primary btn-checkout " ng-if="!cartIsEmpty() && !user" ui-sref="checkoutGuest">Checkout as Guest</button>
       </span>
     </div>
   </div>
@@ -28,21 +28,24 @@
           <div class="panel panel-default">
             <div class="panel-body">
               <form name="cartForm" ng-submit="changeQty(product.id, product.cartQuantity)">
-                <fieldset class="form-group">
-                  <input name="qty" type="text" ng-model="product.cartQuantity" class="input-sm form-inline-display col-lg-2">
-                  <button type="submit" value= class="form-inline-display">Update Quantity</button>
-                </fieldset>
+                  <div class="col-lg-12 form-horizontal">
+                    <input name="qty" type="text" ng-model="product.cartQuantity" class="form-control form-inline-display">
+                    <span class="input-button">
+                      <button class="btn btn-default" type="submit" value= class="form-inline-display">Update Quantity</button>
+                    </span>
+                  </div>
               </form>
-              <button ng-click="removeFromCart(product)">Remove From Cart</button>
+              <br/>
+              <button class="btn btn-default" ng-click="removeFromCart(product)">Remove From Cart</button>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="panel panel-default">
-      <div class="panel-body" value="{{console.log(cartProducts)}}">
-        Cart Total: {{displayTotal(cartProducts)}}
-      </div>
     </div>
   </div>
+  <div class="panel panel-default">
+    <div class="panel-body" value="{{console.log(cartProducts)}}">
+      Cart Total: {{displayTotal(cartProducts)}}
+    </div>
 </div>
