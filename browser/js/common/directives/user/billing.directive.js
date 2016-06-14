@@ -2,16 +2,13 @@ app.directive('addBilling', function(billingFactory) {
     // Runs during compile
     return {
         scope: {
-        	update: '&',
-            token: '&',
-            number: "&"
+        	update: '&'
         },
         restrict: 'EA', // E = Element, A = Attribute, C = Class, M = Comment
         templateUrl: 'js/common/directives/user/billingform.html',
         transclude: true,
         link: function(scope) {
             var defaultForm = {
-                creditCard: "",
                 name: "",
                 address: "",
                 city: "",
@@ -24,14 +21,11 @@ app.directive('addBilling', function(billingFactory) {
             }
 
             scope.save = function() {
-                scope.form.number = scope.token()
-                scope.form.creditCard = scope.number()
                 billingFactory.saveBilling(scope.form)
                     .then(function() {
                     	scope.update()
                         scope.reset();
                         scope.billingForm.$setPristine()
-
                     })
             }
 

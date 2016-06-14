@@ -55,5 +55,6 @@
     <div ng-if="checkoutForm.card.$invalid">
         Error: invalid card number!
     </div>
-    <button ng-click="checkout(order, number)">Checkout</button>
+    {{stripeToken}}
+    <button ng-enable="stripeToken" ng-click="checkout(order, stripeToken)">Checkout</button>
 </div>

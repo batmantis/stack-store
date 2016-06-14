@@ -27,6 +27,9 @@ module.exports = function(db) {
                 isEmail: true
             }
         },
+        token: {
+        	type: Sequelize.STRING
+        }
     }, {
         classMethods: {
             createNewOrder: function(orderDetails) {
@@ -49,33 +52,34 @@ module.exports = function(db) {
                             }
                         })
 
-                        Billing.findById(orderDetails.billingId)
-                        .then(function(billingInfo){
-                        		console.log('@@@@@@', billingInfo.number)
-                        		return stripe.customers.create({
-                        		    source: billingInfo.number,
-                        		    description: orderDetails.email
-                        		  })
-                        })
-                        .then(function(customer){
-                          return stripe.charges.create({
-                            amount: +order.orderTotal,
-                            currency: "usd",
-                            description: 'charge for' + orderDetails.email,
-                            customer: customer.id
-                          })
-                        })
-
-                        return self.create({
-                            orderTotal: order.orderTotal,
-                            guestEmail: order.guestEmail,
-                            productOrders: cartProducts,
-                            addressId: orderDetails.addressId,
-                            billingId: orderDetails.billingId,
-                            userId: orderDetails.userId
-                        }, {
-                            include: [ProductOrders]
-                        })
+                        return stripe.customers.create({
+                                source: orderDetails.stripeToken,
+                                description: orderDetails.email
+                            })
+                            .then(function(customer) {
+                                return stripe.charges.create({
+                                    amount: +order.orderTotal * 100,
+                                    currency: "usd",
+                                    description: 'charge for' + orderDetails.email,
+                                    customer: customer.id
+                                })
+                            })
+                            .then(function() {
+                                return self.create({
+                                    orderTotal: order.orderTotal,
+                                    guestEmail: order.guestEmail,
+                                    productOrders: cartProducts,
+                                    addressId: orderDetails.addressId,
+                                    billingId: orderDetails.billingId,
+                                    token: orderDetails.stripeToken,
+                                    userId: orderDetails.userId
+                                }, {
+                                    include: [ProductOrders]
+                                })
+                            })
+                            .catch(function(err) {
+                                console.log(err)
+                            })
                     })
             }
         }

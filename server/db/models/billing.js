@@ -30,16 +30,6 @@ module.exports = function (db) {
 			validate: {
 				len: [5,6]
 			}
-		},
-		creditCard: {
-			type: Sequelize.BIGINT,
-			allowNull: false,
-			validate: {
-				isCreditCard: true
-			}
-		},
-		number: {
-			type: Sequelize.STRING
 		}
 	});
 }

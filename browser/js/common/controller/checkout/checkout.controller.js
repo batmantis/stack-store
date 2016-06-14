@@ -57,12 +57,4 @@ app.controller('CheckoutCtrl', function(CartFactory, $scope, $kookies, addressFa
       }
   };
 
-  $scope.getstripeToken = function() {
-    return $scope.stripeToken
-  }
-
-  $scope.getNumber = function() {
-    return $scope.number
-  }
-
 })
