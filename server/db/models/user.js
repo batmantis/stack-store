@@ -35,7 +35,7 @@ module.exports = function (db) {
             type: Sequelize.BOOLEAN,
             defaultValue: false
         }
-    }, 
+    },
     {
         instanceMethods: {
             sanitize: function () {
@@ -57,7 +57,13 @@ module.exports = function (db) {
             }
         },
         hooks: {
-            beforeValidate: function (user) {
+            beforeCreate: function (user) {
+                if (user.changed('password')) {
+                    user.salt = user.Model.generateSalt();
+                    user.password = user.Model.encryptPassword(user.password, user.salt);
+                }
+            },
+            beforeUpdate: function (user) {
                 if (user.changed('password')) {
                     user.salt = user.Model.generateSalt();
                     user.password = user.Model.encryptPassword(user.password, user.salt);

@@ -26,6 +26,10 @@ app.factory('userFactory', function ($http) {
 		getLoggedInUser: function () {
 			return $http.get('/api/user/info')
 			.then(returnData);
+		},
+		resetPassword: function(id, password) {
+			return $http.put('/api/user/' + id, password)
+			.then(returnData)
 		}
 	};
 });

@@ -88,16 +88,17 @@ router.get('/:userId', function(req, res, next) {
 })
 
 router.put('/:userId', function(req, res, next) {
-    if (req.user.isAdmin) {
-        req.userInfo.update(req.body)
+    if (req.userInfo.resetPassword && req.user.id === req.userInfo.id) {
+        req.userInfo.update({
+                password: req.body.password,
+                resetPassword: false
+            })
             .then(function(user) {
                 res.send(user)
             })
             .catch(next)
-    } else if (req.userInfo.resetPassword && req.user.id === req.userInfo.id) {
-        req.userInfo.update({
-                password: req.body.password
-            })
+    } else if (req.user.isAdmin) {
+        req.userInfo.update(req.body)
             .then(function(user) {
                 res.send(user)
             })

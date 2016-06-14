@@ -40,20 +40,7 @@
     <div class="user-section-box">
       <h3>Your Orders</h3>
       <hr>
-      <ul>
-        <li ng-repeat="order in user.orders | orderBy: '-id' ">
-          <div class="panel panel-default">
-            <div class="panel-heading">Order #{{order.id}}</div>
-            <div class="panel-body">
-              <ul>
-                <li ng-repeat="product in order.products">
-                  <img class="order-history-img" ng-src="{{ product.imageUrls[0] }}">
-                </li>
-              </ul>
-            </div>
-          </div>
-        </li>
-      </ul>
+      <order-history orders="user.orders"></order-history>
 
     </div>
   </div>
