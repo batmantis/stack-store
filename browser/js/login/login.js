@@ -8,7 +8,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('LoginCtrl', function ($scope, AuthService, $state) {
+app.controller('LoginCtrl', function ($scope, AuthService, $state, userFactory) {
 
     $scope.login = {};
     $scope.error = null;
@@ -18,8 +18,16 @@ app.controller('LoginCtrl', function ($scope, AuthService, $state) {
         $scope.error = null;
 
         AuthService.login(loginInfo).then(function () {
-            $state.go('home');
-        }).catch(function () {
+            return userFactory.getLoggedInUser()
+        })
+        .then(function(user) {
+            if (user.resetPassword) {
+                $state.go('resetpassword')
+            } else {
+                $state.go('home')
+            }
+        })
+        .catch(function () {
             $scope.error = 'Invalid login credentials.';
         });
 
