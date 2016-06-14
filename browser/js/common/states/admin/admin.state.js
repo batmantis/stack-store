@@ -3,7 +3,7 @@
 app.config(function($stateProvider){
 	$stateProvider.state('admin', {
 		url: '/admin',
-		templateUrl: '/js/common/states/admin/admin.page.html',
+		templateUrl: 'js/common/states/admin/admin.page.html',
 		controller: 'adminCtrl'
 	})
 
