@@ -1,0 +1,50 @@
+.user-detail-page {
+	ul {
+		list-style-type: none;
+		padding: 5px;
+	}
+	li {
+		margin-bottom: 10px;
+	}
+
+	.order-history-img {
+		width: 125px;
+		height: 125px;
+	}
+
+	span.bold {
+		font-weight: bolder;
+	}
+
+	.order-total, .order-date, .order-id {
+		display: inline-block;
+		width: 33%;
+	}
+
+	.order-total {
+		text-align: center;
+	}
+
+	.order-id {
+		text-align: right
+	}
+
+	h4.order-status {
+		padding-left: 5px;
+	}
+	.product-info {
+		width: 50%;
+		margin-left: 5%;
+		display: inline-block;
+		vertical-align: top;
+
+		span {
+			width: 100%;
+			display: inline-block;
+		}
+	}
+	.subtotal {
+		display: inline-block;
+		vertical-align: top;
+	}
+}

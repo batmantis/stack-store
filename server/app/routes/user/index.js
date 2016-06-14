@@ -6,6 +6,8 @@ var User = db.model('user')
 var Order = db.model('order');
 var Address = db.model('address');
 var Billing = db.model('billing');
+var Product = db.model('product');
+var ProductOrders = db.model('productOrders');
 
 module.exports = router
 
@@ -39,7 +41,12 @@ router.use('/info', function (req, res, next) {
             where: {
                 id: req.user.id,
             },
-            include: [Order, Address, Billing]
+            include: [
+                {
+                    model: Order,
+                    include: [Product, ProductOrders]
+                }, 
+            Address, Billing]
         })
         .then(function (user) {
             if (user) {
@@ -81,16 +88,17 @@ router.get('/:userId', function(req, res, next) {
 })
 
 router.put('/:userId', function(req, res, next) {
-    if (req.user.isAdmin) {
-        req.userInfo.update(req.body)
+    if (req.userInfo.resetPassword && req.user.id === req.userInfo.id) {
+        req.userInfo.update({
+                password: req.body.password,
+                resetPassword: false
+            })
             .then(function(user) {
                 res.send(user)
             })
             .catch(next)
-    } else if (req.userInfo.resetPassword && req.user.id === req.userInfo.id) {
-        req.userInfo.update({
-                password: req.body.password
-            })
+    } else if (req.user.isAdmin) {
+        req.userInfo.update(req.body)
             .then(function(user) {
                 res.send(user)
             })

@@ -3,19 +3,31 @@
     <div ng-show="lowStock">
         <h5>Only {{ product.quantity }} left in Stock</h5>
     </div>
-    <form ng-submit="addToCart(product.id, qty)">
-        <select ng-model="qty" type="text" ng-init="qty = qtyArray[0]" ng-options="i for i in qtyArray">
-        </select>
-        <input type="submit" value="Add to Cart"></input>
-    </form>
-    <img ng-repeat="images in product.imageUrls" ng-src="{{images}}" />
-    <p>{{product.price}}</p>
-    <h2>{{product.brand}}</h2>
-    <p>{{product.description}}</p>
+    
+    <div class="product-page-img">
+        <img ng-repeat="images in product.imageUrls" ng-src="{{images}}" />
+    </div>
+
+    <div class="product-page-desc">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h2>{{product.brand}}</h2>
+                <hr>
+                <p>{{product.description}}</p>
+                <hr>
+                <h3>{{product.price}}</h3>
+                <form ng-submit="addToCart(product.id, qty)">
+                    <select ng-model="qty" type="text" ng-init="qty = qtyArray[0]" ng-options="i for i in qtyArray">
+                    </select>
+                    <input type="submit" value="Add to Cart"></input>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div ng-show="product.reviews.length">
     <h3>Reviews</h3>
         <div ng-repeat="review in product.reviews">
-            {{review}}
             <blockquote>
                 <strong>{{review.rating}} Stars</strong> {{review.comment}}
                 <cite class="clearfix">—{{review.user.email}}</cite>

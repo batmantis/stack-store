@@ -1,46 +1,48 @@
 <div class="container">
-  <h1>Hi, {{ user.email }}</h1>
-  <hr>
-
-    <h3>Your Addresses</h3>
-  <div ng-show="user.addresses.length"class="user-section-box">
-    <hr>
-    <ul>
-      <li ng-repeat="address in user.addresses">
-        {{address.name}}
-        {{address.address}}
-        {{address.city}}
-        {{address.state}}
-        {{address.zipcode}}
-        <button ng-click="deleteAddress(address.id)" class="btn btn-danger">Delete</button>
-      </li>
-    </ul>
-  </div>
-    <add-address update="update()"></add-address>
-
-  <div class="user-section-box">
-    <h3>Your Billing Information 4539605960339339</h3>
-    <hr>
-    <ul>
-      <li ng-repeat="billing in user.billings">
-        {{ billing.name }}
-        {{ billing.address }}
-        {{ billing.city }}
-        {{ billing.state }}
-        {{ billing.zipcode }}
-        {{ billing.creditCard }}
-        <button ng-click="deleteBilling(billing.id)" class="btn btn-danger">Delete</button>
-      </li>
-    </ul>
-  </div>
-
-  <add-billing update="update()"></add-billing>
-
-  <div class="user-section-box">
-    <h3>Your Orders</h3>
+  <div class="user-detail-page">
+    <h1>Hi, {{ user.email }}</h1>
     <hr>
 
+      <h3>Your Addresses</h3>
+    <div ng-show="user.addresses.length"class="user-section-box">
+      <hr>
+      <ul>
+        <li ng-repeat="address in user.addresses">
+          {{address.name}}
+          {{address.address}}
+          {{address.city}}
+          {{address.state}}
+          {{address.zipcode}}
+          <button ng-click="deleteAddress(address.id)" class="btn btn-danger">Delete</button>
+        </li>
+      </ul>
+    </div>
+      <add-address update="update()"></add-address>
 
+    <div class="user-section-box">
+      <h3>Your Billing Information 4539605960339339</h3>
+      <hr>
+      <ul>
+        <li ng-repeat="billing in user.billings">
+          {{ billing.name }}
+          {{ billing.address }}
+          {{ billing.city }}
+          {{ billing.state }}
+          {{ billing.zipcode }}
+          {{ billing.creditCard }}
+          <button ng-click="deleteBilling(billing.id)" class="btn btn-danger">Delete</button>
+        </li>
+      </ul>
+    </div>
+
+    <add-billing update="update()"></add-billing>
+
+    <div class="user-section-box">
+      <h3>Your Orders</h3>
+      <hr>
+      <order-history orders="user.orders"></order-history>
+
+    </div>
   </div>
 </div>
 

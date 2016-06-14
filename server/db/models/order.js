@@ -16,8 +16,8 @@ module.exports = function (db) {
 			defaultValue: 0.00
 		},
 		orderStatus: {
-			type: Sequelize.ENUM('Created', 'Pending', 'Delivered', 'Received'),
-			defaultValue: 'Created'
+			type: Sequelize.ENUM('Created', 'Pending', 'Shipped', 'Delivered'),
+			defaultValue: 'Pending'
 		},
 		guestEmail: {
 			type: Sequelize.STRING,
