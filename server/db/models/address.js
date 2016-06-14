@@ -6,7 +6,10 @@ module.exports = function (db) {
 	db.define('address', {
 		name: {
 			type: Sequelize.STRING,
-			allowNull: false
+			allowNull: false,
+			validate: {
+				notEmpty: true
+			}
 		},
 		address: {
 			type: Sequelize.STRING,

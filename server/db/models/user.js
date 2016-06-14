@@ -10,7 +10,10 @@ module.exports = function (db) {
             type: Sequelize.STRING,
             unique: true,
             isEmail: true,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                notEmpty: true
+            }
         },
         password: {
             type: Sequelize.STRING
