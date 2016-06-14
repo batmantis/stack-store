@@ -10,15 +10,17 @@
             </select>
         </form>
         <!-- <div class="col-lg-8"> -->
-        <div ng-repeat="product in products | orderBy: priceFilter" class="col-lg-3">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <a ui-sref="viewProduct({productId: product.id})">
-                        <img class="s-product-image" ng-src="{{product.imageUrls[0]}}" />
-                        <div>{{ product.name }}</div>
-                        <div>{{ product.price }}</div>
-                        <div ng-bind="getAvgRating(product)" ng-show="product.avgReview"></div>
-                    </a>
+        <div class="product-list-wrapper">
+            <div ng-repeat="product in products | orderBy: priceFilter" class="col-lg-3">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <a ui-sref="viewProduct({productId: product.id})">
+                            <img class="s-product-image" ng-src="{{product.imageUrls[0]}}" />
+                            <div class="product-list-name">{{ product.name }}</div>
+                            <div>{{ product.price }}</div>
+                            <div ng-bind="getAvgRating(product)" ng-show="product.avgReview"></div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
