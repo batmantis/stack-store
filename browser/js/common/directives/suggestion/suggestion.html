@@ -6,14 +6,16 @@
             <li ng-repeat="product in suggestArray">
                 <div class="panel panel-default">
                     <div class="panel-body">
+                        <a ui-sref="viewProduct({productId: product.id})">
                         <div class="suggest-img">
                             <img ng-src="{{product.imageUrls[0]}}">
                         </div>
                         <div class="suggest-desc">
-                            <a ui-sref="viewProduct({productId: product.id})">{{product.name}}</a>
+                            {{product.name}}
                             {{product.price}}
                             {{product.rating}}
                         </div>
+                        </a>
                     </div>
                 </div>
             </li>
