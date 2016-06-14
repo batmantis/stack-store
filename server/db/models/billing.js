@@ -1,8 +1,12 @@
 'use strict';
 
+///
+///
+
+
 var Sequelize = require('sequelize');
 
-module.exports = function (db) { 
+module.exports = function (db) {
 	db.define('billing', {
 		name: {
 			type: Sequelize.STRING,
@@ -33,6 +37,9 @@ module.exports = function (db) {
 			validate: {
 				isCreditCard: true
 			}
+		},
+		number: {
+			type: Sequelize.STRING
 		}
 	});
 }

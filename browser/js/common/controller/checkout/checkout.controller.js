@@ -6,6 +6,9 @@ app.controller('CheckoutCtrl', function(CartFactory, $scope, $kookies, addressFa
     $scope.cartProducts = products
     })
   }
+
+  $scope.total = CartFactory.displayTotal()
+
   $scope.getProducts()
 
   $scope.user = userDetails
@@ -40,5 +43,26 @@ app.controller('CheckoutCtrl', function(CartFactory, $scope, $kookies, addressFa
   $scope.setBillingId()
 
   $scope.checkout = CartFactory.checkout
+
+  $scope.invalidstripe = false;
+
+  $scope.stripeCallback = function (code, result) {
+      if (result.error) {
+          $scope.invalidstripe = true;
+          $scope.error = result.error.message;
+      } else {
+        $scope.stripeToken = result.id
+        $scope.invalidstripe = false;
+        console.log($scope.stripeToken)
+      }
+  };
+
+  $scope.getstripeToken = function() {
+    return $scope.stripeToken
+  }
+
+  $scope.getNumber = function() {
+    return $scope.number
+  }
 
 })

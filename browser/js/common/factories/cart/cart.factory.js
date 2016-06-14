@@ -48,14 +48,15 @@ app.factory('CartFactory', function($http, $kookies, $state, productFactory, $q)
 			var cartContents = $kookies.get('cart')
 			return _.isEmpty(cartContents)
 		},
-		checkout: function(order) {
+		checkout: function(order, stripeToken) {
 			var cartContents = $kookies.get('cart')
 			order.cart = cartContents
+			order.stripeToken = stripeToken
 			$http.post('/api/order', order)
 			.then(function(order) {
 					$kookies.set('cart', {}, { path: '/' });
 					console.log(order.data.id)
-					$state.go('orderConfirmation', {orderId: order.id})
+					$state.go('orderConfirmation', {orderId: order.data.id})
 			})
 		},
 		displayTotal: function(products) {

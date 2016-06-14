@@ -15,6 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "ngkookies": "^0.2.0"
+    "ngkookies": "^0.2.0",
+    "angular-payments": "*"
   }
 }

@@ -2,7 +2,9 @@ app.directive('addBilling', function(billingFactory) {
     // Runs during compile
     return {
         scope: {
-        	update: '&'
+        	update: '&',
+            token: '&',
+            number: "&"
         },
         restrict: 'EA', // E = Element, A = Attribute, C = Class, M = Comment
         templateUrl: 'js/common/directives/user/billingform.html',
@@ -22,6 +24,8 @@ app.directive('addBilling', function(billingFactory) {
             }
 
             scope.save = function() {
+                scope.form.number = scope.token()
+                scope.form.creditCard = scope.number()
                 billingFactory.saveBilling(scope.form)
                     .then(function() {
                     	scope.update()

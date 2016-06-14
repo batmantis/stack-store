@@ -1,9 +1,9 @@
 <div class="container">
-<h1>Checkout</h1>
-<h2>Your Cart</h2>
-<div ng-repeat="product in cartProducts">
-  <div class="panel panel-default">
-      <span class="panel-body">
+    <h1>Checkout</h1>
+    <h2>Your Cart</h2>
+    <div ng-repeat="product in cartProducts">
+        <div class="panel panel-default">
+            <span class="panel-body">
           <a ui-sref="viewProduct({productId: product.id})">
               <img class="s-product-image" ng-src="{{product.imageUrls[0]}}" />
           </a>
@@ -11,54 +11,49 @@
           <div>Quantity: {{product.cartQuantity}}</div>
           <div>Unit Price: {{product.price}}</div>
     </span>
-  </div>
-</div>
-  <h3>Select Shipping Address</h3>
-  <div ng-if="user.addresses" class="user-section-box">
-  <hr>
-  <form name="addressForm">
-    <div ng-repeat="address in user.addresses">
-      <label>
-        <input type="radio" ng-model="order.addressId" value="{{address.id}}">
-          {{address.name}}
-          {{address.address}}
-          {{address.city}}
-          {{address.state}}
-          {{address.zipcode}}
-      </label>
+        </div>
     </div>
-  </form>
-  </div>
-  <add-address update="update()"></add-address>
-  <h3>Select Credit Card</h3>
-  <form action="/api/order" method="POST">
-    <script
-      src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
-      data-key="pk_test_G5YhIkq2PEq84lwU064TZENT"
-      data-amount="2000"
-      data-name="Demo Site"
-      data-description="2 widgets ($20.00)"
-      data-image="http://cdn.bulbagarden.net/upload/thumb/3/39/007Squirtle.png/250px-007Squirtle.png">
-    </script>
-    <input type="text" name="number" value="100">
-  </form>
-  <div ng-if="user.billings" class="user-section-box">
-  <hr>
-  <form name="billingForm">
-    <div ng-repeat="billing in user.billings">
-      <label>
-        <input type="radio" ng-model="order.billingId" value="{{billing.id}}">
-          {{billing.creditCard}}
-          {{billing.name}}
-          {{billing.address}}
-          {{billing.city}}
-          {{billing.state}}
-          {{billing.zipcode}}
-      </label>
+    <h3>Select Shipping Address</h3>
+    <div ng-if="user.addresses" class="user-section-box">
+        <hr>
+        <form name="addressForm">
+            <div ng-repeat="address in user.addresses">
+                <label>
+                    <input type="radio" ng-model="order.addressId" value="{{address.id}}"> {{address.name}} {{address.address}} {{address.city}} {{address.state}} {{address.zipcode}}
+                </label>
+            </div>
+        </form>
     </div>
-  </form>
-  </div>
-  <add-billing update="updateBilling()"></add-billing>
-  <button ng-click="checkout(order)">Checkout</button>
-</div>
+    <add-address update="update()"></add-address>
+    <h3>Select Credit Card</h3>
 
+
+
+    <div ng-if="user.billings" class="user-section-box">
+        <hr>
+        <form name="billingForm">
+            <div ng-repeat="billing in user.billings">
+                <label>
+                    <input type="radio" ng-model="order.billingId" value="{{billing.id}}"> {{billing.creditCard}} {{billing.name}} {{billing.address}} {{billing.city}} {{billing.state}} {{billing.zipcode}}
+                </label>
+            </div>
+        </form>
+    </div>
+
+    <form stripe-form="stripeCallback" name="checkoutForm">
+        <input ng-model="number" placeholder="Card Number"
+                 payments-format="card" payments-validate="card" name="card" />
+        <input ng-model="expiry" placeholder="Expiration"
+                 payments-format="expiry" payments-validate="expiry"
+                 name="expiry" />
+        <input ng-model="cvc" placeholder="CVC" payments-format="cvc" payments-validate="cvc" name="cvc" />
+        <button type="submit">Add Credit Card with Stripe</button>
+        <div ng-if="invalidstripe">{{error}}</div>
+    </form>
+    <br>
+    <add-billing update="updateBilling()" token="getstripeToken()" number="getNumber()"></add-billing>
+    <div ng-if="checkoutForm.card.$invalid">
+        Error: invalid card number!
+    </div>
+    <button ng-click="checkout(order, number)">Checkout</button>
+</div>
