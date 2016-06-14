@@ -6,6 +6,8 @@ var User = db.model('user')
 var Order = db.model('order');
 var Address = db.model('address');
 var Billing = db.model('billing');
+var Product = db.model('product');
+var ProductOrders = db.model('productOrders');
 
 module.exports = router
 
@@ -39,7 +41,12 @@ router.use('/info', function (req, res, next) {
             where: {
                 id: req.user.id,
             },
-            include: [Order, Address, Billing]
+            include: [
+                {
+                    model: Order,
+                    include: [Product, ProductOrders]
+                }, 
+            Address, Billing]
         })
         .then(function (user) {
             if (user) {
