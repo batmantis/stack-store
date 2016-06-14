@@ -84,6 +84,17 @@ router.post('/', function(req, res, next) {
   }
 })
 
+router.get('/suggestions/:productId', function (req, res, next) {
+  Product.findById(req.params.productId)
+  .then(function (product) {
+    return product.getOrders({include: [Product]});
+  })
+  .then(function (orders) {
+    res.send(orders);
+  })
+  .catch(next);
+});
+
 router.put('/:orderId', function (req, res, next) {
     if (req.user.isAdmin) {
         next();

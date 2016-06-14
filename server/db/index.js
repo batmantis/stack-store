@@ -21,6 +21,7 @@ var ProductOrders = db.model('productOrders');
 Product.belongsToMany(Tag, {through: 'TagProducts'});
 Tag.belongsToMany(Product, {through: 'TagProducts'});
 Order.belongsToMany(Product, {through: ProductOrders});
+Product.belongsToMany(Order, {through: ProductOrders});
 User.hasMany(Order);
 User.hasMany(Address);
 User.hasMany(Billing);
