@@ -1,0 +1,23 @@
+<div class="suggestions">
+    <h3>People who bought this also bought</h3>
+    <div class="panel panel-default">
+        <div class="panel-body">
+        <ul>
+            <li ng-repeat="product in suggestArray">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="suggest-img">
+                            <img ng-src="{{product.imageUrls[0]}}">
+                        </div>
+                        <div class="suggest-desc">
+                            <a ui-sref="viewProduct({productId: product.id})">{{product.name}}</a>
+                            {{product.price}}
+                            {{product.rating}}
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        </div>
+    </div>
+</div>
