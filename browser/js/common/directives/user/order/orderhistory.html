@@ -1,0 +1,43 @@
+<div>
+  <ul>
+    <li ng-repeat="order in orders | orderBy: '-id' ">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="order-date">
+            <span class="bold">Order Made On</span> {{ getDate(order.createdAt) }}
+          </div>
+          <div class="order-total">
+            <span class="bold">Order Total</span> ${{order.orderTotal}}
+          </div>
+          <div class="order-id">
+            <span class="bold">Order</span> #{{order.id}}
+          </div>
+        </div>
+        <div class="panel-body">
+          <h4 class="order-status">Order is <span class="bold">{{order.orderStatus}}</span></h4>
+          <ul>
+            <li ng-repeat="product in order.products">
+              <img class="order-history-img" ng-src="{{ product.imageUrls[0] }}">
+              <div class="product-info">
+                <a ui-sref="viewProduct({productId: product.id})">
+                  <span>{{ product.name }}</span>
+                </a>
+                <span>
+                  Item Price: ${{ product.price }}
+                </span>
+                <span>
+                  Quantity: {{ product.productOrders.quantity }}
+                </span>
+              </div>
+              <div class="subtotal">
+                <span class="bold">Subtotal:
+                </span>
+                ${{ getSubtotal(product.price, product.productOrders.quantity) }}
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
