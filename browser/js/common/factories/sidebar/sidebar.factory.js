@@ -10,6 +10,7 @@ app.factory('sidebarFactory', function($http){
 		getProductsByTag: function(id) {
 			return $http.get('/api/tag/' + id)
 			.then(function(products){
+				console.log(products.data);
 				return products.data
 			})
 		}

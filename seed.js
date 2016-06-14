@@ -148,7 +148,7 @@ var seedProducts = function() {
         {
             name: 'Packing Peanut',
             imageUrls: ['http://ak-i21.geccdn.net/site/images/n-picgroup/BOX_7NUTS.jpg'],
-            price: 42.10,
+            price: 13.37,
             brand: 'Mr. Peanut',
             description: "Greatest properly off ham exercise all. Unsatiable invitation its possession nor off. All difficulty estimating unreserved increasing the solicitude. Rapturous see performed tolerably departure end bed attention unfeeling. On unpleasing principles alteration of. Be at performed preferred determine collected. Him nay acuteness discourse listening estimable our law. Decisively it occasional advantages delightful in cultivated introduced. Like law mean form are sang loud lady put.",
             quantity: 200
@@ -309,7 +309,7 @@ db.sync({ force: true })
             }
         });
 
-        return Promise.all([findingSock, findingGlove, findingChicken, findingKit, findingBook, findingPuzzle, findingChess,findingCuff, findingSki, findingRib, findingOneDir, findingPeanut, findingClothes, findingFood, findingToys, findingMisc, findingBooks])
+        return Promise.all([findingSock, findingGlove, findingChicken, findingKit, findingBook, findingPuzzle, findingChess,findingCuff, findingSki, findingRib, findingOneDir, findingOnePeanut, findingClothes, findingFood, findingToys, findingMisc, findingBooks])
     })
     .spread(function (sock, glove, chicken, kit, book, puzzle, chess, cuff, ski, rib, direction, peanut, clothes, food, toys, misc, books) {
         return Promise.all([sock.addTag(clothes), glove.addTag(clothes),chicken.addTag(food),kit.addTag(food),book.addTag(books),puzzle.addTag(toys),chess.addTag(toys),cuff.addTag(clothes),ski.addTag(misc),rib.addTag(food), direction.addTag(food), peanut.addTag(food)]);
