@@ -10,7 +10,7 @@ app.factory('userFactory', function ($http) {
 		},
 		getOne: function (id) {
 			return $http.get('/api/user/' + id)
-			.then(retugrnData);
+			.then(returnData);
 		},
 		addUser: function (dataObj) {
 			return $http.post('/api/user/', dataObj)
