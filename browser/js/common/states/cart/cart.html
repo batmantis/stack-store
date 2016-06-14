@@ -23,7 +23,6 @@
           <strong><a ui-sref="viewProduct({productId: product.id})">{{product.name}}</a></strong>
           <div><strong>Quanity:</strong> {{productQuantity(product.id)}}</div>
           <div><strong>Brand:</strong> {{product.brand}}</div>
-          <div><strong>Description:</strong> {{product.description}}</div>
         </div>
         <div class="col-lg-4">
           <div class="panel panel-default">
@@ -42,7 +41,7 @@
     </div>
     <div class="panel panel-default">
       <div class="panel-body" value="{{console.log(cartProducts)}}">
-        Cart Total: {{console.log(cartProducts)}}
+        Cart Total: {{displayTotal(cartProducts)}}
       </div>
     </div>
   </div>

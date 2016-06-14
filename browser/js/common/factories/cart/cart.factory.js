@@ -59,8 +59,14 @@ app.factory('CartFactory', function($http, $kookies, $state, productFactory, $q)
 			})
 		},
 		displayTotal: function(products) {
-			console.log(products)
-			return 'test'
+			var cartContents = $kookies.get('cart')
+			var total = 0
+			if (products) {
+				products.forEach(function(product) {
+				 	total += product.price * cartContents[product.id]
+				})
+			}
+			return total.toFixed(2)
 		},
 
  		getQty: function(num){
