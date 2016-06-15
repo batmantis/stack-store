@@ -1,5 +1,6 @@
 <div class="container">
     <div class="row">
+    <div class="product-header-wrapper">
         <h1>List of Products</h1>
         <h3>Refine By</h3>
         <form class="form-group form-inline">
@@ -9,9 +10,10 @@
               <option value="-avgReview">Review Rating</option>
             </select>
         </form>
+    </div>
         <!-- <div class="col-lg-8"> -->
         <div class="product-list-wrapper">
-            <div ng-repeat="product in products | orderBy: priceFilter" class="col-lg-3">
+            <div ng-repeat="product in products | orderBy: priceFilter" class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <a ui-sref="viewProduct({productId: product.id})">
