@@ -47,6 +47,7 @@ app.controller('CheckoutCtrl', function(CartFactory, $scope, $kookies, addressFa
   $scope.invalidstripe = false;
 
   $scope.stripeCallback = function (code, result) {
+    console.log('called it')
       if (result.error) {
           $scope.invalidstripe = true;
           $scope.error = result.error.message;
