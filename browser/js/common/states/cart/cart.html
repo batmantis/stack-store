@@ -1,51 +1,52 @@
 <div class="container">
-  <div class="row">
-    <div class="col-lg-9">
-      <h1 class="text-title">Shopping Cart</h1>
-    </div>
-    <div class="col-lg-3">
-      <span class="btn-group">
+    <div class="row">
+        <div class="col-lg-9">
+            <h1 class="text-title">Shopping Cart</h1>
+        </div>
+        <div class="col-lg-3">
+            <span class="btn-group">
         <button class="btn btn-primary btn-checkout" ng-if="!cartIsEmpty() && user" ui-sref="checkout"><h4>Checkout</h4></button>
         <button class="btn btn-primary btn-checkout " ng-if="!cartIsEmpty() && !user" ui-sref="checkoutGuest">Checkout as Guest</button>
       </span>
-    </div>
-  </div>
-  <div class="row">
-    <div class="panel panel-default" ng-if="cartIsEmpty()">
-      <div class="panel-body">Cart is Empty</div>
-    </div>
-    <div class="panel panel-default" ng-repeat="product in cartProducts">
-      <div class="panel-body">
-        <div class="col-lg-4">
-          <img class="img-responsive img-thumbnail" ng-src="{{product.imageUrls[0]}}" ui-sref="viewProduct({productId: product.id})"/>
         </div>
-        <div class="col-lg-4">
-          <strong><a ui-sref="viewProduct({productId: product.id})">{{product.name}}</a></strong>
-          <div><strong>Quanity:</strong> {{productQuantity(product.id)}}</div>
-          <div><strong>Brand:</strong> {{product.brand}}</div>
+    </div>
+    <div class="row">
+        <div class="panel panel-default" ng-if="cartIsEmpty()">
+            <div class="panel-body">Cart is Empty</div>
         </div>
-        <div class="col-lg-4">
-          <div class="panel panel-default">
+        <div class="panel panel-default" ng-repeat="product in cartProducts">
             <div class="panel-body">
-              <form name="cartForm" ng-submit="changeQty(product.id, product.cartQuantity)">
-                  <div class="col-lg-12 form-horizontal">
-                    <input name="qty" type="text" ng-model="product.cartQuantity" class="form-control form-inline-display">
-                    <span class="input-button">
+                <div class="col-lg-4">
+                    <img class="img-responsive img-thumbnail" ng-src="{{product.imageUrls[0]}}" ui-sref="viewProduct({productId: product.id})" />
+                </div>
+                <div class="col-lg-4">
+                    <strong><a ui-sref="viewProduct({productId: product.id})">{{product.name}}</a></strong>
+                    <div><strong>Quanity:</strong> {{productQuantity(product.id)}}</div>
+                    <div><strong>Brand:</strong> {{product.brand}}</div>
+                    <div><strong>Price:</strong> {{product.price}}</div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <form name="cartForm" ng-submit="changeQty(product.id, product.cartQuantity)">
+                                <div class="col-lg-12 form-horizontal">
+                                    <input name="qty" type="text" ng-model="product.cartQuantity" class="form-control form-inline-display">
+                                    <span class="input-button">
                       <button class="btn btn-default" type="submit" value= class="form-inline-display">Update Quantity</button>
                     </span>
-                  </div>
-              </form>
-              <br/>
-              <button class="btn btn-default" ng-click="removeFromCart(product)">Remove From Cart</button>
+                                </div>
+                            </form>
+                            <br/>
+                            <button class="btn btn-default" ng-click="removeFromCart(product)">Remove From Cart</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-body">
-      Cart Total: {{displayTotal(cartProducts)}}
+        <div class="panel panel-default">
+            <div class="panel-body">
+                Cart Total: {{displayTotal(cartProducts)}}
+            </div>
+        </div>
     </div>
 </div>

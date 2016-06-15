@@ -25,7 +25,7 @@
                 <span class="error" ng-show="addressForm.zip.$dirty && addressForm.zip.$error.pattern">
            Invalid zip!</span>
         </ng-form>
-        <button ng-click="reset()">Reset</button>
-        <button ng-click="save()" ng-disabled="addressForm.$invalid" >Save</button>
+        <button class="btn btn-default" ng-click="reset()">Reset</button>
+        <button class="btn btn-default" ng-click="save()" ng-disabled="addressForm.$invalid" >Save</button>
     </form>
 </div>
