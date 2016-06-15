@@ -1,5 +1,5 @@
-<div class="container">
     <h1>Checkout</h1>
+<div class="container">
     <h2>Your Cart</h2>
     <div ng-repeat="product in cartProducts">
         <div class="panel panel-default">
@@ -55,5 +55,7 @@
     <div ng-if="checkoutForm.card.$invalid">
         Error: invalid card number!
     </div>
-    <button ng-enable="stripeToken" ng-click="checkout(order, stripeToken)">Checkout</button>
+    <div ng-hide="stripeToken">Need to add Credit Card with Stripe</div>
+    <div ng-show="stripeToken">Card added successfully</div>
+    <button class="btn btn-primary" ng-disabled="!stripeToken" ng-click="checkout(order, stripeToken)">Checkout</button>
 </div>

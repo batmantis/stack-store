@@ -76,9 +76,11 @@
             <input ng-model="number" placeholder="Card Number" payments-format="card" payments-validate="card" name="card" />
             <input ng-model="expiry" placeholder="Expiration" payments-format="expiry" payments-validate="expiry" name="expiry" />
             <input ng-model="cvc" placeholder="CVC" payments-format="cvc" payments-validate="cvc" name="cvc" />
-            <button type="submit">Add Credit Card with Stripe</button>
+            <button class="btn btn-default" type="submit">Add Credit Card with Stripe</button>
             <div ng-if="invalidstripe">{{error}}</div>
         </form>
     </div>
-    <button ng-click="checkout(order, stripeToken)">Checkout</button>
+    <div ng-hide="stripeToken">Need to add Credit Card with Stripe</div>
+    <div ng-show="stripeToken">Card added successfully</div>
+    <button class="btn btn-primary" ng-disabled="!stripeToken" ng-click="checkout(order, stripeToken)">Checkout</button>
 </div>

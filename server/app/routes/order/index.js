@@ -58,7 +58,6 @@ router.get('/:orderId', function(req, res, next) {
 
 //Create new order
 router.post('/', function(req, res, next) {
-    console.log(req.body.stripeToken)
     if (_.isEmpty(req.body.cart)) next(new Error('Cannot create an order with empty cart'))
     else {
         var orderDetails = req.body

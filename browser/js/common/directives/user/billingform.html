@@ -31,9 +31,9 @@
            Invalid state!</span>
                 <span class="error" ng-show="billingForm.zip.$dirty && billingForm.zip.$error.pattern">
            Invalid zip!</span>
-          
+
         </ng-form>
-        <button ng-click="reset()">Reset</button>
-        <button ng-click="save()" ng-disabled="billingForm.$invalid" >Save</button>
+        <button class="btn btn-default" ng-click="reset()">Reset</button>
+        <button class="btn btn-default" ng-click="save()" ng-disabled="billingForm.$invalid" >Save</button>
     </form>
 </div>
