@@ -10,8 +10,8 @@ require('./models/product.orders.js')(db);
 require('./models/order')(db);
 
 var Product = db.model('product');
-var Order = db.model('order');
 var Tag = db.model('tag');
+var Order = db.model('order');
 var User = db.model('user');
 var Review = db.model('review');
 var Address = db.model('address');
