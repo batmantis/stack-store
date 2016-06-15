@@ -4,18 +4,20 @@ var Sequelize = require('sequelize');
 
 var db = require('../_db.js');
 // require('../index');
-var Product = db.model('product');
-var ProductOrders = db.model('productOrders');
-var Address = db.model('address');
-var Billing = db.model('billing');
+
+module.exports = function (db) {
 var stripe = require("stripe")("sk_test_FdOK9Gv2DntFbqPsbYht0fqz");
 var nodemailer = require('nodemailer');
 var transport = nodemailer.createTransport('direct', {
     debug: true
-  });
+  })};
 
 
 module.exports = function(db) {
+var Product = db.model('product');
+var ProductOrders = db.model('productOrders');
+var Address = db.model('address');
+var Billing = db.model('billing');
     db.define('order', {
         orderTotal: {
             type: Sequelize.FLOAT,

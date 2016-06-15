@@ -14,6 +14,6 @@ module.exports = {
   "GOOGLE": {
     "clientID": "333500852743-vqc2m3i0bugh3onj47u0vv14aapoce3n.apps.googleusercontent.com",
     "clientSecret": "LgDue-S_C2N3vk_GyUt_eBNy",
-    "callbackURL": "http://127.0.0.1:1337/auth/google/callback"
+    "callbackURL": "http://fbi.me/auth/google/callback"
   }
 };
