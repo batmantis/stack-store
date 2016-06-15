@@ -1,6 +1,6 @@
 'use strict';
 
-describe('AuthService', function () {
+xdescribe('AuthService', function () {
 
     beforeEach(module('fsaPreBuilt'));
 
@@ -39,7 +39,7 @@ describe('AuthService', function () {
 
     });
 
-    describe('getLoggedInUser', function () {
+    xdescribe('getLoggedInUser', function () {
 
         it('should return the user from the Session if already authenticated', function (done) {
             var x = {};
@@ -154,7 +154,7 @@ describe('AuthService', function () {
 
     });
 
-    describe('login', function () {
+    xdescribe('login', function () {
 
         afterEach(function () {
             $httpBackend.verifyNoOutstandingExpectation();
@@ -241,7 +241,7 @@ describe('AuthService', function () {
 
     });
 
-    describe('logout', function () {
+    xdescribe('logout', function () {
 
         beforeEach(function () {
             $httpBackend.expectGET('/logout').respond(200);

@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Session Service', function () {
+xdescribe('Session Service', function () {
 
     beforeEach(module('fsaPreBuilt'));
 
@@ -38,7 +38,7 @@ describe('Session Service', function () {
 
     });
 
-    describe('destroy method', function () {
+    xdescribe('destroy method', function () {
 
         it('should set user and id to null', function () {
 
@@ -54,7 +54,7 @@ describe('Session Service', function () {
 
     });
 
-    describe('event listening', function () {
+    xdescribe('event listening', function () {
 
         it('should call destroy when notAuthenticated event is fired', function () {
 

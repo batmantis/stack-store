@@ -2,9 +2,9 @@
 
 var Sequelize = require('sequelize');
 var db = require('../_db.js');
-var Product = db.model('product');
 
 module.exports = function (db) {
+var Product = db.model('product');
 db.define('productOrders', {
 		quantity: {
 			type: Sequelize.INTEGER,
