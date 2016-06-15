@@ -1,5 +1,18 @@
-.btn:hovered,
+.btn:hover
 {
-  color: #333;
+  background-color: #bd2d2d;
+  border-color: #ac2925;
+  text-decoration: none;
+}
+
+.admin-togglers {
+	margin-bottom: 20px;
+}
+
+.add-new-prod-btn:hover
+{
+  background-color: #449d44;
+  border-color: #398439;
+  color: white;
   text-decoration: none;
 }
