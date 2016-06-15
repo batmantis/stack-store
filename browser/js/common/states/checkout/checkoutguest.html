@@ -1,24 +1,26 @@
 <div class="container">
-  <h1>Guest Checkout</h1>
-  <h2>Your Cart</h2>
-  <div ng-repeat="product in cartProducts">
-    <div>Product: {{product.name}} / Quantity: {{product.cartQuantity}}</div>
-  </div>
-  <div>
-    <form name="guestForm" novalidate>
-    <h3>Shipping Address</h3>
-      <label>
-        Email: <input ng-model="order.email">
-      </label>
-        <br/>
-          <br/>
-      <labeL>
-        Name: <input type="text" name="customer" ng-model="order.address.name" required/>
-      </label>
-        <span class="error" ng-show="guestForm.$dirty && guestForm.customer.$error.required">
+    <h1>Guest Checkout</h1>
+    <h2>Your Cart</h2>
+    <div ng-repeat="product in cartProducts">
+        <div>Product: {{product.name}} / Quantity: {{product.cartQuantity}}</div>
+    </div>
+    <div>
+        <form name="guestForm" novalidate>
+            <h3>Shipping Address</h3>
+            <label>
+                Email:
+                <input ng-model="order.email">
+            </label>
+            <br/>
+            <br/>
+            <labeL>
+                Name:
+                <input type="text" name="customer" ng-model="order.address.name" required/>
+            </label>
+            <span class="error" ng-show="guestForm.$dirty && guestForm.customer.$error.required">
        Customer name is required!</span>
-        <br/>
-        <br/>
+            <br/>
+            <br/>
             <label>Address:</label>
             <br/>
             <input type="text" name="line1" size="33" required ng-model="order.address.address" />
@@ -28,30 +30,27 @@
             <input type="text" name="zip" ng-pattern="/^\d\d\d\d\d$/" size="5" required ng-model="order.address.zipcode" />
             <br/>
             <br/>
-                <span ng-show="guestForm.$dirty && guestForm.$invalid" class="error">
+            <span ng-show="guestForm.$dirty && guestForm.$invalid" class="error">
          Incomplete address:
          <span class="error" ng-show="guestForm.state.$error.required">
            Missing state!</span>
-                <span class="error" ng-show="guestForm.state.$error.pattern">
+            <span class="error" ng-show="guestForm.state.$error.pattern">
            Invalid state!</span>
-                <span class="error" ng-show="guestForm.zip.$error.required">
+            <span class="error" ng-show="guestForm.zip.$error.required">
            Missing zip!</span>
-                <span class="error" ng-show="guestForm.zip.$error.pattern">
+            <span class="error" ng-show="guestForm.zip.$error.pattern">
            Invalid zip!</span>
-                </span>
-    <h3>Billing Address</h3>
-        <label>
-        Credit Card: <input type="text" name="customer" ng-model="order.billing.creditCard" required/>
-        </label>
-          <br/>
+            </span>
+            <h3>Billing Address</h3>
             <br/>
-        <label>
-        Name: <input type="text" name="customer" ng-model="order.billing.name" required/>
-        </label>
-        <span class="error" ng-show="guestForm.$dirty && guestForm.customer.$error.required">
+            <label>
+                Name:
+                <input type="text" name="customer" ng-model="order.billing.name" required/>
+            </label>
+            <span class="error" ng-show="guestForm.$dirty && guestForm.customer.$error.required">
        Customer name is required!</span>
-        <br/>
-        <br/>
+            <br/>
+            <br/>
             <label>Address:</label>
             <br/>
             <input type="text" name="line1" size="33" required ng-model="order.billing.address" />
@@ -61,18 +60,25 @@
             <input type="text" name="zip" ng-pattern="/^\d\d\d\d\d$/" size="5" required ng-model="order.billing.zipcode" />
             <br/>
             <br/>
-                <span ng-show="guestForm.$dirty && guestForm.$invalid" class="error">
+            <span ng-show="guestForm.$dirty && guestForm.$invalid" class="error">
          Incomplete address:
          <span class="error" ng-show="guestForm.state.$error.required">
            Missing state!</span>
-                <span class="error" ng-show="guestForm.state.$error.pattern">
+            <span class="error" ng-show="guestForm.state.$error.pattern">
            Invalid state!</span>
-                <span class="error" ng-show="guestForm.zip.$error.required">
+            <span class="error" ng-show="guestForm.zip.$error.required">
            Missing zip!</span>
-                <span class="error" ng-show="guestForm.zip.$error.pattern">
+            <span class="error" ng-show="guestForm.zip.$error.pattern">
            Invalid zip!</span>
-                </span>
-    </form>
-  </div>
-  <button ng-click="checkout(order)">Checkout</button>
+            </span>
+        </form>
+        <form stripe-form="stripeCallback" name="checkoutForm">
+            <input ng-model="number" placeholder="Card Number" payments-format="card" payments-validate="card" name="card" />
+            <input ng-model="expiry" placeholder="Expiration" payments-format="expiry" payments-validate="expiry" name="expiry" />
+            <input ng-model="cvc" placeholder="CVC" payments-format="cvc" payments-validate="cvc" name="cvc" />
+            <button type="submit">Add Credit Card with Stripe</button>
+            <div ng-if="invalidstripe">{{error}}</div>
+        </form>
+    </div>
+    <button ng-click="checkout(order, stripeToken)">Checkout</button>
 </div>
