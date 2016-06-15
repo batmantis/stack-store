@@ -9,6 +9,10 @@ var ProductOrders = db.model('productOrders');
 var Address = db.model('address');
 var Billing = db.model('billing');
 var stripe = require("stripe")("sk_test_FdOK9Gv2DntFbqPsbYht0fqz");
+var nodemailer = require('nodemailer');
+var transport = nodemailer.createTransport('direct', {
+    debug: true
+  });
 
 
 module.exports = function(db) {
@@ -58,7 +62,7 @@ module.exports = function(db) {
                             })
                             .then(function(customer) {
                                 return stripe.charges.create({
-                                    amount: +order.orderTotal * 100,
+                                    amount: Math.round(+order.orderTotal * 100),
                                     currency: "usd",
                                     description: 'charge for' + orderDetails.email,
                                     customer: customer.id
@@ -76,6 +80,16 @@ module.exports = function(db) {
                                 }, {
                                     include: [ProductOrders]
                                 })
+                            })
+                            .then(function(completedOrder){
+                            	transport.sendMail({
+                            	    from: '"Jaja Store" <foo@fbi.me>', // sender address
+                            	    to: completedOrder.guestEmail, // list of receivers
+                            	    subject: "Order complete", // Subject line
+                            	    text: JSON.stringify(order), // plaintext body
+                            	    // html: "<b>Hello world ✔</b>" // html body
+                            	}, console.error);
+                            	return completedOrder
                             })
                             .catch(function(err) {
                                 console.log(err)
