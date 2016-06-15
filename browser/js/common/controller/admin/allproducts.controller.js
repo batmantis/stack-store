@@ -27,12 +27,15 @@ app.controller('ProductsCtrl', function($scope, productFactory, tagFactory) {
         productFactory.addProduct($scope.selectedProduct)
             .then(function(product) {
                 $scope.selectedProduct = product
+                $scope.go('admin.products')
                 return productFactory.getAll()
             })
             .then(products => $scope.products = products)
     }
 
     $scope.update = productFactory.update
+
+    $scope.delete = productFactory.deleteProduct
 
     $scope.removeTag = tagFactory.removeTag
 

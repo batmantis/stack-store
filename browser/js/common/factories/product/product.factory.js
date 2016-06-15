@@ -30,6 +30,9 @@ app.factory('productFactory', function($http) {
       return $http.post('/api/product', product)
       .then(product => product.data)
     },
+    deleteProduct: function(id) {
+      return $http.delete('/api/product/' + id)
+    },
     removePic: function(productId, imageArr, img) {
       imageArr.splice(imageArr.indexOf(img), 1)
       return $http.put('/api/product/'+ productId, { imageUrls: imageArr })
