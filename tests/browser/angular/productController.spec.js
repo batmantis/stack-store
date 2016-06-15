@@ -4,7 +4,6 @@ function randomNum(upperBound) {
     return Math.floor(Math.random() * upperBound);
 }
 
-
 describe('tagController', function() {
     beforeEach(module('StackStore'));
 

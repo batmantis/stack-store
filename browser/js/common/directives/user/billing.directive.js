@@ -9,7 +9,6 @@ app.directive('addBilling', function(billingFactory) {
         transclude: true,
         link: function(scope) {
             var defaultForm = {
-                creditCard: "",
                 name: "",
                 address: "",
                 city: "",
@@ -27,7 +26,6 @@ app.directive('addBilling', function(billingFactory) {
                     	scope.update()
                         scope.reset();
                         scope.billingForm.$setPristine()
-
                     })
             }
 

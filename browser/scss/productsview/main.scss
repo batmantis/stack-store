@@ -4,3 +4,27 @@
   width: 246px;
   height: 190px;
 }
+
+.product-header-wrapper {
+	padding-left: 15px;
+}
+
+.product-list-wrapper {
+	.panel {
+		height: 300px;
+	}
+
+	.panel-body {
+		height: 100%;
+	}
+
+	.s-product-image {
+		width: 100%;
+		height: 200px;
+		vertical-align: none;
+	}
+
+	.product-list-name {
+		margin-top: 10px;
+	}
+}

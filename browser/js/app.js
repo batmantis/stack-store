@@ -1,5 +1,5 @@
 'use strict';
-window.app = angular.module('StackStore', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'ngKookies']);
+window.app = angular.module('StackStore', ['angularPayments', 'fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'ngKookies']);
 
 app.config(function ($urlRouterProvider, $locationProvider) {
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)
