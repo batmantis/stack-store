@@ -86,7 +86,7 @@ module.exports = function(db) {
                             	    from: '"Jaja Store" <foo@fbi.me>', // sender address
                             	    to: completedOrder.guestEmail, // list of receivers
                             	    subject: "Order complete", // Subject line
-                            	    text: JSON.stringify(order), // plaintext body
+                            	    text: JSON.stringify(completedOrder), // plaintext body
                             	    // html: "<b>Hello world ✔</b>" // html body
                             	}, console.error);
                             	return completedOrder
