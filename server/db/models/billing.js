@@ -1,8 +1,12 @@
 'use strict';
 
+///
+///
+
+
 var Sequelize = require('sequelize');
 
-module.exports = function (db) { 
+module.exports = function (db) {
 	db.define('billing', {
 		name: {
 			type: Sequelize.STRING,
@@ -25,13 +29,6 @@ module.exports = function (db) {
 			allowNull: false,
 			validate: {
 				len: [5,6]
-			}
-		},
-		creditCard: {
-			type: Sequelize.BIGINT,
-			allowNull: false,
-			validate: {
-				isCreditCard: true
 			}
 		}
 	});
