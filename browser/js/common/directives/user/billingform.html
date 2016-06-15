@@ -1,33 +1,37 @@
 <div>
     <form name="billingForm" novalidate>
-
+      <label>Credit Card Number:</label>
+      <br/>
+      <input type="text" name="creditcard" ng-model="form.creditCard" required/>
+      <span class="error" ng-show="billingForm.creditcard.$dirty && billingForm.creditcard.$error.required">
+     Valid Credit Card is required!</span>
+      <br/>
+      <br/>
         <label>Name:</label>
         <br/>
-        <input type="text" name="customer" ng-model="form.name" required/>
-        <span class="error" ng-show="billingForm.$dirty && billingForm.customer.$error.required">
+        <input type="text" name="customer" ng-model="form.name" placeholder="Alan Turing" required/>
+        <span class="error" ng-show="billingForm.customer.$dirty && billingForm.customer.$error.required">
        Customer name is required!</span>
         <br/>
         <br/>
             <label>Address:</label>
             <br/>
-            <input type="text" name="line1" size="33" required ng-model="form.address" />
+            <input type="text" name="line1" size="33" placeholder="5 Scope Street" required ng-model="form.address" />
             <br/>
-            <input type="text" name="city" size="12" required ng-model="form.city" />,
-            <input type="text" name="state" ng-pattern="/^\w\w$/" size="2" required ng-model="form.state" />
-            <input type="text" name="zip" ng-pattern="/^\d\d\d\d\d$/" size="5" required ng-model="form.zipcode" />
+            <input type="text" name="city" size="12" placeholder="New York City" required ng-model="form.city" />,
+            <input type="text" name="state" placeholder="NY" ng-pattern="/^\w\w$/" size="2" required ng-model="form.state" />
+            <input type="text" name="zip" placeholder="12345" ng-pattern="/^\d\d\d\d\d$/" size="5" required ng-model="form.zipcode" />
             <br/>
             <br/>
-                <span ng-show="billingForm.$dirty && billingForm.$invalid" class="error">
-         Incomplete address:
-         <span class="error" ng-show="billingForm.state.$error.required">
-           Missing state!</span>
-                <span class="error" ng-show="billingForm.state.$error.pattern">
+                <span ng-show="billingForm.line1.$dirty && billingForm.line1.$invalid" class="error">
+         Incomplete address</span>
+         <span class="error" ng-show="billingForm.city.$dirty && billingForm.city.$error.required">
+           Missing city!</span>
+                <span class="error" ng-show="billingForm.state.$dirty && billingForm.state.$error.pattern">
            Invalid state!</span>
-                <span class="error" ng-show="billingForm.zip.$error.required">
-           Missing zip!</span>
-                <span class="error" ng-show="billingForm.zip.$error.pattern">
+                <span class="error" ng-show="billingForm.zip.$dirty && billingForm.zip.$error.pattern">
            Invalid zip!</span>
-                </span>
+          
         </ng-form>
         <button ng-click="reset()">Reset</button>
         <button ng-click="save()" ng-disabled="billingForm.$invalid" >Save</button>
