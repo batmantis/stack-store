@@ -1,5 +1,9 @@
 app.factory('productFactory', function($http) {
   return {
+
+    update: function(id, product) {
+      return $http.put('/api/product/' + id, product)
+    },
     getAll: function() {
       return $http.get('/api/product/')
       .then(products => products.data)

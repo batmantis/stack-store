@@ -32,6 +32,8 @@ app.controller('ProductsCtrl', function($scope, productFactory, tagFactory) {
             .then(products => $scope.products = products)
     }
 
+    $scope.update = productFactory.update
+
     $scope.removeTag = tagFactory.removeTag
 
     $scope.addTag = tagFactory.addTag
